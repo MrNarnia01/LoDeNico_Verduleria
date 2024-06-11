@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  java_app:
+    container_name: BackVerdu
+    image: lo_de_nico:1.0.0
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_URL=jdbc:postgresql://java_db:5432/postgres
+      - DATABASE_USERNAME=Verduleria
+      - DATABASE_PASSWORD=lodenico
+    depends_on:
+      - java_db
+  java_db:
+    container_name: BBDDVerdu
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: Verduleria
+      POSTGRES_PASSWORD: lodenico
+      POSTGRES_DB: postgres
