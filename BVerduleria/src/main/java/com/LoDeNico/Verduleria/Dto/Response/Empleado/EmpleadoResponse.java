@@ -18,5 +18,5 @@ public class EmpleadoResponse {
     private int tel;
     private String mail;
     private String contra;
-    private List<EmpleadoResponse> empleadoResponseList;
+    private List<HorarioResponse> horarioResponseList;
 }
