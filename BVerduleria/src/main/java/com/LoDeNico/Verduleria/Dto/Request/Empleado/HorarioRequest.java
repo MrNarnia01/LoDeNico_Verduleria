@@ -13,5 +13,4 @@ import java.util.Date;
 public class HorarioRequest {
     private Long idE;
     private Date entrada;
-    private Date salida;
 }

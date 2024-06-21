@@ -1,5 +1,6 @@
 package com.LoDeNico.Verduleria.Entity.Proveedor;
 
+import com.LoDeNico.Verduleria.Entity.Empleado.Persona;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,16 +25,8 @@ public class Trabajador {
     @Column(name = "puesto")
     private String puesto;
 
-    @Column(name = "nombre")
-    private String nombre;
-
-    @Column(name = "apellido")
-    private String apellido;
-
-    @Column(name = "codArea")
-    private int codArea;
-
-    @Column(name = "tel")
-    private int tel;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idPersona")
+    private Persona persona;
 
 }

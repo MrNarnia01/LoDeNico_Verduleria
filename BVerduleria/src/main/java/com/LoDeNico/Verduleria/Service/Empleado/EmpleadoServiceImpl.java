@@ -6,11 +6,13 @@ import com.LoDeNico.Verduleria.Dto.Response.Empleado.HorarioResponse;
 import com.LoDeNico.Verduleria.Entity.Empleado.Empleado;
 import com.LoDeNico.Verduleria.Entity.Empleado.Horario;
 import com.LoDeNico.Verduleria.Repository.Empleado.EmpleadoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmpleadoServiceImpl implements EmpleadoService{
 
     private final EmpleadoRepository empleadoRepository;
@@ -24,10 +26,10 @@ public class EmpleadoServiceImpl implements EmpleadoService{
         List<HorarioResponse> horarioResponseList = new ArrayList<>();
 
         empleadoResponse.setId(empleado.getEId());
-        empleadoResponse.setNombre(empleado.getNombre());
-        empleadoResponse.setApellido(empleado.getApellido());
-        empleadoResponse.setCodArea(empleado.getCodArea());
-        empleadoResponse.setTel(empleado.getTel());
+        empleadoResponse.setNombre(empleado.getPersona().getNombre());
+        empleadoResponse.setApellido(empleado.getPersona().getApellido());
+        empleadoResponse.setCodArea(empleado.getPersona().getCodArea());
+        empleadoResponse.setTel(empleado.getPersona().getTel());
         empleadoResponse.setMail(empleado.getMail());
         empleadoResponse.setContra(empleado.getContra());
 
@@ -38,8 +40,8 @@ public class EmpleadoServiceImpl implements EmpleadoService{
 
                 HorarioResponse horarioResponse = new HorarioResponse();
                 horarioResponse.setId(horario.getHId());
-                horarioResponse.setNombre(empleado.getNombre());
-                horarioResponse.setApellido(empleado.getApellido());
+                horarioResponse.setNombre(empleado.getPersona().getNombre());
+                horarioResponse.setApellido(empleado.getPersona().getApellido());
                 horarioResponse.setEntrada(horario.getEntrada());
                 horarioResponse.setSalida(horario.getSalida());
 
@@ -89,16 +91,16 @@ public class EmpleadoServiceImpl implements EmpleadoService{
         if(empleadoRequest.getMail().isBlank()) b=true;
         if(empleadoRequest.getContra().isBlank()) b=true;
         else if(empleadoRequest.getContra().length()<8) b=true;
-        if(empleadoRequest.getCodArea()==0) b=true;
-        if(empleadoRequest.getTel()==0) b=true;
+        if(empleadoRequest.getCodArea()<=0) b=true;
+        if(empleadoRequest.getTel()<=0) b=true;
         if(!b){
             Empleado empleado=new Empleado();
-            empleado.setNombre(empleadoRequest.getNombre());
-            empleado.setApellido(empleadoRequest.getApellido());
+            empleado.getPersona().setNombre(empleadoRequest.getNombre());
+            empleado.getPersona().setApellido(empleadoRequest.getApellido());
             empleado.setMail(empleadoRequest.getMail());
             empleado.setContra(empleadoRequest.getContra());
-            empleado.setCodArea(empleadoRequest.getCodArea());
-            empleado.setTel(empleadoRequest.getTel());
+            empleado.getPersona().setCodArea(empleadoRequest.getCodArea());
+            empleado.getPersona().setTel(empleadoRequest.getTel());
             empleado = empleadoRepository.save(empleado);
             return createEmpleadoResponse(empleado);
         }else{
@@ -122,7 +124,40 @@ public class EmpleadoServiceImpl implements EmpleadoService{
         }
     }
 
-
+    public EmpleadoResponse updateEmpleado(EmpleadoRequest empleadoRequest, Long id){
+        Optional<Empleado> empleadoOptional = empleadoRepository.findById(id);
+        if(empleadoOptional.isPresent()){
+            Empleado empleado = empleadoOptional.get();
+            boolean b=false;
+            if(empleadoRequest.getNombre().isBlank()) b=true;
+            if(empleadoRequest.getApellido().isBlank()) b=true;
+            if(empleadoRequest.getMail().isBlank()) b=true;
+            if(empleadoRequest.getContra().isBlank()) b=true;
+            else if(empleadoRequest.getContra().length()<8) b=true;
+            if(empleadoRequest.getCodArea()<=0) b=true;
+            if(empleadoRequest.getTel()<=0) b=true;
+            if(!b){
+                empleado.getPersona().setNombre(empleadoRequest.getNombre());
+                empleado.getPersona().setApellido(empleadoRequest.getApellido());
+                empleado.setMail(empleadoRequest.getMail());
+                empleado.setContra(empleadoRequest.getContra());
+                empleado.getPersona().setCodArea(empleadoRequest.getCodArea());
+                empleado.getPersona().setTel(empleadoRequest.getTel());
+                empleado = empleadoRepository.save(empleado);
+                return createEmpleadoResponse(empleado);
+            }else{
+                EmpleadoResponse empleadoResponse=new EmpleadoResponse();
+                empleadoResponse.setId(1003L);
+                empleadoResponse.setNombre("Error");
+                return empleadoResponse;
+            }
+        }else{
+            EmpleadoResponse empleadoResponse=new EmpleadoResponse();
+            empleadoResponse.setId(1002L);
+            empleadoResponse.setNombre("Error");
+            return empleadoResponse;
+        }
+    }
 
 
 
