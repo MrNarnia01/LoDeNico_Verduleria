@@ -6,6 +6,7 @@ import com.LoDeNico.Verduleria.Entity.Empleado.Empleado;
 import com.LoDeNico.Verduleria.Entity.Empleado.Horario;
 import com.LoDeNico.Verduleria.Repository.Empleado.EmpleadoRepository;
 import com.LoDeNico.Verduleria.Repository.Empleado.HorarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,6 +17,8 @@ import java.util.Optional;
 
 @Service
 public class HorarioServiceImpl implements HorarioService{
+
+    @Autowired
     private final HorarioRepository horarioRepository;
     private final EmpleadoRepository empleadoRepository;
 

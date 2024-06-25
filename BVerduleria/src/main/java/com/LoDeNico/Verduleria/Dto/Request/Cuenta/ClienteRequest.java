@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteRequest {
+    private Long id;
     private String nombre;
     private String apellido;
     private int codArea;

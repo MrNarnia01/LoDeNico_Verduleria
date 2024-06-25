@@ -6,6 +6,7 @@ import com.LoDeNico.Verduleria.Dto.Response.Empleado.HorarioResponse;
 import com.LoDeNico.Verduleria.Entity.Empleado.Empleado;
 import com.LoDeNico.Verduleria.Entity.Empleado.Horario;
 import com.LoDeNico.Verduleria.Repository.Empleado.EmpleadoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService{
 
+    @Autowired
     private final EmpleadoRepository empleadoRepository;
 
     public EmpleadoServiceImpl(EmpleadoRepository empleadoRepository) {
@@ -95,6 +97,7 @@ public class EmpleadoServiceImpl implements EmpleadoService{
         if(empleadoRequest.getTel()<=0) b=true;
         if(!b){
             Empleado empleado=new Empleado();
+            if(empleadoRequest.getId()!=-1) empleado.getPersona().setId(empleadoRequest.getId());
             empleado.getPersona().setNombre(empleadoRequest.getNombre());
             empleado.getPersona().setApellido(empleadoRequest.getApellido());
             empleado.setMail(empleadoRequest.getMail());
