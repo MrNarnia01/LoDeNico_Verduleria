@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProveedorResponse {
+    private Long id;
     private String negocio;
     private String calle;
     private int altura;
