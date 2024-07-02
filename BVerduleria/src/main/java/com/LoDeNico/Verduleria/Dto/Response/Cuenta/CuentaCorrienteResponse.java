@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CuenteCorrienteResponse {
+public class CuentaCorrienteResponse {
     private Long id;
     private String nombre;
     private String apellido;
