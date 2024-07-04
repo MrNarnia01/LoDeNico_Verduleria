@@ -1,7 +1,9 @@
 package com.LoDeNico.Verduleria.Service.Cuenta;
 
+import com.LoDeNico.Verduleria.Dto.Request.Cuenta.CuentaCorrienteRequest;
 import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Cuenta.CuentaCorrienteResponse;
+import com.LoDeNico.Verduleria.Entity.Cuenta.Cliente;
 import com.LoDeNico.Verduleria.Entity.Cuenta.CuentaCorriente;
 import com.LoDeNico.Verduleria.Repository.Cuenta.ClienteRepository;
 import com.LoDeNico.Verduleria.Repository.Cuenta.CuentaCorrienteRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,6 +89,56 @@ public class CuentaCorrienteServiceImpl implements CuentaCorrienteService{
             }
             return 1004;
         }else   return 1002;
+    }
+
+    public CuentaCorrienteResponse createCuentaCorriente(CuentaCorrienteRequest cuentaCorrienteRequest){
+        boolean b = true;
+        Optional<Cliente> clienteOptional = clienteRepository.findById(cuentaCorrienteRequest.getIdC());
+        if(clienteOptional.isEmpty())   b = false;
+        if (cuentaCorrienteRequest.getMonto()<=0) b = false;
+        if(b){
+            CuentaCorriente cuentaCorriente =  new CuentaCorriente();
+            cuentaCorriente.setCliente(clienteOptional.get());
+            cuentaCorriente.setMonto(cuentaCorrienteRequest.getMonto());
+            cuentaCorriente.setFRegistro(cuentaCorrienteRequest.getFRegistro());
+            cuentaCorriente.setFPago(cuentaCorrienteRequest.getFRegistro());
+            cuentaCorriente = cuentaCorrienteRepository.save(cuentaCorriente);
+            return createCuenteCorrienteResponse(cuentaCorriente);
+        }else return new CuentaCorrienteResponse(-1L,"","",1003,null,null);
+    }
+
+    public CuentaCorrienteResponse updateCuentaCorriente(CuentaCorrienteRequest cuentaCorrienteRequest, Long id){
+        boolean b = true;
+        CuentaCorriente cuentaCorriente;
+        Optional<CuentaCorriente> cuentaCorrienteOptional = cuentaCorrienteRepository.findById(id);
+        if(cuentaCorrienteOptional.isPresent()){
+            cuentaCorriente =  cuentaCorrienteOptional.get();
+            if(!cuentaCorriente.getFRegistro().equals(cuentaCorriente.getFPago())) return new CuentaCorrienteResponse(-1L,"","",1004,null,null);
+        }
+        else return new CuentaCorrienteResponse(-1L,"","",1002,null,null);
+        Optional<Cliente> clienteOptional = clienteRepository.findById(cuentaCorrienteRequest.getIdC());
+        if(clienteOptional.isEmpty())   b = false;
+        if (cuentaCorrienteRequest.getMonto()<=0) b = false;
+        if(b){
+            cuentaCorriente.setMonto(cuentaCorrienteRequest.getMonto());
+            cuentaCorriente.setFRegistro(cuentaCorrienteRequest.getFRegistro());
+            cuentaCorriente.setFPago(cuentaCorrienteRequest.getFRegistro());
+            cuentaCorriente = cuentaCorrienteRepository.save(cuentaCorriente);
+            return createCuenteCorrienteResponse(cuentaCorriente);
+        }else return new CuentaCorrienteResponse(-1L,"","",1003,null,null);
+    }
+
+    public CuentaCorrienteResponse updateFPago(Long id, Date fPago){
+        Optional<CuentaCorriente> cuentaCorrienteOptional =  cuentaCorrienteRepository.findById(id);
+        if (cuentaCorrienteOptional.isPresent()){
+            CuentaCorriente cuentaCorriente = cuentaCorrienteOptional.get();
+            if(cuentaCorriente.getFRegistro().equals(cuentaCorriente.getFPago())){
+                cuentaCorriente.setFPago(fPago);
+                cuentaCorrienteRepository.save(cuentaCorriente);
+                return createCuenteCorrienteResponse(cuentaCorriente);
+            }
+            else return new CuentaCorrienteResponse(-1L,"","",1004,null,null);
+        }else   return new CuentaCorrienteResponse(-1L,"","",1003,null,null);
     }
 
 

@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Date;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MontoRequest {
-    private Double m1;
-    private Double m2;
+public class FechaRequest {
+    private Date f1;
+    private Date f2;
 }
