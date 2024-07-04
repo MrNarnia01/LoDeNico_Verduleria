@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -14,6 +16,6 @@ public class PagoResponse {
     private Long id;
     private Long idB;
     private String tipo;
-    private Date fPago;
+    private Timestamp fPago;
     private double monto;
 }

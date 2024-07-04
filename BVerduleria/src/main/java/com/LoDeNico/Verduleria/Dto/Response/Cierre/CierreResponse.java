@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -14,6 +16,6 @@ public class CierreResponse {
     private Long id;
     private boolean tipo;
     private double monto;
-    private Date fRegis;
+    private Timestamp fRegis;
 
 }

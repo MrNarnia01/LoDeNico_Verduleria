@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -25,7 +28,8 @@ public class CierreLote {
     @Column(name = "monto")
     private double monto;
 
+    @CreationTimestamp
     @Column(name = "fRegis")
-    private Date fRegis;
+    private Timestamp fRegis;
 
 }

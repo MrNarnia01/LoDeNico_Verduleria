@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -27,8 +29,9 @@ public class Pago {
     @Column(name = "tipo")
     private String tipo;
 
+    @CreationTimestamp
     @Column(name = "fPago")
-    private Date fPago;
+    private Timestamp fPago;
 
     @Column(name = "monto")
     private double monto;

@@ -7,6 +7,5 @@ import java.util.List;
 
 public class BoletaRequest {
     private Long idP;
-    private Date fRecibo;
     private List<DetalleRequest> detalleBoletaRequestList;
 }

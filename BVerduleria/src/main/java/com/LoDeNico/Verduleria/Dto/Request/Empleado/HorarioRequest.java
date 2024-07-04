@@ -12,5 +12,4 @@ import java.util.Date;
 @NoArgsConstructor
 public class HorarioRequest {
     private Long idE;
-    private Date entrada;
 }

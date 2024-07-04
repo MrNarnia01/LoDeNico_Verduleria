@@ -14,6 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 public class PedidoRequest {
     private Long idP;
-    private Date fPedido;
     private List<DetalleRequest> detallePedidoRequestList;
 }

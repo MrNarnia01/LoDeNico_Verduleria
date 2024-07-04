@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -24,7 +25,7 @@ public class Lote {
     private Producto producto;
 
     @Column(name = "fVenci")
-    private Date fVenci;
+    private Timestamp fVenci;
 
     @Column(name = "term")
     private boolean term;
