@@ -10,5 +10,4 @@ public interface HorarioService {
     public int deleteHorario(Long id);
     public HorarioResponse createHorario(HorarioRequest horarioRequest);
     public  HorarioResponse updateHorario(HorarioRequest horarioRequest, Long id);
-    public HorarioResponse cierreHorario(Long id, Date salida);
 }

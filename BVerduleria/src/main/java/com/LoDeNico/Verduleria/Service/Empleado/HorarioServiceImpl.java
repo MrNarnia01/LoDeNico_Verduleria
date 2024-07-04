@@ -59,17 +59,11 @@ public class HorarioServiceImpl implements HorarioService{
     public HorarioResponse createHorario(HorarioRequest horarioRequest){
         boolean b = true;
         Optional<Empleado> empleadoOptional = empleadoRepository.findById(horarioRequest.getIdE());
-        if(!empleadoOptional.isPresent()) b=false;
-
-        LocalDate hoy = LocalDate.now();
-        LocalDate entrada = horarioRequest.getEntrada().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if(entrada.isBefore(hoy))    b=false;
+        if(empleadoOptional.isEmpty()) b=false;
 
         if(b){
             Horario horario = new Horario();
             horario.setEmpleado(empleadoOptional.get());
-            horario.setEntrada(horarioRequest.getEntrada());
-            horario.setSalida(horarioRequest.getEntrada());
             horario = horarioRepository.save(horario);
             return createHorarioResponse(horario);
         }else{
@@ -82,21 +76,15 @@ public class HorarioServiceImpl implements HorarioService{
         Horario horario = new Horario();
 
         Optional<Horario> horarioOptional = horarioRepository.findById(id);
-        if(!horarioOptional.isPresent())    return new HorarioResponse(-1L, "1002", "", null, null);
+        if(horarioOptional.isEmpty())    return new HorarioResponse(-1L, "1002", "", null, null);
         else horario = horarioOptional.get();
 
         if(!horario.getEntrada().equals(horario.getSalida())) b = false;
 
         Optional<Empleado> empleadoOptional = empleadoRepository.findById(horarioRequest.getIdE());
-        if (!empleadoOptional.isPresent()) b = false;
-
-        LocalDate hoy = LocalDate.now();
-        LocalDate entrada = horarioRequest.getEntrada().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (entrada.isBefore(hoy)) b = false;
+        if (empleadoOptional.isEmpty()) b = false;
 
         if (b) {
-            horario.setEntrada(horarioRequest.getEntrada());
-            horario.setSalida(horarioRequest.getEntrada());
             horario = horarioRepository.save(horario);
             return createHorarioResponse(horario);
         } else {
@@ -105,19 +93,6 @@ public class HorarioServiceImpl implements HorarioService{
 
     }
 
-    public HorarioResponse cierreHorario(Long id, Date salida){
-        Optional<Horario> horarioOptional = horarioRepository.findById(id);
-        if(horarioOptional.isPresent()){
-            Horario horario = horarioOptional.get();
-            if(salida.after(horario.getEntrada())){
-                horario.setSalida(salida);
-                horario = horarioRepository.save(horario);
-                return createHorarioResponse(horario);
-            }else return new HorarioResponse(-1L,"1003","",null,null);
-        }else{
-            return new HorarioResponse(-1L,"1002","",null,null);
-        }
-    }
 
 
 }

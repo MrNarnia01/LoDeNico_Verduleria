@@ -1,6 +1,7 @@
 package com.LoDeNico.Verduleria.Service.Cuenta;
 
 import com.LoDeNico.Verduleria.Dto.Request.Cuenta.CuentaCorrienteRequest;
+import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
 import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Cuenta.CuentaCorrienteResponse;
 import com.LoDeNico.Verduleria.Entity.Cuenta.Cliente;
@@ -10,6 +11,7 @@ import com.LoDeNico.Verduleria.Repository.Cuenta.CuentaCorrienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -100,8 +102,6 @@ public class CuentaCorrienteServiceImpl implements CuentaCorrienteService{
             CuentaCorriente cuentaCorriente =  new CuentaCorriente();
             cuentaCorriente.setCliente(clienteOptional.get());
             cuentaCorriente.setMonto(cuentaCorrienteRequest.getMonto());
-            cuentaCorriente.setFRegistro(cuentaCorrienteRequest.getFRegistro());
-            cuentaCorriente.setFPago(cuentaCorrienteRequest.getFRegistro());
             cuentaCorriente = cuentaCorrienteRepository.save(cuentaCorriente);
             return createCuenteCorrienteResponse(cuentaCorriente);
         }else return new CuentaCorrienteResponse(-1L,"","",1003,null,null);
@@ -121,24 +121,45 @@ public class CuentaCorrienteServiceImpl implements CuentaCorrienteService{
         if (cuentaCorrienteRequest.getMonto()<=0) b = false;
         if(b){
             cuentaCorriente.setMonto(cuentaCorrienteRequest.getMonto());
-            cuentaCorriente.setFRegistro(cuentaCorrienteRequest.getFRegistro());
-            cuentaCorriente.setFPago(cuentaCorrienteRequest.getFRegistro());
             cuentaCorriente = cuentaCorrienteRepository.save(cuentaCorriente);
             return createCuenteCorrienteResponse(cuentaCorriente);
         }else return new CuentaCorrienteResponse(-1L,"","",1003,null,null);
     }
 
-    public CuentaCorrienteResponse updateFPago(Long id, Date fPago){
+    public CuentaCorrienteResponse updateFPago(Long id){
         Optional<CuentaCorriente> cuentaCorrienteOptional =  cuentaCorrienteRepository.findById(id);
         if (cuentaCorrienteOptional.isPresent()){
             CuentaCorriente cuentaCorriente = cuentaCorrienteOptional.get();
             if(cuentaCorriente.getFRegistro().equals(cuentaCorriente.getFPago())){
-                cuentaCorriente.setFPago(fPago);
+                cuentaCorriente.setFPago(new Timestamp(System.currentTimeMillis()));
                 cuentaCorrienteRepository.save(cuentaCorriente);
                 return createCuenteCorrienteResponse(cuentaCorriente);
             }
             else return new CuentaCorrienteResponse(-1L,"","",1004,null,null);
         }else   return new CuentaCorrienteResponse(-1L,"","",1003,null,null);
+    }
+
+    public List<CuentaCorrienteResponse> getCuentaCorrienteListByFechas(FechaRequest fechaRequest, boolean columna){
+        String nColumna;
+        if (columna) nColumna = "fRegisto";
+        else nColumna = "fPago";
+        Timestamp inicio = new Timestamp(fechaRequest.getF1().getTime());
+        Timestamp cierre = new Timestamp(fechaRequest.getF2().getTime());
+        List<CuentaCorriente> cuentaCorrienteList = cuentaCorrienteRepository.findByDias(inicio,cierre,nColumna);
+        List<CuentaCorrienteResponse> cuentaCorrienteResponseList = new ArrayList<>();
+        if(!cuentaCorrienteList.isEmpty()){
+            for (CuentaCorriente cC : cuentaCorrienteList){
+                CuentaCorrienteResponse ccR = createCuenteCorrienteResponse(cC);
+                cuentaCorrienteResponseList.add(ccR);
+            }
+            return cuentaCorrienteResponseList;
+        }else{
+            CuentaCorrienteResponse cuentaCorrienteResponse = new CuentaCorrienteResponse();
+            cuentaCorrienteResponse.setId(-1L);
+            cuentaCorrienteResponse.setMonto(1001);
+            cuentaCorrienteResponseList.add(cuentaCorrienteResponse);
+            return cuentaCorrienteResponseList;
+        }
     }
 
 
