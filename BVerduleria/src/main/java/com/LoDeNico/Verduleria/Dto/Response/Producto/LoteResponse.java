@@ -15,7 +15,7 @@ import java.util.Date;
 public class LoteResponse {
     private Long id;
     private String nombre;
+    private int nLote;
     private Timestamp fVenci;
-    private boolean term;
 
 }

@@ -75,7 +75,7 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-
+/*
     public List<ClienteResponse> getClienteListByNombre(String nombre){
         List<Cliente> clienteList = clienteRepository.findByNombre(nombre);
         List<ClienteResponse> clienteResponseList =  new ArrayList<>();
@@ -111,7 +111,7 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-
+    */
     public List<ClienteResponse> getClienteListByCalle(String calle){
         List<Cliente> clienteList = clienteRepository.findByCalle(calle);
         List<ClienteResponse> clienteResponseList =  new ArrayList<>();

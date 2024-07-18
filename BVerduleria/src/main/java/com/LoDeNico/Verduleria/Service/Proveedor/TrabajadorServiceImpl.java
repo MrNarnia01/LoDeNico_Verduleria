@@ -138,7 +138,7 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         }
 
     }
-
+/*
     public List<TrabajadorResponse> getTrabajadorByNombre(String nombre){
         List<Trabajador> trabajadorList = trabajadorRepository.findByNombre(nombre);
         List<TrabajadorResponse> trabajadorResponseList = new ArrayList<>();
@@ -166,7 +166,7 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         }
         return trabajadorResponseList;
     }
-
+*/
     public List<TrabajadorResponse> getTrabajadorByPuesto(String puesto){
         List<Trabajador> trabajadorList = trabajadorRepository.findByPuesto(puesto);
         List<TrabajadorResponse> trabajadorResponseList = new ArrayList<>();

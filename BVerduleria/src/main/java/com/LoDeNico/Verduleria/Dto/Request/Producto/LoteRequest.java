@@ -14,5 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class LoteRequest {
     private Long idP;
+    private int nLote;
     private Timestamp fVenci;
 }

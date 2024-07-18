@@ -26,7 +26,6 @@ public class Horario {
     @Column(name = "entrada")
     private Timestamp entrada;
 
-    @CreationTimestamp
     @UpdateTimestamp
     @Column(name = "salida")
     private Timestamp salida;

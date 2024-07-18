@@ -34,4 +34,6 @@ public class Producto {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     private List<Lote> lotes;
 
+    @Column(name = "softDelete")
+    private boolean softDelete;
 }

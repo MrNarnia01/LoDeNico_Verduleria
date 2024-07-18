@@ -24,9 +24,10 @@ public class Lote {
     @JoinColumn(name = "idProducto")
     private Producto producto;
 
+    @Column(name = "nLote")
+    private int nLote;
+
     @Column(name = "fVenci")
     private Timestamp fVenci;
 
-    @Column(name = "term")
-    private boolean term;
 }
