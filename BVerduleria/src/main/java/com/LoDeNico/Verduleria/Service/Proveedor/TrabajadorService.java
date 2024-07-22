@@ -11,9 +11,9 @@ public interface TrabajadorService {
     public int deleteTrabajador(Long id);
     public TrabajadorResponse createTrabajador(TrabajadorRequest trabajadorRequest);
     public TrabajadorResponse updateTrabajador(TrabajadorRequest trabajadorRequest, Long id);
-    /*
+
     public List<TrabajadorResponse> getTrabajadorByNombre(String nombre);
     public List<TrabajadorResponse> getTrabajadorByApellido(String apellido);
-     */
+
     public List<TrabajadorResponse> getTrabajadorByPuesto(String puesto);
 }

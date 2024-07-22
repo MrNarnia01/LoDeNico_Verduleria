@@ -6,7 +6,9 @@ import com.LoDeNico.Verduleria.Dto.Response.Cuenta.CuentaCorrienteResponse;
 import com.LoDeNico.Verduleria.Entity.Cuenta.Cliente;
 import com.LoDeNico.Verduleria.Entity.Cuenta.CuentaCorriente;
 import com.LoDeNico.Verduleria.Entity.Empleado.Persona;
+import com.LoDeNico.Verduleria.Entity.Proveedor.Trabajador;
 import com.LoDeNico.Verduleria.Repository.Cuenta.ClienteRepository;
+import com.LoDeNico.Verduleria.Repository.Empleado.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,11 @@ import java.util.Optional;
 public class ClienteServiceImpl implements ClienteService{
     @Autowired
     private final ClienteRepository clienteRepository;
+    private final PersonaRepository personaRepository;
 
-    public ClienteServiceImpl(ClienteRepository clienteRepository) {
+    public ClienteServiceImpl(ClienteRepository clienteRepository, PersonaRepository personaRepository) {
         this.clienteRepository = clienteRepository;
+        this.personaRepository = personaRepository;
     }
 
     private ClienteResponse createClienteResponse(Cliente cliente){
@@ -75,9 +79,20 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-/*
+
     public List<ClienteResponse> getClienteListByNombre(String nombre){
-        List<Cliente> clienteList = clienteRepository.findByNombre(nombre);
+        List<Persona> personaList = personaRepository.findByNombre(nombre);
+        List<Cliente> clienteList = clienteRepository.findAll();
+        for (int i = 0; i < clienteList.stream().count(); i++) {
+            boolean b = false;
+            for (int j = 0; j < personaList.stream().count(); j++) {
+                if(clienteList.get(i).getPersona().equals(personaList.get(j))) b = true;
+            }
+            if(!b){
+                clienteList.remove(i);
+                i--;
+            }
+        }
         List<ClienteResponse> clienteResponseList =  new ArrayList<>();
         if(!clienteList.isEmpty()){
             for (Cliente cliente : clienteList){
@@ -95,7 +110,18 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     public List<ClienteResponse> getClienteListByApellido(String apellido){
-        List<Cliente> clienteList = clienteRepository.findByApellido(apellido);
+        List<Persona> personaList = personaRepository.findByApellido(apellido);
+        List<Cliente> clienteList = clienteRepository.findAll();
+        for (int i = 0; i < clienteList.stream().count(); i++) {
+            boolean b = false;
+            for (int j = 0; j < personaList.stream().count(); j++) {
+                if(clienteList.get(i).getPersona().equals(personaList.get(j))) b = true;
+            }
+            if(!b){
+                clienteList.remove(i);
+                i--;
+            }
+        }
         List<ClienteResponse> clienteResponseList =  new ArrayList<>();
         if(!clienteList.isEmpty()){
             for (Cliente cliente : clienteList){
@@ -111,7 +137,7 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-    */
+
     public List<ClienteResponse> getClienteListByCalle(String calle){
         List<Cliente> clienteList = clienteRepository.findByCalle(calle);
         List<ClienteResponse> clienteResponseList =  new ArrayList<>();

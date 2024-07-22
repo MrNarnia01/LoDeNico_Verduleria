@@ -2,9 +2,11 @@ package com.LoDeNico.Verduleria.Service.Proveedor;
 
 import com.LoDeNico.Verduleria.Dto.Request.Proveedor.TrabajadorRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Proveedor.TrabajadorResponse;
+import com.LoDeNico.Verduleria.Entity.Cuenta.Cliente;
 import com.LoDeNico.Verduleria.Entity.Empleado.Persona;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Proveedor;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Trabajador;
+import com.LoDeNico.Verduleria.Repository.Empleado.PersonaRepository;
 import com.LoDeNico.Verduleria.Repository.Proveedor.ProveedorRepository;
 import com.LoDeNico.Verduleria.Repository.Proveedor.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,12 @@ public class TrabajadorServiceImpl implements TrabajadorService {
     @Autowired
     private final TrabajadorRepository trabajadorRepository;
     private final ProveedorRepository proveedorRepository;
+    private final PersonaRepository personaRepository;
 
-    public TrabajadorServiceImpl(TrabajadorRepository trabajadorRepository, ProveedorRepository proveedorRepository) {
+    public TrabajadorServiceImpl(TrabajadorRepository trabajadorRepository, ProveedorRepository proveedorRepository, PersonaRepository personaRepository) {
         this.trabajadorRepository = trabajadorRepository;
         this.proveedorRepository = proveedorRepository;
+        this.personaRepository = personaRepository;
     }
 
     private TrabajadorResponse createTrabajadorResponse(Trabajador trabajador){
@@ -138,9 +142,21 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         }
 
     }
-/*
+
     public List<TrabajadorResponse> getTrabajadorByNombre(String nombre){
-        List<Trabajador> trabajadorList = trabajadorRepository.findByNombre(nombre);
+
+        List<Persona> personaList = personaRepository.findByNombre(nombre);
+        List<Trabajador> trabajadorList = trabajadorRepository.findAll();
+        for (int i = 0; i < trabajadorList.stream().count(); i++) {
+            boolean b = false;
+            for (int j = 0; j < personaList.stream().count(); j++) {
+                if(trabajadorList.get(i).getPersona().equals(personaList.get(j))) b = true;
+            }
+            if(!b){
+                trabajadorList.remove(i);
+                i--;
+            }
+        }
         List<TrabajadorResponse> trabajadorResponseList = new ArrayList<>();
         if(!trabajadorList.isEmpty()){
             for (Trabajador trabajador: trabajadorList){
@@ -154,7 +170,18 @@ public class TrabajadorServiceImpl implements TrabajadorService {
     }
 
     public List<TrabajadorResponse> getTrabajadorByApellido(String apellido){
-        List<Trabajador> trabajadorList = trabajadorRepository.findByApellido(apellido);
+        List<Persona> personaList = personaRepository.findByApellido(apellido);
+        List<Trabajador> trabajadorList = trabajadorRepository.findAll();
+        for (int i = 0; i < trabajadorList.stream().count(); i++) {
+            boolean b = false;
+            for (int j = 0; j < personaList.stream().count(); j++) {
+                if(trabajadorList.get(i).getPersona().equals(personaList.get(j))) b = true;
+            }
+            if(!b){
+                trabajadorList.remove(i);
+                i--;
+            }
+        }
         List<TrabajadorResponse> trabajadorResponseList = new ArrayList<>();
         if(!trabajadorList.isEmpty()){
             for (Trabajador trabajador: trabajadorList){
@@ -166,7 +193,7 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         }
         return trabajadorResponseList;
     }
-*/
+
     public List<TrabajadorResponse> getTrabajadorByPuesto(String puesto){
         List<Trabajador> trabajadorList = trabajadorRepository.findByPuesto(puesto);
         List<TrabajadorResponse> trabajadorResponseList = new ArrayList<>();
