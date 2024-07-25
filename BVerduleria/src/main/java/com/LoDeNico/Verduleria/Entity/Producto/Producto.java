@@ -36,4 +36,8 @@ public class Producto {
 
     @Column(name = "softDelete")
     private boolean softDelete;
+
+    public void addP(int n){
+        stock+=n;
+    }
 }

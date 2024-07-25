@@ -14,5 +14,4 @@ public class ProductoRequest {
     private String nombre;
     private double precio;
     private boolean unit;
-    private List<LoteRequest> lotesList;
 }
