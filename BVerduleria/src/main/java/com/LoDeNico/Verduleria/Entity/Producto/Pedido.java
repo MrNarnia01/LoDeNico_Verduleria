@@ -35,7 +35,4 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<detallePedido> detallesPedido;
 
-    @OneToOne(mappedBy = "pedido")
-    private Boleta boleta;
-
 }

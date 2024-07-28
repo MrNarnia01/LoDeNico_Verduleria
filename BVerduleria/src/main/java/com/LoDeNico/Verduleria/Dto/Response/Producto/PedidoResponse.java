@@ -18,6 +18,6 @@ public class PedidoResponse {
     private Long id;
     private String negocio;
     private Timestamp fPedido;
-    private Long nB;
     private List<DetallePedidoResponse> detallePedidoResponseList;
+    private Long nB;
 }
