@@ -10,4 +10,6 @@ public interface BoletaRepository extends JpaRepository<Boleta,Long> {
     List<Boleta> findByPaga(boolean paga);
     @Query(value="SELECT * FROM Boleta WHERE monto BETWEEN ?1 AND ?2", nativeQuery = true)
     List<Boleta> serchByMonto(double m1, double m2);
+
+
 }

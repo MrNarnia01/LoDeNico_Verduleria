@@ -175,8 +175,10 @@ public class ProductoServiceImpl implements ProductoService{
                 for (int j = 0; j < montoList.stream().count(); j++) {
                     if (productoList.get(i).equals(montoList.get(j)))    b=true;
                 }
-                if(!b)  productoList.remove(i);
-                i--;
+                if(!b){
+                    productoList.remove(i);
+                    i--;
+                }
             }
 
         }

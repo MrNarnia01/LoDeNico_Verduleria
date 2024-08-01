@@ -44,4 +44,15 @@ public class Boleta {
     @OneToMany(mappedBy = "boleta", cascade = CascadeType.ALL)
     private List<Pago> pagos;
 
+    public boolean allPagado(){
+        double total = 0;
+        boolean p = false;
+        for (Pago pa: pagos){
+            total+=pa.getMonto();
+        }
+        if (total>=getMonto())   p = true;
+        return p;
+    }
+
+
 }

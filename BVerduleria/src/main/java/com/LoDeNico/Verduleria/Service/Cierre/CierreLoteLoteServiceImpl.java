@@ -70,8 +70,10 @@ public class CierreLoteLoteServiceImpl implements CierreLoteService {
                 for (int j = 0; j < cierreTipo.stream().count(); j++) {
                     if (cierreLoteList.get(i).equals(cierreTipo.get(j)))    b=true;
                 }
-                if(!b)  cierreLoteList.remove(i);
-                i--;
+                if(!b){
+                    cierreLoteList.remove(i);
+                    i--;
+                }
             }
         }
         //Datos monto
