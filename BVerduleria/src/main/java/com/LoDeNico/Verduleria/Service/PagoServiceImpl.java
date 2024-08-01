@@ -130,12 +130,12 @@ public class PagoServiceImpl implements PagoService{
         }
     }
 
-    public List<PagoResponse> getPagoListBus(boolean tip, String tipo, MontoRequest montoRequest){
+    public List<PagoResponse> getPagoListBus( String tipo, MontoRequest montoRequest){
         List<Pago> pagoList = new ArrayList<>();
         if(montoRequest.getM1()==-1)    pagoList = pagoRepository.findAll();
         else    pagoList = pagoRepository.serchByMonto(montoRequest.getM1(), montoRequest.getM2());
 
-        if (tip){
+        if (tipo!=null){
             List<Pago> tipoList = pagoRepository.findByTipo(tipo);
             for (int i = 0; i < pagoList.stream().count(); i++) {
                 boolean b = false;

@@ -12,5 +12,5 @@ public interface PagoService {
     public int deletePago(Long id);
     public PagoResponse createPago(PagoResquest pagoResquest);
     public PagoResponse updatePago(PagoResquest pagoResquest, Long id);
-    public List<PagoResponse> getPagoListBus(boolean tip, String tipo, MontoRequest montoRequest);
+    public List<PagoResponse> getPagoListBus(String tipo, MontoRequest montoRequest);
 }
