@@ -1,5 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Cierre;
 
+import com.LoDeNico.Verduleria.Dto.Request.Cierre.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Cierre.CierreRequest;
 import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
 import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
@@ -11,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CierreLoteLoteServiceImpl implements CierreLoteService {
+public class CierreLoteServiceImpl implements CierreLoteService {
     @Autowired
     private final CierreLoteRepository cierreLoteRepository;
 
-    public CierreLoteLoteServiceImpl(CierreLoteRepository cierreLoteRepository) {
+    public CierreLoteServiceImpl(CierreLoteRepository cierreLoteRepository) {
         this.cierreLoteRepository = cierreLoteRepository;
     }
 
@@ -52,18 +53,18 @@ public class CierreLoteLoteServiceImpl implements CierreLoteService {
             3 : Solo monto
      */
 
-    public List<CierreLote> cierreLoteBus(FechaRequest fechaRequest, boolean t, int cod, MontoRequest montoRequest){
+    public List<CierreLote> cierreLoteBus(BusRequest busRequest){
         List<CierreLote> cierreLoteList = new ArrayList<>();
         //Darle datos a la lista
-        if(fechaRequest.getF1() == null){
+        if(busRequest.getFechaRequest().getF1() == null){
             cierreLoteList = cierreLoteRepository.findAll();
         }else{
-            cierreLoteList = cierreLoteRepository.findByDias(fechaRequest.getF1(),fechaRequest.getF2());
+            cierreLoteList = cierreLoteRepository.findByDias(busRequest.getFechaRequest().getF1(),busRequest.getFechaRequest().getF2());
         }
 
         //Datos tipo
-        if(cod<=2){
-            List<CierreLote> cierreTipo = cierreLoteRepository.findByTipo(t);
+        if(busRequest.getCod()<=2){
+            List<CierreLote> cierreTipo = cierreLoteRepository.findByTipo(busRequest.isT());
             //Filtracion
             for (int i = 0; i < cierreLoteList.stream().count(); i++) {
                 boolean b = false;
@@ -77,8 +78,8 @@ public class CierreLoteLoteServiceImpl implements CierreLoteService {
             }
         }
         //Datos monto
-        if(cod>=2){
-            List<CierreLote> cierreMonto = cierreLoteRepository.serchByMonto(montoRequest.getM1(), montoRequest.getM2());
+        if(busRequest.getCod()>=2){
+            List<CierreLote> cierreMonto = cierreLoteRepository.serchByMonto(busRequest.getMontoRequest().getM1(), busRequest.getMontoRequest().getM2());
             //Filtracion
             for (int i = 0; i < cierreLoteList.stream().count(); i++) {
                 boolean b = false;
