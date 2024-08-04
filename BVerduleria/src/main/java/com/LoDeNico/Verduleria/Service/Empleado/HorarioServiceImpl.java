@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,6 +95,17 @@ public class HorarioServiceImpl implements HorarioService{
 
     }
 
-
+    public List<HorarioResponse> getHorarioList(){
+        List<Horario> horarioList = horarioRepository.findAll();
+        List<HorarioResponse> horarioResponseList = new ArrayList<>();
+        if(!horarioList.isEmpty()){
+            for (Horario h: horarioList){
+                horarioResponseList.add(createHorarioResponse(h));
+            }
+        }else{
+            horarioResponseList.add(new HorarioResponse(-1L,"1002","",null,null));
+        }
+        return horarioResponseList;
+    }
 
 }
