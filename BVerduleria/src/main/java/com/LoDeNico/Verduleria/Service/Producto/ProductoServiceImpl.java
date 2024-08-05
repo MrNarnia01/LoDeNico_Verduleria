@@ -1,6 +1,7 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
 import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
+import com.LoDeNico.Verduleria.Dto.Request.Producto.BusPRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.ProductoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.LoteResponse;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.ProductoResponse;
@@ -150,14 +151,14 @@ public class ProductoServiceImpl implements ProductoService{
         return 1002;
     }
 
-    public List<ProductoResponse> busProducto(String nombre, int uni, MontoRequest montoRequest){
+    public List<ProductoResponse> busProducto(BusPRequest busPRequest){
         List<Producto> productoList = new ArrayList<>();
-        if(nombre==null)    productoList = productoRepository.findAll();
-        else productoList = productoRepository.serchByNombre(nombre);
+        if(busPRequest.getNombre()==null)    productoList = productoRepository.findAll();
+        else productoList = productoRepository.serchByNombre(busPRequest.getNombre());
 
-        if(uni !=0){
+        if(busPRequest.getUni() !=0){
             boolean u = true;
-            if(uni == 2)    u = false;
+            if(busPRequest.getUni() == 2)    u = false;
 
             for (int i = 0; i < productoList.stream().count(); i++) {
                 if(productoList.get(i).isUnit()!=u){
@@ -167,8 +168,8 @@ public class ProductoServiceImpl implements ProductoService{
             }
         }
 
-        if(montoRequest.getM1()!=-1){
-            List<Producto> montoList = productoRepository.serchByPrecio(montoRequest.getM1(), montoRequest.getM2());
+        if(busPRequest.getMontoRequest().getM1()!=-1){
+            List<Producto> montoList = productoRepository.serchByPrecio(busPRequest.getMontoRequest().getM1(), busPRequest.getMontoRequest().getM2());
 
             for (int i = 0; i < productoList.stream().count(); i++) {
                 boolean b = false;
