@@ -13,11 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/cierre")
-public class CierreController {
+public class CierreLoteController {
     @Autowired
     private final CierreLoteService cierreLoteService;
 
-    public CierreController(CierreLoteService cierreLoteService) {
+    public CierreLoteController(CierreLoteService cierreLoteService) {
         this.cierreLoteService = cierreLoteService;
     }
 

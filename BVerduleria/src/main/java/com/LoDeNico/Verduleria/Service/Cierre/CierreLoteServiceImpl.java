@@ -7,11 +7,13 @@ import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
 import com.LoDeNico.Verduleria.Repository.Cierre.CierreLoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CierreLoteServiceImpl implements CierreLoteService {
     @Autowired
     private final CierreLoteRepository cierreLoteRepository;

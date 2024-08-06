@@ -13,11 +13,13 @@ import com.LoDeNico.Verduleria.Repository.Producto.PedidoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import com.LoDeNico.Verduleria.Repository.Proveedor.ProveedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PedidoServiceImpl implements PedidoService{
     @Autowired
     private final PedidoRepository pedidoRepository;

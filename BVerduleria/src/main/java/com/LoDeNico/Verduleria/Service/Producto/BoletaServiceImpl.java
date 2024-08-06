@@ -16,12 +16,14 @@ import com.LoDeNico.Verduleria.Repository.Producto.BoletaRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.PedidoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.invoke.CallSite;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BoletaServiceImpl implements BoletaService{
     @Autowired
     private final BoletaRepository boletaRepository;
@@ -141,7 +143,7 @@ public class BoletaServiceImpl implements BoletaService{
         for (DetalleRequest br: boletaRequest.getDetalleBoletaRequestList()){
             Optional<Producto> productoOptional = productoRepository.findById(br.getIdP());
             if(productoOptional.isEmpty()) b = false;
-            if(br.getCaja()<0) b = false;
+            if(br.getCaja()<=0) b = false;
             if(br.getCantidad()<=0) b = false;
         }
 
@@ -158,7 +160,9 @@ public class BoletaServiceImpl implements BoletaService{
                 detalleBoleta.setCantidad(br.getCantidad());
                 detalleBoleta.setCaja(br.getCaja());
                 Optional<Producto> productoOptional = productoRepository.findById(br.getIdP());
-                detalleBoleta.setProducto(productoOptional.get());
+                Producto producto = productoOptional.get();
+                producto.addP(detalleBoleta.getCaja() * detalleBoleta.getCantidad() );
+                detalleBoleta.setProducto(producto);
                 detalleBoletaList.add(detalleBoleta);
             }
 
@@ -185,23 +189,39 @@ public class BoletaServiceImpl implements BoletaService{
         for (DetalleRequest br: boletaRequest.getDetalleBoletaRequestList()){
             Optional<Producto> productoOptional = productoRepository.findById(br.getIdP());
             if(productoOptional.isEmpty()) b = false;
-            if(br.getCaja()<0) b = false;
+            if(br.getCaja()<=0) b = false;
             if(br.getCantidad()<=0) b = false;
         }
 
         if (b){
             Boleta boleta = boletaOptional.get();
+            List<detalleBoleta> detalleBoletaList = new ArrayList<>();
+
+            //Borrar Stock
+            for (detalleBoleta db: boleta.getDetallesBoleta()){
+                db.getProducto().addP( -(db.getCaja() * db.getCantidad()) );
+                if(db.getProducto().getStock()<0){
+                    db.getProducto().setStock(0);
+                }
+                detalleBoletaList.add(db);
+            }
+            boleta.setDetallesBoleta(detalleBoletaList);
+            boleta = boletaRepository.save(boleta);
+
+            //Boleta update
+
+            detalleBoletaList = new ArrayList<>();
             boleta.setPedido(pedidoOptional.get());
-            boleta.setPaga(false);
             boleta.setMonto(boletaRequest.getMonto());
 
-            List<detalleBoleta> detalleBoletaList = new ArrayList<>();
             for (DetalleRequest br: boletaRequest.getDetalleBoletaRequestList()){
                 detalleBoleta detalleBoleta = new detalleBoleta();
                 detalleBoleta.setCantidad(br.getCantidad());
                 detalleBoleta.setCaja(br.getCaja());
                 Optional<Producto> productoOptional = productoRepository.findById(br.getIdP());
-                detalleBoleta.setProducto(productoOptional.get());
+                Producto producto = productoOptional.get();
+                producto.addP(detalleBoleta.getCaja() * detalleBoleta.getCantidad() );
+                detalleBoleta.setProducto(producto);
                 detalleBoletaList.add(detalleBoleta);
             }
 

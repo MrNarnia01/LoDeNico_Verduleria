@@ -2,8 +2,6 @@ package com.LoDeNico.Verduleria.Service.Cierre;
 
 import com.LoDeNico.Verduleria.Dto.Request.Cierre.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Cierre.CierreRequest;
-import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
 
 import java.util.List;

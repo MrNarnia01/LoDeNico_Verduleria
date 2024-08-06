@@ -8,11 +8,13 @@ import com.LoDeNico.Verduleria.Entity.Producto.Boleta;
 import com.LoDeNico.Verduleria.Repository.PagoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.BoletaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PagoServiceImpl implements PagoService{
     @Autowired
     private final PagoRepository pagoRepository;
