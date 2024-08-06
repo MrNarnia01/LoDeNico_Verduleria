@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -13,7 +15,7 @@ import java.util.Date;
 public class LoteResponse {
     private Long id;
     private String nombre;
-    private Date fVenci;
-    private boolean term;
+    private int nLote;
+    private Timestamp fVenci;
 
 }

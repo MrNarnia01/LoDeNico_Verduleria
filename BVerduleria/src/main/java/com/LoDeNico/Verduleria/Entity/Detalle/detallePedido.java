@@ -23,7 +23,7 @@ public class detallePedido {
     @JoinColumn(name = "idPedido")
     private Pedido pedido;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idProducto")
     private Producto producto;
 

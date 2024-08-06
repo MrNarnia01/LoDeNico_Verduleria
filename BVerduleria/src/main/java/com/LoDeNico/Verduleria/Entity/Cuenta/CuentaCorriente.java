@@ -3,7 +3,10 @@ package com.LoDeNico.Verduleria.Entity.Cuenta;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -22,10 +25,12 @@ public class CuentaCorriente {
     @Column(name = "monto")
     private double monto;
 
+    @CreationTimestamp
     @Column(name = "fRegistro")
-    private Date fRegistro;
+    private Timestamp fRegistro;
 
+    @CreationTimestamp
     @Column(name = "fPago")
-    private Date fPago;
+    private Timestamp fPago;
 
 }

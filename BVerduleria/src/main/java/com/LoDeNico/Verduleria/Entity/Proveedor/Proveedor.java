@@ -29,10 +29,10 @@ public class Proveedor {
     @Column(name = "altura")
     private int altura;
 
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "proveedor")
     private List<Trabajador> trabajadores;
 
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "proveedor")
     private List<Pedido> pedidos;
 
 }

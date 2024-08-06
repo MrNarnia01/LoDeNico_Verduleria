@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Setter
@@ -23,9 +24,10 @@ public class Lote {
     @JoinColumn(name = "idProducto")
     private Producto producto;
 
-    @Column(name = "fVenci")
-    private Date fVenci;
+    @Column(name = "nLote")
+    private int nLote;
 
-    @Column(name = "term")
-    private boolean term;
+    @Column(name = "fVenci")
+    private Timestamp fVenci;
+
 }

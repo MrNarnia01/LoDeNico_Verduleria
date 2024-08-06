@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -26,13 +28,11 @@ public class Pedido {
     @JoinColumn(name = "idProveedor")
     private Proveedor proveedor;
 
+    @CreationTimestamp
     @Column(name = "fPedido")
-    private Date fPedido;
+    private Timestamp fPedido;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<detallePedido> detallesPedido;
-
-    @OneToOne(mappedBy = "pedido")
-    private Boleta boleta;
 
 }

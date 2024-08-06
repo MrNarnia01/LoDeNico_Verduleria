@@ -13,5 +13,4 @@ import java.util.Date;
 public class CierreRequest {
     private boolean tipo;
     private double monto;
-    private Date fRegis;
 }

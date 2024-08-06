@@ -13,5 +13,4 @@ import java.util.Date;
 public class CuentaCorrienteRequest {
     private Long idC;
     private double monto;
-    private Date fRegistro;
 }

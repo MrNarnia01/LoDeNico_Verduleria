@@ -19,17 +19,9 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long eId;
 
-    @Column(name = "nombre")
-    private String nombre;
-
-    @Column(name = "apellido")
-    private String apellido;
-
-    @Column(name = "codArea")
-    private int codArea;
-
-    @Column(name = "tel")
-    private int tel;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "idPersona")
+    private Persona persona;
 
     @Column(name = "mail")
     private String mail;

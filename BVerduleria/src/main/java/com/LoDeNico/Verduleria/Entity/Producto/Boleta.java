@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +31,9 @@ public class Boleta {
     @Column(name = "paga")
     private boolean paga;
 
+    @CreationTimestamp
     @Column(name = "fRecibo")
-    private Date fRecibo;
+    private Timestamp fRecibo;
 
     @Column(name = "monto")
     private double monto;
@@ -40,5 +43,16 @@ public class Boleta {
 
     @OneToMany(mappedBy = "boleta", cascade = CascadeType.ALL)
     private List<Pago> pagos;
+
+    public boolean allPagado(){
+        double total = 0;
+        boolean p = false;
+        for (Pago pa: pagos){
+            total+=pa.getMonto();
+        }
+        if (total>=getMonto())   p = true;
+        return p;
+    }
+
 
 }
