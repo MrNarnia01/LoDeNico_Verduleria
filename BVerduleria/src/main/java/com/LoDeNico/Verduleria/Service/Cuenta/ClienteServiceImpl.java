@@ -6,7 +6,6 @@ import com.LoDeNico.Verduleria.Dto.Response.Cuenta.CuentaCorrienteResponse;
 import com.LoDeNico.Verduleria.Entity.Cuenta.Cliente;
 import com.LoDeNico.Verduleria.Entity.Cuenta.CuentaCorriente;
 import com.LoDeNico.Verduleria.Entity.Empleado.Persona;
-import com.LoDeNico.Verduleria.Entity.Proveedor.Trabajador;
 import com.LoDeNico.Verduleria.Repository.Cuenta.ClienteRepository;
 import com.LoDeNico.Verduleria.Repository.Empleado.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,7 +6,6 @@ import com.LoDeNico.Verduleria.Dto.Response.Proveedor.TrabajadorResponse;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Proveedor;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Trabajador;
 import com.LoDeNico.Verduleria.Repository.Proveedor.ProveedorRepository;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

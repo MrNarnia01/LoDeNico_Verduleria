@@ -3,7 +3,6 @@ package com.LoDeNico.Verduleria.Service.Empleado;
 import com.LoDeNico.Verduleria.Dto.Request.Empleado.HorarioRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Empleado.HorarioResponse;
 
-import java.util.Date;
 import java.util.List;
 
 public interface HorarioService {

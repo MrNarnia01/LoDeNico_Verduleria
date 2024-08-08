@@ -1,6 +1,5 @@
 package com.LoDeNico.Verduleria.Repository.Producto;
 
-import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
 import com.LoDeNico.Verduleria.Entity.Producto.Lote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

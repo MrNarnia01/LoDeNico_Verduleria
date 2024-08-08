@@ -1,7 +1,6 @@
 package com.LoDeNico.Verduleria.Entity.Producto;
 
 import com.LoDeNico.Verduleria.Entity.Detalle.detalleBoleta;
-import com.LoDeNico.Verduleria.Entity.Detalle.detallePedido;
 import com.LoDeNico.Verduleria.Entity.Pago;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Setter

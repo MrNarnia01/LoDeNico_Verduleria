@@ -4,7 +4,6 @@ import com.LoDeNico.Verduleria.Dto.Request.Cuenta.CuentaCorrienteRequest;
 import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
 import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Cuenta.CuentaCorrienteResponse;
-import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Service.Cuenta.CuentaCorrienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

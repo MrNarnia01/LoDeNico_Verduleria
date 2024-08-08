@@ -2,7 +2,6 @@ package com.LoDeNico.Verduleria.Service.Proveedor;
 
 import com.LoDeNico.Verduleria.Dto.Request.Proveedor.TrabajadorRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Proveedor.TrabajadorResponse;
-import com.LoDeNico.Verduleria.Entity.Cuenta.Cliente;
 import com.LoDeNico.Verduleria.Entity.Empleado.Persona;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Proveedor;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Trabajador;

@@ -3,7 +3,6 @@ package com.LoDeNico.Verduleria.Controller.Producto;
 import com.LoDeNico.Verduleria.Dto.Request.Detalle.DetalleRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.PedidoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.PedidoResponse;
-import com.LoDeNico.Verduleria.Dto.Response.Proveedor.TrabajadorResponse;
 import com.LoDeNico.Verduleria.Service.Producto.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

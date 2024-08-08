@@ -7,7 +7,6 @@ import com.LoDeNico.Verduleria.Dto.Response.Detalle.DetalleBoletaResponse;
 import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.BoletaResponse;
 import com.LoDeNico.Verduleria.Entity.Detalle.detalleBoleta;
-import com.LoDeNico.Verduleria.Entity.Detalle.detallePedido;
 import com.LoDeNico.Verduleria.Entity.Pago;
 import com.LoDeNico.Verduleria.Entity.Producto.Boleta;
 import com.LoDeNico.Verduleria.Entity.Producto.Pedido;
@@ -18,7 +17,6 @@ import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.invoke.CallSite;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

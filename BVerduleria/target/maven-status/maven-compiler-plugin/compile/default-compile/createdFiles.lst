@@ -20,6 +20,7 @@ com/LoDeNico/Verduleria/Entity/Cuenta/CuentaCorriente.class
 com/LoDeNico/Verduleria/Controller/Empleado/EmpleadoController.class
 com/LoDeNico/Verduleria/Dto/Response/Empleado/HorarioResponse.class
 com/LoDeNico/Verduleria/Entity/Producto/Producto.class
+com/LoDeNico/Verduleria/config.class
 com/LoDeNico/Verduleria/Repository/Proveedor/TrabajadorRepository.class
 com/LoDeNico/Verduleria/Entity/Producto/Boleta.class
 com/LoDeNico/Verduleria/Service/Empleado/EmpleadoService.class

@@ -1,8 +1,6 @@
 package com.LoDeNico.Verduleria.Controller.Proveedor;
 
-import com.LoDeNico.Verduleria.Dto.Request.PagoResquest;
 import com.LoDeNico.Verduleria.Dto.Request.Proveedor.ProveedorRequest;
-import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Dto.Response.Proveedor.ProveedorResponse;
 import com.LoDeNico.Verduleria.Service.Proveedor.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;

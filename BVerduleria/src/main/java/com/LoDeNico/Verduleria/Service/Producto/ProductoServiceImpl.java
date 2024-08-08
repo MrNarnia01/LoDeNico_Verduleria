@@ -1,6 +1,5 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.BusPRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.ProductoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.LoteResponse;
@@ -107,6 +106,7 @@ public class ProductoServiceImpl implements ProductoService{
             producto.setStock(0);
             producto.setUnit(productoRequest.isUnit());
             producto.setSoftDelete(false);
+            producto.setLotes(new ArrayList<>());
             producto = productoRepository.save(producto);
             return createProductoResponse(producto);
         }else{
@@ -124,7 +124,7 @@ public class ProductoServiceImpl implements ProductoService{
         }else producto = productoOptional.get();
 
         productoOptional = productoRepository.findByNombre(productoRequest.getNombre());
-        if (productoOptional.isPresent())   b = false;
+        if (productoOptional.isEmpty())   b = false;
         if (productoRequest.getNombre().isBlank())  b = false;
         if (productoRequest.getPrecio()<=0) b = false;
 
@@ -132,7 +132,6 @@ public class ProductoServiceImpl implements ProductoService{
             producto.setNombre(productoRequest.getNombre());
             producto.setPrecio(productoRequest.getPrecio());
             producto.setUnit(productoRequest.isUnit());
-            producto.setSoftDelete(false);
             producto = productoRepository.save(producto);
             return createProductoResponse(producto);
         }else{

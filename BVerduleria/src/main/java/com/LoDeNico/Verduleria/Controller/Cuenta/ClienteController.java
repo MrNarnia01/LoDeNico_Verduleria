@@ -2,7 +2,6 @@ package com.LoDeNico.Verduleria.Controller.Cuenta;
 
 import com.LoDeNico.Verduleria.Dto.Request.Cuenta.ClienteRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Cuenta.ClienteResponse;
-import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Service.Cuenta.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
