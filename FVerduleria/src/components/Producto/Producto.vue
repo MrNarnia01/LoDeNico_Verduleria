@@ -21,6 +21,12 @@
                 }).catch(error => {
                         console.log(error.response.data);
                 });
+            },
+            ver(){
+                this.$router.push({
+                    name: 'lote',
+                    query: { id:this.producto.id }
+                });
             }
         }
     }
@@ -32,7 +38,7 @@
     <td>{{ producto.stock }}</td>
     <td>{{ unitario }}</td>
     <td>{{ lotes }}</td>
-    <td><button type="button">Ver Lotes</button></td>
+    <td><button type="button" @click="ver()">Ver Lotes</button></td>
     <td><button type="button" @click="$emit('mod',producto)"> Modificar </button></td>
     <td><button type="button" @click="borrar()"> Eliminar </button></td>
 </template>

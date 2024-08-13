@@ -27,7 +27,8 @@
                 console.log('llego');
                 try {
                     const response = await axios.get('http://localhost:8080/api/producto/list/'+true);
-                    this.productos=response.data
+                    this.productos=response.data;
+                    console.log(this.productos)
                 } catch (error) {
                     console.log(error.response.data)
                     this.productos=''

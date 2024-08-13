@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -13,6 +13,6 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class LoteRequest {
     private Long idP;
-    private int nLote;
-    private Timestamp fVenci;
+    private int num;
+    private Date date;
 }
