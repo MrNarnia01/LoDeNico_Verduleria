@@ -30,17 +30,18 @@ public class ProveedorServiceImpl implements ProveedorService{
         proveedorResponse.setAltura(proveedor.getAltura());
 
         List<TrabajadorResponse> trabajadorResponseList = new ArrayList<>();
-
-        for (Trabajador trabajador: proveedor.getTrabajadores()){
-            TrabajadorResponse trabajadorResponse = new TrabajadorResponse(
-                    trabajador.getId(),
-                    trabajador.getPuesto(),
-                    trabajador.getPersona().getNombre(),
-                    trabajador.getPersona().getApellido(),
-                    trabajador.getPersona().getCodArea(),
-                    trabajador.getPersona().getTel(),
-                    proveedor.getNegocio());
-            trabajadorResponseList.add(trabajadorResponse);
+        if(!proveedor.getTrabajadores().isEmpty()) {
+            for (Trabajador trabajador : proveedor.getTrabajadores()) {
+                TrabajadorResponse trabajadorResponse = new TrabajadorResponse(
+                        trabajador.getId(),
+                        trabajador.getPuesto(),
+                        trabajador.getPersona().getNombre(),
+                        trabajador.getPersona().getApellido(),
+                        trabajador.getPersona().getCodArea(),
+                        trabajador.getPersona().getTel(),
+                        proveedor.getNegocio());
+                trabajadorResponseList.add(trabajadorResponse);
+            }
         }
         proveedorResponse.setTrabajadorResponseList(trabajadorResponseList);
         return proveedorResponse;
@@ -106,6 +107,7 @@ public class ProveedorServiceImpl implements ProveedorService{
             proveedor.setNegocio(proveedorRequest.getNegocio());
             proveedor.setCalle(proveedorRequest.getCalle());
             proveedor.setAltura(proveedorRequest.getAltura());
+            proveedor.setTrabajadores(new ArrayList<>());
             proveedor = proveedorRepository.save(proveedor);
             return createProveedorResponse(proveedor);
         }else return new ProveedorResponse(-1L,"","",1003,null);
