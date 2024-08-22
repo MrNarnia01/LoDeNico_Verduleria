@@ -97,7 +97,7 @@ public class PedidoServiceImpl implements PedidoService{
         for (DetalleRequest dr: pedidoRequest.getDetallePedidoRequestList()){
             Optional<Producto> productoOptional = productoRepository.findById(dr.getIdP());
             if(productoOptional.isEmpty()) b = false;
-            if(dr.getCaja()<0) b = false;
+            if(dr.getCaja()<=0) b = false;
             if(dr.getCantidad()<=0) b = false;
         }
 
@@ -132,7 +132,7 @@ public class PedidoServiceImpl implements PedidoService{
         for (DetalleRequest dr: detalleRequestList){
             Optional<Producto> productoOptional = productoRepository.findById(dr.getIdP());
             if(productoOptional.isEmpty()) b = false;
-            if(dr.getCaja()<0) b = false;
+            if(dr.getCaja()<=0) b = false;
             if(dr.getCantidad()<=0) b = false;
         }
 
@@ -156,10 +156,6 @@ public class PedidoServiceImpl implements PedidoService{
 
         }else return new PedidoResponse(-1L,"",null,null,1003L);
     }
-
-
-
-
 
 
 }
