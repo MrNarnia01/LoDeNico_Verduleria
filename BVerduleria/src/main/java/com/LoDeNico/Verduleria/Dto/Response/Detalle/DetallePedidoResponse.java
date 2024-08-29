@@ -14,6 +14,7 @@ public class DetallePedidoResponse {
     private Long idP;
     private String nombre;
     private boolean unit;
+    private Long idProdu;
     private int caja;
     private int cantidad;
 }

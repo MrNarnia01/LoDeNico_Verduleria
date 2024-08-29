@@ -34,6 +34,7 @@
         <button type="button"> Recibir Pedido </button> 
     </td>
     <td v-else> {{ pedido.nB }} </td>
-    <td><button type="button">Modificar</button></td>
+    <td v-if="pedido.nB ==null"><button type="button" @click="$emit('mod')">Modificar</button></td>
+    <td v-else> - </td>
     <td><button type="button" @click="borrar()">Eliminar</button></td>
 </template>

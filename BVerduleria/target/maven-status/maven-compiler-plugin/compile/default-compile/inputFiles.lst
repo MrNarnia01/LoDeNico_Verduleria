@@ -12,9 +12,9 @@
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Controller/Empleado/EmpleadoController.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/PagoServiceImpl.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Cierre/CierreLote.java
-/home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Detalle/detalleBotellaRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Detalle/DetalleRequest.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Controller/Empleado/HorarioController.java
+/home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Detalle/DetalleBoletaRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Cuenta/CuentaCorrienteRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Cierre/BusRequest.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Empleado/EmpleadoRepository.java
@@ -27,6 +27,7 @@
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Producto/Lote.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Cuenta/ClienteServiceImpl.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Producto/LoteResponse.java
+/home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Detalle/DetallePedidoRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Empleado/PersonaRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Empleado/HorarioRequest.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Producto/BoletaRequest.java
@@ -53,7 +54,6 @@
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Producto/BoletaServiceImpl.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Cuenta/Cliente.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/PagoRepository.java
-/home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Detalle/detallePedidoRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Cuenta/CuentaCorrienteResponse.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Cuenta/ClienteRepository.java
 /home/user/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Producto/ProductoResponse.java

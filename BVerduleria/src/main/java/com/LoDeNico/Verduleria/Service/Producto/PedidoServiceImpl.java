@@ -9,6 +9,7 @@ import com.LoDeNico.Verduleria.Entity.Producto.Boleta;
 import com.LoDeNico.Verduleria.Entity.Producto.Pedido;
 import com.LoDeNico.Verduleria.Entity.Producto.Producto;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Proveedor;
+import com.LoDeNico.Verduleria.Repository.Detalle.DetallePedidoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.PedidoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import com.LoDeNico.Verduleria.Repository.Proveedor.ProveedorRepository;
@@ -25,11 +26,13 @@ public class PedidoServiceImpl implements PedidoService{
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
     private final ProveedorRepository proveedorRepository;
+    private final DetallePedidoRepository detallePedidoRepository;
 
-    public PedidoServiceImpl(PedidoRepository pedidoRepository, ProductoRepository productoRepository, ProveedorRepository proveedorRepository) {
+    public PedidoServiceImpl(PedidoRepository pedidoRepository, ProductoRepository productoRepository, ProveedorRepository proveedorRepository, DetallePedidoRepository detallePedidoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.productoRepository = productoRepository;
         this.proveedorRepository = proveedorRepository;
+        this.detallePedidoRepository = detallePedidoRepository;
     }
 
     private PedidoResponse createPedidoResponse(Pedido pedido){
@@ -44,6 +47,7 @@ public class PedidoServiceImpl implements PedidoService{
                     pedido.getId(),
                     dp.getProducto().getNombre(),
                     dp.getProducto().isUnit(),
+                    dp.getProducto().getId(),
                     dp.getCaja(),
                     dp.getCantidad()
             );
@@ -51,6 +55,7 @@ public class PedidoServiceImpl implements PedidoService{
         }
         return new PedidoResponse(
                 pedido.getId(),
+                pedido.getProveedor().getId(),
                 pedido.getProveedor().getNegocio(),
                 pedido.getFPedido(),
                 detallePedidoResponseList,
@@ -61,7 +66,7 @@ public class PedidoServiceImpl implements PedidoService{
         Optional<Pedido> pedidoOptional = pedidoRepository.findById(id);
         if(pedidoOptional.isPresent()){
             return createPedidoResponse(pedidoOptional.get());
-        }else return new PedidoResponse(-1L,"",null,null,1002L);
+        }else return new PedidoResponse(-1L,0L,"",null,null,1002L);
     }
 
     public List<PedidoResponse> getPedidoList(){
@@ -72,7 +77,7 @@ public class PedidoServiceImpl implements PedidoService{
                 pedidoResponseList.add(createPedidoResponse(p));
             }
         }else{
-            pedidoResponseList.add(new PedidoResponse(-1L,"",null,null,1001L));
+            pedidoResponseList.add(new PedidoResponse(-1L,0L,"",null,null,1001L));
         }
 
         return pedidoResponseList;
@@ -112,6 +117,7 @@ public class PedidoServiceImpl implements PedidoService{
                 detallePedido.setCaja(dr.getCaja());
                 detallePedido.setCantidad(dr.getCantidad());
                 detallePedido.setProducto(productoOptional.get());
+                detallePedido.setPedido(pedido);
                 detallePedidoList.add(detallePedido);
             }
 
@@ -120,14 +126,14 @@ public class PedidoServiceImpl implements PedidoService{
             pedido = pedidoRepository.save(pedido);
             return createPedidoResponse(pedido);
 
-        }else return new PedidoResponse(-1L,"",null,null,1003L);
+        }else return new PedidoResponse(-1L,0L,"",null,null,1003L);
     }
 
     public PedidoResponse updatePedido(List<DetalleRequest> detalleRequestList, Long id){
         Optional<Pedido> pedidoOptional = pedidoRepository.findById(id);
         boolean b = true;
 
-        if (pedidoOptional.isEmpty()) return new PedidoResponse(-1L,"",null,null,1003L);
+        if (pedidoOptional.isEmpty()) return new PedidoResponse(-1L,0L,"",null,null,1003L);
 
         for (DetalleRequest dr: detalleRequestList){
             Optional<Producto> productoOptional = productoRepository.findById(dr.getIdP());
@@ -139,6 +145,8 @@ public class PedidoServiceImpl implements PedidoService{
         if(b){
             Pedido pedido = pedidoOptional.get();
             List<detallePedido> detallePedidoList = new ArrayList<>();
+            List<Long> longList = detallePedidoRepository.findByPedido(pedido.getId());
+            detallePedidoRepository.deleteAllById(longList);
 
             for (DetalleRequest dr: detalleRequestList){
                 detallePedido detallePedido = new detallePedido();
@@ -146,6 +154,7 @@ public class PedidoServiceImpl implements PedidoService{
                 detallePedido.setCaja(dr.getCaja());
                 detallePedido.setCantidad(dr.getCantidad());
                 detallePedido.setProducto(productoOptional.get());
+                detallePedido.setPedido(pedido);
                 detallePedidoList.add(detallePedido);
             }
 
@@ -154,7 +163,7 @@ public class PedidoServiceImpl implements PedidoService{
             pedido = pedidoRepository.save(pedido);
             return createPedidoResponse(pedido);
 
-        }else return new PedidoResponse(-1L,"",null,null,1003L);
+        }else return new PedidoResponse(-1L,0L,"",null,null,1003L);
     }
 
 

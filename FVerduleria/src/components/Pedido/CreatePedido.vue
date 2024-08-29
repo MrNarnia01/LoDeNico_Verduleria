@@ -40,19 +40,21 @@
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <button type="button" @click="agregarFila()">Agregar producto</button>
+                        <button type="button" @click="agregarFila(-1,1,1)">Agregar producto</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     
-        <button type="submit">Crear</button>
+        <button type="submit" v-if="pedido==null">Crear</button>
+        <button type="submit" v-else>Modificar</button>
     </form>
   </template>
   
   <script>
     import axios from 'axios'
     export default {
+    props: ['pedido'],
     data() {
       return {
         productos: '',
@@ -64,16 +66,34 @@
       }
     },
     mounted(){
+        if(this.pedido!=null){
+            console.log(this.pedido);
+            this.pedidoRequest.idP=this.pedido.idP;
+            const detallesP = this.pedido.detallePedidoResponseList;
+            console.log(detallesP);
+            for(let i=0; i<detallesP.length;i++){
+                this.agregarFila(detallesP.at(i).idProdu,detallesP.at(i).caja,detallesP.at(i).cantidad);
+            }
+              
+        }else{
+            this.agregarFila(-1,1,1);
+        }
         this.lProductos();
         this.lProveedores();
-        this.agregarFila();
+        
     },
     methods: {
         eliminarProducto(index) {
             this.pedidoRequest.detallePedidoRequestList.splice(index, 1);
         },
         crear(){
-            axios.post( 'http://localhost:8080/api/pedido/create',this.pedidoRequest ).then(response => {
+            let a = "";
+            if(this.pedido==null)   a+="create";
+            else a+="update/"+this.pedido.id;
+            console.log(this.pedidoRequest);
+            axios.post( 'http://localhost:8080/api/pedido/'+a,this.pedidoRequest,{
+                headers: { 'Content-Type': 'application/json' }
+            } ).then(response => {
             this.$emit('cloc');
             }).catch(error => {
                 console.log('Error: ', error.response.data);
@@ -97,24 +117,28 @@
                 this.proveedores=''
             }
         },
-        agregarFila(){
+        agregarFila(i,c,ca){
             this.pedidoRequest.detallePedidoRequestList.push({
-                idP: 0,
-                caja: 1,
-                cantidad: 1,
+                idP: i,
+                caja: c,
+                cantidad: ca,
             });
         },
         validarProducto(index){
-            /*
             let detalles = this.pedidoRequest.detallePedidoRequestList;
+            let con=0;
             let id = detalles.at(index);
-            const duplicado = detalles.find(detalle => detalle.idP === id.idP);
-            console.log(duplicado)
-            if(duplicado){
-                window.alert("Producto ya cargado en la lista");
-                this,pedidoRequest.detallePedidoRequestList.at(index).idP=0;
+            for(let i=0; i<detalles.length;i++){
+                if(detalles[i].idP==id.idP){
+                    con++;
+                }
             }
-                */
+            
+            if(con>1){
+                window.alert("Producto ya cargado en la lista");
+                this.pedidoRequest.detallePedidoRequestList.at(index).idP=-1;
+            }
+    
         },
     }
   }

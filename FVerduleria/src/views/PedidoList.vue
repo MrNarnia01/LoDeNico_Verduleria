@@ -12,6 +12,7 @@
             return{
                 pedidos: '',
                 c: false,
+                change: null
             };
         },
         mounted(){
@@ -29,9 +30,15 @@
                 }
             },
             create(){
+                this.change=null;
                 this.c=!this.c;
                 this.lPedidos();
             },
+            update(pedido){
+                this.change=pedido;
+                this.c=!this.c;
+                this.lPedidos();
+            }
         },
     }
     
@@ -52,11 +59,11 @@
                 <td colspan="6">No hay pedidos registrados</td>
             </tr>
             <tr v-else v-for="pedido in pedidos" :key="pedido.id">
-                <Pedido :pedido="pedido" @e="lPedidos()" />
+                <Pedido :pedido="pedido" @e="lPedidos()"  @mod="update(pedido)"/>
             </tr>
         </table>
         <button type="button" @click="create()">Crear</button>
     </div>
-    <CreatePedido v-if="this.c"  @cloc="create()" />
+    <CreatePedido v-if="this.c" :pedido="this.change"  @cloc="create()" />
 
 </template>

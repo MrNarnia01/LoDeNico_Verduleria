@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PedidoResponse {
     private Long id;
+    private Long idP;
     private String negocio;
     private Timestamp fPedido;
     private List<DetallePedidoResponse> detallePedidoResponseList;

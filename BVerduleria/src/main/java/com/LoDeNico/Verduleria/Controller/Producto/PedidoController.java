@@ -1,6 +1,5 @@
 package com.LoDeNico.Verduleria.Controller.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.Detalle.DetalleRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.PedidoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.PedidoResponse;
 import com.LoDeNico.Verduleria.Service.Producto.PedidoService;
@@ -54,8 +53,8 @@ public class PedidoController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<?> updatePedido(@RequestBody List<DetalleRequest> detalleRequestList, @PathVariable Long id){
-        PedidoResponse pedidoResponse = pedidoService.updatePedido(detalleRequestList, id);
+    public ResponseEntity<?> updatePedido(@PathVariable Long id, @RequestBody PedidoRequest pedidoRequest){
+        PedidoResponse pedidoResponse = pedidoService.updatePedido(pedidoRequest.getDetallePedidoRequestList(), id);
         if(pedidoResponse.getId()!=-1){
             return ResponseEntity.ok(pedidoResponse);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pedidoResponse.getNB());
