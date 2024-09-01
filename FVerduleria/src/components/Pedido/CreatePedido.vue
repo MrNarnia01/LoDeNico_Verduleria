@@ -4,12 +4,15 @@
             <thead>
                 <tr>
                     <td colspan="2">Proveedor</td>
-                    <td colspan="3">
+                    <td colspan="3" v-if="pedido==null">
                         <select v-model="pedidoRequest.idP" required>
                             <option v-for="proveedor in proveedores" :key="proveedor.id" :value="proveedor.id">
                                 {{ proveedor.negocio }}
                             </option>
                         </select>
+                    </td>
+                    <td colspan="3">
+                        {{ findProveedor }}
                     </td>
                 </tr>
                 <tr>
@@ -67,20 +70,17 @@
     },
     mounted(){
         if(this.pedido!=null){
-            console.log(this.pedido);
             this.pedidoRequest.idP=this.pedido.idP;
             const detallesP = this.pedido.detallePedidoResponseList;
-            console.log(detallesP);
             for(let i=0; i<detallesP.length;i++){
                 this.agregarFila(detallesP.at(i).idProdu,detallesP.at(i).caja,detallesP.at(i).cantidad);
             }
-              
         }else{
             this.agregarFila(-1,1,1);
         }
+        
         this.lProductos();
         this.lProveedores();
-        
     },
     methods: {
         eliminarProducto(index) {
@@ -140,6 +140,17 @@
             }
     
         },
+    },
+    computed:{
+        findProveedor(){
+            for(let i=0;i<this.proveedores.length;i++){
+                if(this.proveedores[i].id==this.pedido.idP){
+                    return this.proveedores[i].negocio
+                }
+            }
+            return "nada"
+        },
     }
+
   }
   </script>
