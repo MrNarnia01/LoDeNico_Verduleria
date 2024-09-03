@@ -11,7 +11,7 @@
                             </option>
                         </select>
                     </td>
-                    <td colspan="3">
+                    <td colspan="3" v-else>
                         {{ findProveedor }}
                     </td>
                 </tr>

@@ -20,7 +20,11 @@ import java.util.List;
 @Table(name = "Boleta")
 public class Boleta {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "nb")
+    private Long nb;
 
     @OneToOne
     @JoinColumn(name = "idPedido")

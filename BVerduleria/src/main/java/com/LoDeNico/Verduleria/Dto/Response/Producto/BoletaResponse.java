@@ -15,8 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoletaResponse {
+    private Long id;
     private Long nB;
     private Long idP;
+    private String negocio;
     private boolean paga;
     private Timestamp fRecibo;
     private double monto;

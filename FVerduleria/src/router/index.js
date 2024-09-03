@@ -4,6 +4,7 @@ import producto from '../views/ProductoView.vue'
 import lote from '../views/LoteView.vue'
 import proveedor from '../views/ProveedorView.vue'
 import pedidoList from '../views/PedidoList.vue'
+import boletaList from '../views/BoletaList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,11 +28,16 @@ const router = createRouter({
       path: '/proveedor',
       name: 'proveedor',
       component: proveedor
-    },,
+    },
     {
       path: '/pedidoList',
       name: 'pedidoList',
       component: pedidoList
+    },
+    {
+      path: '/boletaList',
+      name: 'boletaList',
+      component: boletaList
     },
   ]
 })
