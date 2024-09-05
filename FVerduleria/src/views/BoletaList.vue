@@ -1,10 +1,12 @@
 <script>
     import Boleta from '../components/Boleta/Boleta.vue';
     import axios from 'axios'
+    import CreateBoleta from '@/components/Boleta/CreateBoleta.vue';
 
     export default{
         components: {
             Boleta,
+            CreateBoleta,
         },
         data(){
             return{
@@ -14,6 +16,10 @@
             };
         },
         mounted(){
+            if(this.$route.query.id){
+                this.change=this.$route.query.id;
+                this.c=true;
+            }
             this.lPedidos();
         },
         methods: {
@@ -64,7 +70,5 @@
         </table>
         <button type="button" @click="create()">Crear</button>
     </div>
-    <!--
-    <CreatePedido v-if="this.c" :boleta="this.change"  @cloc="create()" />
-    -->
+    <CreateBoleta v-if="this.c" :detalle="this.change"  @cloc="create()" />
 </template>

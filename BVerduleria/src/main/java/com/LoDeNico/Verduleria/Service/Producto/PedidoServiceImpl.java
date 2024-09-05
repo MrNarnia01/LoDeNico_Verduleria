@@ -10,6 +10,7 @@ import com.LoDeNico.Verduleria.Entity.Producto.Pedido;
 import com.LoDeNico.Verduleria.Entity.Producto.Producto;
 import com.LoDeNico.Verduleria.Entity.Proveedor.Proveedor;
 import com.LoDeNico.Verduleria.Repository.Detalle.DetallePedidoRepository;
+import com.LoDeNico.Verduleria.Repository.Producto.BoletaRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.PedidoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import com.LoDeNico.Verduleria.Repository.Proveedor.ProveedorRepository;
@@ -27,26 +28,28 @@ public class PedidoServiceImpl implements PedidoService{
     private final ProductoRepository productoRepository;
     private final ProveedorRepository proveedorRepository;
     private final DetallePedidoRepository detallePedidoRepository;
+    private final BoletaRepository boletaRepository;
 
-    public PedidoServiceImpl(PedidoRepository pedidoRepository, ProductoRepository productoRepository, ProveedorRepository proveedorRepository, DetallePedidoRepository detallePedidoRepository) {
+    public PedidoServiceImpl(PedidoRepository pedidoRepository, ProductoRepository productoRepository, ProveedorRepository proveedorRepository, DetallePedidoRepository detallePedidoRepository, BoletaRepository boletaRepository) {
         this.pedidoRepository = pedidoRepository;
         this.productoRepository = productoRepository;
         this.proveedorRepository = proveedorRepository;
         this.detallePedidoRepository = detallePedidoRepository;
+        this.boletaRepository = boletaRepository;
     }
 
     private PedidoResponse createPedidoResponse(Pedido pedido){
         List<DetallePedidoResponse> detallePedidoResponseList = new ArrayList<>();
         Long nB=-1L;
-        Optional<Boleta> boletaOptional = pedidoRepository.serchByBoleta(pedido.getId());
-        if(boletaOptional.isPresent()) nB = boletaOptional.get().getId();
+        Optional<Boleta> boletaOptional = boletaRepository.findByPedido(pedido);
+        if(boletaOptional.isPresent()) nB = boletaOptional.get().getNB();
+        System.out.println(nB);
 
         for (detallePedido dp: pedido.getDetallesPedido()){
             DetallePedidoResponse detallePedidoResponse = new DetallePedidoResponse(
                     dp.getId(),
                     pedido.getId(),
                     dp.getProducto().getNombre(),
-                    dp.getProducto().isUnit(),
                     dp.getProducto().getId(),
                     dp.getCaja(),
                     dp.getCantidad()

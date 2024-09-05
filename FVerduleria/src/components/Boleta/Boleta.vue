@@ -32,7 +32,7 @@
 </script>
 
 <template>
-    <td>{{ boleta.nB }}</td>
+    <td>{{ boleta.nb }}</td>
     <td>{{ boleta.negocio }}</td>
     <td>{{ fechas }}</td>
     <td>{{ lotes }}</td>

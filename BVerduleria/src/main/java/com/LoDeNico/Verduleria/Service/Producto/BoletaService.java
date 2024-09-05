@@ -13,5 +13,5 @@ public interface BoletaService {
     public List<BoletaResponse> getBoletaListByMonto(MontoRequest montoRequest);
     public List<BoletaResponse> getBoletaListByPago(boolean pago);
     public BoletaResponse createBoleta(BoletaRequest boletaRequest);
-    public BoletaResponse updateBoleta(BoletaRequest boletaRequest);
+    public BoletaResponse updateBoleta(BoletaRequest boletaRequest,Long id);
 }

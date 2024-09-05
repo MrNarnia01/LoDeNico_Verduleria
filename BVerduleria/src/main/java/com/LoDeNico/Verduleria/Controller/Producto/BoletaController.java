@@ -69,9 +69,9 @@ public class BoletaController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(boletaResponse.getIdP());
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?> updateBoleta(@RequestBody BoletaRequest boletaRequest){
-        BoletaResponse boletaResponse = boletaService.updateBoleta(boletaRequest);
+    @PostMapping("/update/{id}")
+    public ResponseEntity<?> updateBoleta(@RequestBody BoletaRequest boletaRequest,@PathVariable Long id){
+        BoletaResponse boletaResponse = boletaService.updateBoleta(boletaRequest, id);
         if(boletaResponse.getNB()!=-1){
             return ResponseEntity.ok(boletaResponse);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(boletaResponse.getIdP());

@@ -148,7 +148,6 @@
                     return this.proveedores[i].negocio
                 }
             }
-            return "nada"
         },
     }
 

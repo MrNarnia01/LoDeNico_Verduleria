@@ -23,11 +23,11 @@ public class Boleta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nb")
-    private Long nb;
+    @Column(name = "nB")
+    private Long nB;
 
     @OneToOne
-    @JoinColumn(name = "idPedido")
+    @JoinColumn(name = "id_Pedido")
     private Pedido pedido;
 
     @Column(name = "paga")

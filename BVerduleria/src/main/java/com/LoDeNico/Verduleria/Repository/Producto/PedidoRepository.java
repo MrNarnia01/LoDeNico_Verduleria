@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface PedidoRepository extends JpaRepository<Pedido,Long> {
-    @Query(value="SELECT * FROM Boleta WHERE id_pedido = ?1", nativeQuery = true)
+    @Query(value="SELECT * FROM boleta WHERE id_pedido = ?1", nativeQuery = true)
     Optional<Boleta> serchByBoleta(Long id);
 }
