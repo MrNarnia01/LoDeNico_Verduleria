@@ -64,6 +64,6 @@
         </table>
         <button type="button" @click="create()">Crear</button>
     </div>
-    <CreatePedido v-if="this.c" :pedido="this.change"  @cloc="create()" />
+    <CreatePedido v-else :pedido="this.change"  @cloc="create()" />
 
 </template>

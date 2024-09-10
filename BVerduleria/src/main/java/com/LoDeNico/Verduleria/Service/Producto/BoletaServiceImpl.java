@@ -11,6 +11,7 @@ import com.LoDeNico.Verduleria.Entity.Pago;
 import com.LoDeNico.Verduleria.Entity.Producto.Boleta;
 import com.LoDeNico.Verduleria.Entity.Producto.Pedido;
 import com.LoDeNico.Verduleria.Entity.Producto.Producto;
+import com.LoDeNico.Verduleria.Repository.Detalle.DetalleBoletaRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.BoletaRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.PedidoRepository;
 import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
@@ -27,11 +28,13 @@ public class BoletaServiceImpl implements BoletaService{
     private final BoletaRepository boletaRepository;
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
+    private final DetalleBoletaRepository detalleBoletaRepository;
 
-    public BoletaServiceImpl(BoletaRepository boletaRepository, PedidoRepository pedidoRepository, ProductoRepository productoRepository) {
+    public BoletaServiceImpl(BoletaRepository boletaRepository, PedidoRepository pedidoRepository, ProductoRepository productoRepository, DetalleBoletaRepository detalleBoletaRepository) {
         this.boletaRepository = boletaRepository;
         this.pedidoRepository = pedidoRepository;
         this.productoRepository = productoRepository;
+        this.detalleBoletaRepository = detalleBoletaRepository;
     }
 
     private BoletaResponse createBoletaResponse(Boleta boleta){
@@ -224,6 +227,8 @@ public class BoletaServiceImpl implements BoletaService{
             }
             boleta.setDetallesBoleta(detalleBoletaList);
             boleta = boletaRepository.save(boleta);
+
+            detalleBoletaRepository.deleteByBoleta(boleta.getId());
 
             //Boleta update
             boleta.setNB(boletaRequest.getNumB());

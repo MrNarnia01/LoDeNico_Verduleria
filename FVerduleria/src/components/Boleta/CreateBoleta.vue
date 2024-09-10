@@ -3,8 +3,8 @@
         <table>
             <thead>
                 <tr>
-                    <td colspan="2">Proveedor</td>
-                    <td colspan="2">
+                    <td>Proveedor</td>
+                    <td>
                         {{ this.proveedor }}
                     </td>
                 </tr>

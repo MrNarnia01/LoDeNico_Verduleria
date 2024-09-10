@@ -2,16 +2,19 @@
     import Boleta from '../components/Boleta/Boleta.vue';
     import axios from 'axios'
     import CreateBoleta from '@/components/Boleta/CreateBoleta.vue';
+    import UpdateBoleta from '@/components/Boleta/UpdateBoleta.vue';
 
     export default{
         components: {
             Boleta,
             CreateBoleta,
+            UpdateBoleta
         },
         data(){
             return{
                 boletas: '',
                 c: false,
+                u: false,
                 change: null
             };
         },
@@ -40,7 +43,7 @@
             },
             update(boleta){
                 this.change=boleta;
-                this.c=!this.c;
+                this.u=!this.u;
                 this.lPedidos();
             }
         },
@@ -50,7 +53,7 @@
 </script>
 
 <template>
-    <div v-if="!this.c">
+    <div v-if="!this.c && !this.u">
         <table>
             <tr>
                 <td>Numero de boleta</td>
@@ -65,10 +68,10 @@
                 <td colspan="6">No hay boletas registradas</td>
             </tr>
             <tr v-else v-for="boleta in boletas" :key="boleta.id">
-                <Boleta :boleta="boleta" @e="lPedidos()"  @mod="update(boleta)"/>
+                <Boleta :boleta="boleta" @e="lPedidos()"  @mod="update(boleta.id)"/>
             </tr>
         </table>
-        <button type="button" @click="create()">Crear</button>
     </div>
     <CreateBoleta v-if="this.c" :detalle="this.change"  @cloc="create()" />
+    <UpdateBoleta v-if="this.u" :id="this.change" @cloc="update(null)"/>
 </template>

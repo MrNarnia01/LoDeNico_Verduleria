@@ -39,5 +39,6 @@
     <td>{{ paga }}</td>
     <td>{{ boleta.monto }}</td>
     <td><button type="button" @click="$emit('mod')">Modificar</button></td>
-    <td><button type="button" @click="borrar()">Eliminar</button></td>
+    <td v-if="boleta.pagoResponseList.length==0"><button type="button" @click="borrar()">Eliminar</button></td>
+    <td v-else>-</td>
 </template>
