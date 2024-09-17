@@ -13,6 +13,5 @@ import java.util.Date;
 public class PagoResquest {
     private Long idB;
     private String tipo;
-    private Date fPago;
     private double monto;
 }

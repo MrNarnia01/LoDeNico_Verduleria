@@ -1,5 +1,7 @@
 <template>
     <form @submit.prevent="crear">
+
+      <span class="close" @click="$emit('cloc')">&times;</span>
         <table>
             <thead>
                 <tr>

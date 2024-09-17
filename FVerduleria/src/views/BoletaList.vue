@@ -63,6 +63,7 @@
                 <td>Paga</td>
                 <td>Monto</td>
                 <td colspan="2">Modificaciones</td>
+                <td>Pagos</td>
             </tr>
             <tr v-if="this.boletas==''">
                 <td colspan="6">No hay boletas registradas</td>
@@ -73,5 +74,5 @@
         </table>
     </div>
     <CreateBoleta v-if="this.c" :detalle="this.change"  @cloc="create()" />
-    <UpdateBoleta v-if="this.u" :id="this.change" @cloc="update(null)"/>
+    <UpdateBoleta v-if="this.u" :id="this.change" @clou="update(null)"/>
 </template>

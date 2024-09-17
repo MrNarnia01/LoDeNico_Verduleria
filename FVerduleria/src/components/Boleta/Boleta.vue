@@ -27,6 +27,12 @@
                         console.log(error.response.data);
                 });
             },
+            boleta(){
+                this.$router.push({
+                    name: 'pagoList',
+                    query: { id:this.boleta.id }
+                });
+            }
         }
     }
 </script>
@@ -41,4 +47,5 @@
     <td><button type="button" @click="$emit('mod')">Modificar</button></td>
     <td v-if="boleta.pagoResponseList.length==0"><button type="button" @click="borrar()">Eliminar</button></td>
     <td v-else>-</td>
+    <td><button type="button" @click="boleta()">Pagos</button></td>
 </template>
