@@ -22,6 +22,7 @@ public class BoletaResponse {
     private boolean paga;
     private Timestamp fRecibo;
     private double monto;
+    private double faltaPagar;
     private List<DetalleBoletaResponse> detalleBoletaResponseList;
     private List<PagoResponse> pagoResponseList;
 }

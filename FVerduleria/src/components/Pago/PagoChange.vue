@@ -2,7 +2,9 @@
     import axios from 'axios'
     export default{
         props: {
-            pago:Object
+            pago:Object,
+            aPagar:Object,
+            idBoleta:Object
         },
         data() {
             return {
@@ -11,21 +13,26 @@
                     tipo: '',
                     monto: 0.0,
                 },
-                aPagar: 0,
+                faltaPagar: 0,
             }
         },
         mounted(){
             if(this.pago!=null){
-                this.pagoRequest.idB=this.pago.idB;
+                console.log(this.pago)
+                this.pagoRequest.idB=this.pago.id;
                 this.pagoRequest.tipo=this.pago.tipo;
                 this.pagoRequest.monto=this.pago.monto;
+                this.faltaPagar+=this.pago.monto;
             }
+            this.faltaPagar+=this.aPagar
+            this.pagoRequest.idB=this.idBoleta;
         },
         methods:{
             crear(){
                 let a = "";
                 if(this.pago==null)   a+="create";
                 else a+="update/"+this.pago.id;
+                console.log(this.pagoRequest)
                 axios.post( 'http://localhost:8080/api/pago/'+a,this.pagoRequest,{
                     headers: { 'Content-Type': 'application/json' }
                 } ).then(response => {
@@ -44,7 +51,7 @@
         <table>
             <tr>
                 <td>Falta pagar:</td>
-                <td>{{ aPagar }}</td>
+                <td>{{ faltaPagar }}</td>
             </tr>
             <tr>
                 <td><label for="tipo">Tipo:</label></td>
@@ -52,7 +59,7 @@
             </tr>
             <tr>
                 <td><label for="monto">Monto del pago:</label></td>
-                <td><input type="number" id="monto" v-model="pagoRequest.monto" :min="0" step="0.01" :max="aPagar" required></td>
+                <td><input type="number" id="monto" v-model="pagoRequest.monto" :min="0" step="0.01" :max="faltaPagar" required></td>
             </tr>
         </table>
         <button type="submit" v-if="pago==null">Crear</button>

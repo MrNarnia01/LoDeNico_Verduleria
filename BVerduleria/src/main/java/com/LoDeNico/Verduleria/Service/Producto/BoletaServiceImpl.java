@@ -41,9 +41,6 @@ public class BoletaServiceImpl implements BoletaService{
         List<DetalleBoletaResponse> detalleBoletaResponseList = new ArrayList<>();
         List<PagoResponse> pagoResponseList = new ArrayList<>();
 
-
-
-
         for (detalleBoleta db: boleta.getDetallesBoleta()){
             detalleBoletaResponseList.add(new DetalleBoletaResponse(
                     db.getId(),
@@ -74,6 +71,7 @@ public class BoletaServiceImpl implements BoletaService{
                 boleta.isPaga(),
                 boleta.getFRecibo(),
                 boleta.getMonto(),
+                boleta.allPagado(),
                 detalleBoletaResponseList,
                 pagoResponseList
         );
@@ -85,7 +83,7 @@ public class BoletaServiceImpl implements BoletaService{
         if(boletaOptional.isPresent()){
             return createBoletaResponse(boletaOptional.get());
         }else{
-            return new BoletaResponse(0L,-1L,1002L,"",false,null,0,null,null);
+            return new BoletaResponse(0L,-1L,1002L,"",false,null,0,0,null,null);
         }
     }
 
@@ -97,7 +95,7 @@ public class BoletaServiceImpl implements BoletaService{
                 boletaResponseList.add(createBoletaResponse(b));
             }
         }else{
-            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,null,null));
+            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,0,null,null));
         }
         return boletaResponseList;
     }
@@ -132,7 +130,7 @@ public class BoletaServiceImpl implements BoletaService{
                 boletaResponseList.add(createBoletaResponse(b));
             }
         }else{
-            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,null,null));
+            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,0,null,null));
         }
         return boletaResponseList;
     }
@@ -145,7 +143,7 @@ public class BoletaServiceImpl implements BoletaService{
                 boletaResponseList.add(createBoletaResponse(b));
             }
         }else{
-            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,null,null));
+            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,0,null,null));
         }
         return boletaResponseList;
     }
@@ -193,7 +191,7 @@ public class BoletaServiceImpl implements BoletaService{
             return createBoletaResponse(boleta);
 
         }else{
-            return  new BoletaResponse(0L,-1L,1003L,"",false,null,0,null,null);
+            return  new BoletaResponse(0L,-1L,1003L,"",false,null,0,0,null,null);
         }
     }
 
@@ -201,7 +199,7 @@ public class BoletaServiceImpl implements BoletaService{
         boolean b = true;
 
         Optional<Boleta> boletaOptional = boletaRepository.findById(id);
-        if(boletaOptional.isEmpty())    return  new BoletaResponse(0L,-1L,1002L,"",false,null,0,null,null);
+        if(boletaOptional.isEmpty())    return  new BoletaResponse(0L,-1L,1002L,"",false,null,0,0,null,null);
 
         Optional<Pedido> pedidoOptional = pedidoRepository.findById(boletaRequest.getIdP());
 
@@ -233,7 +231,9 @@ public class BoletaServiceImpl implements BoletaService{
             //Boleta update
             boleta.setNB(boletaRequest.getNumB());
             detalleBoletaList = new ArrayList<>();
-            boleta.setMonto(boletaRequest.getMonto());
+            if(boleta.allPagado()!=boleta.getMonto()){
+                boleta.setMonto(boletaRequest.getMonto());
+            }
 
             for (DetalleRequest br: boletaRequest.getDetalleBoletaRequestList()){
                 detalleBoleta detalleBoleta = new detalleBoleta();
@@ -253,7 +253,7 @@ public class BoletaServiceImpl implements BoletaService{
             return createBoletaResponse(boleta);
 
         }else{
-            return  new BoletaResponse(0L,-1L,1003L,"",false,null,0,null,null);
+            return  new BoletaResponse(0L,-1L,1003L,"",false,null,0,0,null,null);
         }
     }
 

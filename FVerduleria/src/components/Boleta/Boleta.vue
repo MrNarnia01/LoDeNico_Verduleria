@@ -1,5 +1,5 @@
 <script>
-    import axios from 'axios'
+    import axios from 'axios';
     import moment from 'moment';
     export default {
         props: {
@@ -17,6 +17,11 @@
             },
             lotes(){
                 return this.boleta.detalleBoletaResponseList.length;
+            },
+            pagos(){
+                if(this.boleta.pagoResponseList.length==0){
+                    return true;
+                }else false;
             }
         },
         methods: {
@@ -38,14 +43,14 @@
 </script>
 
 <template>
-    <td>{{ boleta.nb }}</td>
-    <td>{{ boleta.negocio }}</td>
+    <td>{{ this.boleta.nb }}</td>
+    <td>{{ this.boleta.negocio }}</td>
     <td>{{ fechas }}</td>
     <td>{{ lotes }}</td>
     <td>{{ paga }}</td>
-    <td>{{ boleta.monto }}</td>
+    <td>{{ this.boleta.monto }}</td>
     <td><button type="button" @click="$emit('mod')">Modificar</button></td>
-    <td v-if="boleta.pagoResponseList.length==0"><button type="button" @click="borrar()">Eliminar</button></td>
+    <td v-if="pagos"><button type="button" @click="borrar()">Eliminar</button></td>
     <td v-else>-</td>
     <td><button type="button" @click="boleta()">Pagos</button></td>
 </template>

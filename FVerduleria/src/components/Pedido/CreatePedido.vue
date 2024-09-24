@@ -102,7 +102,7 @@
         },
         async lProductos(){
             try {
-                const response = await axios.get('http://localhost:8080/api/producto/list/'+true);
+                const response = await axios.get('http://localhost:8080/api/producto/list/'+false);
                 this.productos=response.data;
             } catch (error) {
                 console.log(error)

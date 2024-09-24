@@ -62,8 +62,10 @@ public class PagoServiceImpl implements PagoService{
         if (pagoOptional.isPresent()){
             Optional<Boleta> boletaOptional = boletaRepository.findById(pagoOptional.get().getBoleta().getId());
             Boleta boleta = boletaOptional.get();
-            if(boleta.isPaga())     boleta.setPaga(false);
-            boletaRepository.save(boleta);
+            if (boleta.isPaga()) {
+                boleta.setPaga(false);
+                boletaRepository.save(boleta);
+            }
             pagoRepository.deleteById(id);
             return 0;
         }else {
@@ -76,24 +78,25 @@ public class PagoServiceImpl implements PagoService{
         Optional<Boleta> boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
 
         if (boletaOptional.isEmpty())   b = false;
+        else if (pagoResquest.getMonto()>boletaOptional.get().allPagado())     b=false;
         if (pagoResquest.getTipo().isBlank()) b = false;
-        if (pagoResquest.getMonto()<=0) b = false;
 
         if (b){
-            Pago pago = new Pago();
-            pago.setTipo(pagoResquest.getTipo());
-            pago.setMonto(pagoResquest.getMonto());
-            pago.setBoleta(boletaOptional.get());
-            pago = pagoRepository.save(pago);
-
-            boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
             Boleta boleta = boletaOptional.get();
-            if(boleta.allPagado()){
-                boleta.setPaga(true);
-            }
-            boletaRepository.save(boleta);
+            if(!boleta.isPaga()){
+                Pago pago = new Pago();
+                pago.setTipo(pagoResquest.getTipo());
+                pago.setMonto(pagoResquest.getMonto());
+                pago.setBoleta(boletaOptional.get());
+                pago = pagoRepository.save(pago);
 
-            return createPagoResponse(pago);
+
+                if((boleta.allPagado()-pago.getMonto()) <= 0){
+                    boleta.setPaga(true);
+                    boletaRepository.save(boleta);
+                }
+                return createPagoResponse(pago);
+            }else   return new PagoResponse(-1L,0L,"",null,1009);
         }else{
             return new PagoResponse(-1L,0L,"",null,1003);
         }
@@ -108,25 +111,34 @@ public class PagoServiceImpl implements PagoService{
         Optional<Boleta> boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
 
         if (boletaOptional.isEmpty())   b = false;
+        else{
+            Pago pago = pagoOptional.get();
+            Boleta boleta = boletaOptional.get();
+            double newMonto = boleta.allPagado()+pago.getMonto();
+            if(newMonto<pagoResquest.getMonto()){
+                b = false;
+            }
+        }
         if (pagoResquest.getTipo().isBlank()) b = false;
-        if (pagoResquest.getMonto()<=0) b = false;
 
         if (b){
-            Pago pago = pagoOptional.get();
-            pago.setTipo(pagoResquest.getTipo());
-            pago.setMonto(pagoResquest.getMonto());
-            pago = pagoRepository.save(pago);
-
-            boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
             Boleta boleta = boletaOptional.get();
-            if(boleta.allPagado()){
-                boleta.setPaga(true);
-            }else{
-                boleta.setPaga(false);
-            }
-            boletaRepository.save(boleta);
+            if(!boleta.isPaga()) {
+                Pago pago = pagoOptional.get();
+                pago.setTipo(pagoResquest.getTipo());
+                pago.setMonto(pagoResquest.getMonto());
+                pago = pagoRepository.save(pago);
 
-            return createPagoResponse(pago);
+
+                if ((boleta.allPagado()-pago.getMonto()) <= 0) {
+                    boleta.setPaga(true);
+                } else {
+                    boleta.setPaga(false);
+                }
+                boletaRepository.save(boleta);
+
+                return createPagoResponse(pago);
+            }else   return new PagoResponse(-1L,0L,"",null,1009);
         }else{
             return new PagoResponse(-1L,0L,"",null,1003);
         }

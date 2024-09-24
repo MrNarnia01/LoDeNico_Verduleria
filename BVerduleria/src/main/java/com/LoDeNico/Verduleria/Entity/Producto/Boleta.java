@@ -46,15 +46,16 @@ public class Boleta {
     @OneToMany(mappedBy = "boleta", cascade = CascadeType.ALL)
     private List<Pago> pagos;
 
-    public boolean allPagado(){
+    public double allPagado(){
         double total = 0;
-        boolean p = false;
-        for (Pago pa: pagos){
-            total+=pa.getMonto();
+        if (!this.pagos.isEmpty()){
+            for (Pago pa: this.pagos){
+                total+=pa.getMonto();
+            }
         }
-        if (total>=getMonto())   p = true;
-        return p;
+        return this.getMonto()-total;
     }
-
+    
+    
 
 }

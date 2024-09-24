@@ -58,16 +58,9 @@ public class ProductoServiceImpl implements ProductoService{
     }
 
     public List<ProductoResponse> getProductoList(boolean pl){
-        List<Producto> productoList = productoRepository.findAll();
+        List<Producto> productoList = productoRepository.findBySoftDelete(pl);
         List<ProductoResponse> productoResponseList = new ArrayList<>();
         if(!productoList.isEmpty()){
-            for (int i = 0; i < productoList.stream().count(); i++) {
-                if(productoList.get(i).isSoftDelete() == pl){
-                    productoList.remove(i);
-                    i--;
-                }
-            }
-
             for (Producto p: productoList){
                 productoResponseList.add(createProductoResponse(p));
             }
@@ -154,7 +147,7 @@ public class ProductoServiceImpl implements ProductoService{
 
     public List<ProductoResponse> busProducto(BusPRequest busPRequest){
         List<Producto> productoList = new ArrayList<>();
-        if(busPRequest.getNombre()==null)    productoList = productoRepository.findAll();
+        if(busPRequest.getNombre()==null)    productoList = productoRepository.findBySoftDelete(false);
         else productoList = productoRepository.serchByNombre(busPRequest.getNombre());
 
         if(busPRequest.getUni() !=0){

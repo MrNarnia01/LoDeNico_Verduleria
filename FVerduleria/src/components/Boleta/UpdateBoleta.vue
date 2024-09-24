@@ -15,7 +15,8 @@
                 </tr>
                 <tr>
                     <td><label for="monto">Monto:</label></td>
-                    <td><input type="number" id="monto" v-model="boletaRequest.monto" :min="0" step="0.01" required></td>
+                    <td v-if="aPagar"><input type="number" id="monto" v-model="boletaRequest.monto" :min="0" step="0.01" required></td>
+                    <td v-else><input type="number" id="monto" v-model="boletaRequest.monto" readonly></td>
                 </tr>
                 <tr>
                     <th>Producto</th>
@@ -71,6 +72,7 @@
                     detalleBoletaRequestList:[],
                 },
                 proveedor: '',
+                aPagar: false,
             }
         },
         mounted(){
@@ -88,7 +90,7 @@
             },
             async lProductos(){
                 try {
-                    const response = await axios.get('http://localhost:8080/api/producto/list/'+true);
+                    const response = await axios.get('http://localhost:8080/api/producto/list/'+false);
                     this.productos=response.data;
                 } catch (error) {
                     console.log(error)
@@ -108,6 +110,9 @@
                 this.boletaRequest.numB=response.nb;
                 this.boletaRequest.monto=response.monto;
                 this.proveedor=response.negocio;
+                if(response.aPagar==response.monto){
+                    this.aPagar=true;
+                }
                 const detallesP = response.detalleBoletaResponseList;
                 for(let i=0; i<detallesP.length;i++){
                     this.agregarFila(

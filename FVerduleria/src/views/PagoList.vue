@@ -1,6 +1,8 @@
 <script>
     import Pago from '@/components/Pago/Pago.vue';
     import PagoChange from '@/components/Pago/PagoChange.vue';
+    import axios from 'axios';
+    import moment from 'moment';
     export default{
         components:{
             Pago,
@@ -16,16 +18,23 @@
         },
         mounted(){
             this.id=this.$route.query.id;
+            this.getBoleta();
         },
         methods: {
             async getBoleta(){
                 try {
                     const response = await axios.get('http://localhost:8080/api/boleta/get/'+this.id);
                     this.boleta=response.data;
+                    console.log(this.boleta)
                 } catch (error) {
                     console.log(error.response.data)
                     this.boleta='';
                 }
+            },
+            change(idB){
+                this.c=idB;
+                this.show=!this.show;
+                this.getBoleta();
             },
         },
         computed:{
@@ -33,11 +42,6 @@
                 console.log(this.boleta)
                 return moment(this.boleta.fRecibo).format('DD/MM/YYYY');
             },
-        },
-        change(idB){
-            this.c=idB;
-            this.show=!this.show;
-            this.getBoleta();
         },
     }
 </script>
@@ -68,5 +72,5 @@
             <Pago :pago="pago" @e="getBoleta()" @mod="change(pago)" />
         </tr>
     </table>
-    <PagoChange v-else :pago="this.c" @cloc="change(null)"/>
+    <PagoChange v-else :pago="this.c" :aPagar="this.boleta.faltaPagar" :idBoleta="this.boleta.id" @cloc="change(null)"/>
 </template>

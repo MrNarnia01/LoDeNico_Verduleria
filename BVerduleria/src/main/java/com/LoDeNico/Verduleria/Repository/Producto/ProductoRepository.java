@@ -16,4 +16,6 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
 
     @Query(value="SELECT * FROM Producto WHERE nombre LIKE '%:nombre%' ", nativeQuery = true)
     List<Producto> serchByNombre(@Param("nombre") String nombre);
+
+    List<Producto> findBySoftDelete(boolean softDelete);
 }

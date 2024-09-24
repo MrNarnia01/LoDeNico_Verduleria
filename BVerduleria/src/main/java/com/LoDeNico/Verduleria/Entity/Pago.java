@@ -21,7 +21,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "nBoleta")
     private Boleta boleta;
 
