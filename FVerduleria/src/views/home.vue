@@ -9,6 +9,8 @@
     <RouterLink to="/proveedor"> Proveedores </RouterLink>
     <RouterLink to="/pedidoList"> Pedidos </RouterLink>
     <RouterLink to="/boletaList"> Boletas </RouterLink>
+    <RouterLink > Empleado </RouterLink>
+    <RouterLink > Contabilidad </RouterLink>
 </template>
 
 

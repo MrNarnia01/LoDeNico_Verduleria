@@ -72,7 +72,6 @@ public class LoteServiceImpl implements LoteService{
     public LoteResponse createLote(LoteRequest loteRequest){
         boolean b = true;
         Optional<Producto> productoOptional = productoRepository.findById(loteRequest.getIdP());
-        System.out.println(loteRequest.getDate());
         if(productoOptional.isEmpty()) b = false;
         if(loteRequest.getNum()<=0) b = false;
 

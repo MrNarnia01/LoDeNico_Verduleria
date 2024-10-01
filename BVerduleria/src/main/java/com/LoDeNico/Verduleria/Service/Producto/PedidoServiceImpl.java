@@ -43,7 +43,6 @@ public class PedidoServiceImpl implements PedidoService{
         Long nB=-1L;
         Optional<Boleta> boletaOptional = boletaRepository.findByPedido(pedido);
         if(boletaOptional.isPresent()) nB = boletaOptional.get().getNB();
-        System.out.println(nB);
 
         for (detallePedido dp: pedido.getDetallesPedido()){
             DetallePedidoResponse detallePedidoResponse = new DetallePedidoResponse(

@@ -25,7 +25,6 @@ public class BoletaController {
     public ResponseEntity<?> getBoleta(@PathVariable Long id){
         BoletaResponse boletaResponse = boletaService.getBoleta(id);
         if(boletaResponse.getNB()!=-1){
-            System.out.println("A Pagar: "+boletaResponse.getFaltaPagar());
             return ResponseEntity.ok(boletaResponse);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(boletaResponse.getIdP());
     }

@@ -90,8 +90,7 @@ public class PagoServiceImpl implements PagoService{
                 pago.setBoleta(boletaOptional.get());
                 pago = pagoRepository.save(pago);
 
-
-                if((boleta.allPagado()-pago.getMonto()) <= 0){
+                if((boleta.allPagado()-pago.getMonto()) == 0){
                     boleta.setPaga(true);
                     boletaRepository.save(boleta);
                 }
@@ -123,22 +122,20 @@ public class PagoServiceImpl implements PagoService{
 
         if (b){
             Boleta boleta = boletaOptional.get();
-            if(!boleta.isPaga()) {
-                Pago pago = pagoOptional.get();
-                pago.setTipo(pagoResquest.getTipo());
-                pago.setMonto(pagoResquest.getMonto());
-                pago = pagoRepository.save(pago);
+            Pago pago = pagoOptional.get();
+            pago.setTipo(pagoResquest.getTipo());
+            pago.setMonto(pagoResquest.getMonto());
+            pago = pagoRepository.save(pago);
 
-
-                if ((boleta.allPagado()-pago.getMonto()) <= 0) {
-                    boleta.setPaga(true);
-                } else {
-                    boleta.setPaga(false);
-                }
-                boletaRepository.save(boleta);
+            boleta = boletaRepository.findById(pagoResquest.getIdB()).get();
+            if (boleta.allPagado() == 0) {
+                boleta.setPaga(true);
+            } else {
+                boleta.setPaga(false);
+            }
+            boletaRepository.save(boleta);
 
                 return createPagoResponse(pago);
-            }else   return new PagoResponse(-1L,0L,"",null,1009);
         }else{
             return new PagoResponse(-1L,0L,"",null,1003);
         }
