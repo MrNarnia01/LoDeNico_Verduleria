@@ -18,12 +18,11 @@
                 });
             },
             ver(){
-                /*
                 this.$router.push({
-                    name: 'lote',
+                    name: 'trabajador',
                     query: { id:this.proveedor.id }
                 });
-                */
+                
             }
         }
     }

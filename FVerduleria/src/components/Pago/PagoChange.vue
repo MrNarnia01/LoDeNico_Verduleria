@@ -2,13 +2,11 @@
     import axios from 'axios'
     export default{
         props: {
-            pago:Object,
-            aPagar:Object,
-            idBoleta:Object
+            trabajador:Object,
         },
         data() {
             return {
-                pagoRequest:  {
+                trabajadorRequest:  {
                     idB: 0,
                     tipo: '',
                     monto: 0.0,
