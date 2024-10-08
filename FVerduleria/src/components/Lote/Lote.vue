@@ -13,10 +13,12 @@
                         console.log(error.response.data);
                 });
             },
-            formatoFechas(fecha){
-                return moment(fecha).format('DD/MM/YYYY');
-            }
-        }
+        },
+        computed:{
+            fechas(){
+                return moment(this.lote.fVenci).format('DD/MM/YYYY');
+            },
+        },
     }
 </script>
 
@@ -24,6 +26,6 @@
 <template>
     <td>{{ lote.nombre }}</td>
     <td>{{ lote.nlote }}</td>
-    <td>{{ formatoFechas(lote.fVenci) }}</td>
+    <td>{{ fechas }}</td>
     <td> <button type="button" @click="borrar()"> Borrar </button> </td>
 </template>

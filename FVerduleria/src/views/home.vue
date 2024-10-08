@@ -10,7 +10,7 @@
     <RouterLink to="/pedidoList"> Pedidos </RouterLink>
     <RouterLink to="/boletaList"> Boletas </RouterLink>
     <RouterLink > Empleado </RouterLink>
-    <RouterLink > Contabilidad </RouterLink>
+    <RouterLink to="/extras"> Otros </RouterLink>
 </template>
 
 

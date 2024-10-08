@@ -80,8 +80,8 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         if(trabajadorRequest.getPuesto().isBlank()) b = false;
         if(trabajadorRequest.getNombre().isBlank()) b = false;
         if(trabajadorRequest.getApellido().isBlank()) b = false;
-        if(trabajadorRequest.getCodArea() >= 0) b = false;
-        if(trabajadorRequest.getTel() >= 0) b = false;
+        if(trabajadorRequest.getCodArea() <= 0) b = false;
+        if(trabajadorRequest.getTel() <= 0) b = false;
 
         if(b){
             Trabajador trabajador = new Trabajador();
@@ -89,11 +89,18 @@ public class TrabajadorServiceImpl implements TrabajadorService {
             trabajador.setPuesto(trabajadorRequest.getPuesto());
 
             Persona persona = new Persona();
-            if(trabajadorRequest.getId()!=-1) persona.setId(trabajador.getId());
-            persona.setNombre(trabajadorRequest.getNombre());
-            persona.setApellido(trabajadorRequest.getApellido());
-            persona.setCodArea(trabajadorRequest.getCodArea());
-            persona.setTel(trabajadorRequest.getTel());
+            Optional<Persona> personaOptional = personaRepository.findByNombreAndApellidoAndCodAreaAndTel(
+                    trabajadorRequest.getNombre(),
+                    trabajadorRequest.getApellido(),
+                    trabajadorRequest.getCodArea(),
+                    trabajadorRequest.getTel()
+            );
+            if(personaOptional.isEmpty()){
+                persona.setNombre(trabajadorRequest.getNombre());
+                persona.setApellido(trabajadorRequest.getApellido());
+                persona.setCodArea(trabajadorRequest.getCodArea());
+                persona.setTel(trabajadorRequest.getTel());
+            }else persona=personaOptional.get();
 
             trabajador.setPersona(persona);
 
@@ -109,28 +116,21 @@ public class TrabajadorServiceImpl implements TrabajadorService {
     public TrabajadorResponse updateTrabajador(TrabajadorRequest trabajadorRequest, Long id){
         boolean b = true;
         Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(id);
-        Optional<Proveedor> proveedorOptional = proveedorRepository.findById(trabajadorRequest.getIdP());
-        if(proveedorOptional.isEmpty()) b = false;
         if(trabajadorOptional.isEmpty()) b = false;
         if(trabajadorRequest.getPuesto().isBlank()) b = false;
         if(trabajadorRequest.getNombre().isBlank()) b = false;
         if(trabajadorRequest.getApellido().isBlank()) b = false;
-        if(trabajadorRequest.getCodArea() >= 0) b = false;
-        if(trabajadorRequest.getTel() >= 0) b = false;
+        if(trabajadorRequest.getCodArea() <= 0) b = false;
+        if(trabajadorRequest.getTel() <= 0) b = false;
 
         if(b){
             Trabajador trabajador = trabajadorOptional.get();
-            trabajador.setProveedor(proveedorOptional.get());
             trabajador.setPuesto(trabajadorRequest.getPuesto());
 
-            Persona persona = new Persona();
-            if(trabajadorRequest.getId()!=-1) persona.setId(trabajador.getId());
-            persona.setNombre(trabajadorRequest.getNombre());
-            persona.setApellido(trabajadorRequest.getApellido());
-            persona.setCodArea(trabajadorRequest.getCodArea());
-            persona.setTel(trabajadorRequest.getTel());
-
-            trabajador.setPersona(persona);
+            trabajador.getPersona().setNombre(trabajadorRequest.getNombre());
+            trabajador.getPersona().setApellido(trabajadorRequest.getApellido());
+            trabajador.getPersona().setCodArea(trabajadorRequest.getCodArea());
+            trabajador.getPersona().setTel(trabajadorRequest.getTel());
 
             trabajador =  trabajadorRepository.save(trabajador);
 

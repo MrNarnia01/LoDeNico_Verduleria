@@ -25,7 +25,7 @@ public class Trabajador {
     @Column(name = "puesto")
     private String puesto;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPersona")
     private Persona persona;
 

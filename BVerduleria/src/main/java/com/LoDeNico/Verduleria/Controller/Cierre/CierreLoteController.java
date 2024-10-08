@@ -29,6 +29,14 @@ public class CierreLoteController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cierreLote.getMonto());
     }
 
+    @PostMapping("/update/{id}")
+    public ResponseEntity<?> updateLote(@RequestBody CierreRequest cierreRequest, @PathVariable Long id){
+        CierreLote cierreLote = cierreLoteService.updateCierre(cierreRequest,id);
+        if(cierreLote.getId()!=-1){
+            return ResponseEntity.ok(cierreLote);
+        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cierreLote.getMonto());
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCierre(@PathVariable Long id){
         int cod = cierreLoteService.deleteCierre(id);
@@ -40,6 +48,14 @@ public class CierreLoteController {
     @GetMapping
     public ResponseEntity<?> getCierreBus(@RequestBody BusRequest busRequest){
         List<CierreLote> cierreLoteList = cierreLoteService.cierreLoteBus(busRequest);
+        if(!cierreLoteList.isEmpty()){
+            return ResponseEntity.ok(cierreLoteList);
+        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(1001);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getCierreList(){
+        List<CierreLote> cierreLoteList = cierreLoteService.cierreLoteList();
         if(!cierreLoteList.isEmpty()){
             return ResponseEntity.ok(cierreLoteList);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(1001);

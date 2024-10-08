@@ -36,8 +36,8 @@ public class ProveedorController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(proveedorResponseList.get(0).getAltura());
     }
 
-    @GetMapping("/get/{nec}")
-    public ResponseEntity<?> getProveedor(@PathVariable String nec){
+    @GetMapping("/get/nec/{nec}")
+    public ResponseEntity<?> getProveedorByNegocio(@PathVariable String nec){
         ProveedorResponse proveedorResponse = proveedorService.getProveedorByNegocio(nec);
         if(proveedorResponse.getId()!=-1){
             return ResponseEntity.ok(proveedorResponse);

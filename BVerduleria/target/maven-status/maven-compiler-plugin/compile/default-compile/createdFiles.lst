@@ -33,6 +33,7 @@ com/LoDeNico/Verduleria/Dto/Request/Proveedor/TrabajadorRequest.class
 com/LoDeNico/Verduleria/Repository/Empleado/HorarioRepository.class
 com/LoDeNico/Verduleria/Entity/Cuenta/Cliente.class
 com/LoDeNico/Verduleria/Repository/Producto/BoletaRepository.class
+com/LoDeNico/Verduleria/Controller/Empleado/PersonaController.class
 com/LoDeNico/Verduleria/Repository/Cuenta/CuentaCorrienteRepository.class
 com/LoDeNico/Verduleria/Dto/Request/Detalle/DetalleRequest.class
 com/LoDeNico/Verduleria/Service/PagoServiceImpl.class
@@ -51,6 +52,7 @@ com/LoDeNico/Verduleria/Dto/Response/Detalle/DetalleBoletaResponse.class
 com/LoDeNico/Verduleria/Controller/Cuenta/CuentaCorrienteController.class
 com/LoDeNico/Verduleria/Entity/Empleado/Persona.class
 com/LoDeNico/Verduleria/Service/Cuenta/CuentaCorrienteService.class
+com/LoDeNico/Verduleria/Service/Empleado/PersonaServiceImpl.class
 com/LoDeNico/Verduleria/Service/Producto/BoletaService.class
 com/LoDeNico/Verduleria/Dto/Request/Cuenta/ClienteRequest.class
 com/LoDeNico/Verduleria/Repository/Producto/LoteRepository.class
@@ -67,6 +69,7 @@ com/LoDeNico/Verduleria/Entity/Cierre/CierreLote.class
 com/LoDeNico/Verduleria/Service/Cierre/CierreLoteServiceImpl.class
 com/LoDeNico/Verduleria/Dto/Response/Cuenta/ClienteResponse.class
 com/LoDeNico/Verduleria/Dto/Response/Producto/PedidoResponse.class
+com/LoDeNico/Verduleria/Service/Empleado/PersonaService.class
 com/LoDeNico/Verduleria/Entity/Empleado/Empleado.class
 com/LoDeNico/Verduleria/Dto/Request/FechaRequest.class
 com/LoDeNico/Verduleria/Service/Proveedor/ProveedorServiceImpl.class

@@ -28,7 +28,7 @@ public class CierreLoteServiceImpl implements CierreLoteService {
         if(b){
             CierreLote cierreLote =  new CierreLote();
             cierreLote.setMonto(cierreRequest.getMonto());
-            cierreLote.setTipo(cierreLote.isTipo());
+            cierreLote.setTipo(cierreRequest.isTipo());
             cierreLote = cierreLoteRepository.save(cierreLote);
             return cierreLote;
         }else{
@@ -48,6 +48,7 @@ public class CierreLoteServiceImpl implements CierreLoteService {
 
     /*
         Codigos de busqueda:
+            0 : Ningun filtro
             1 : Solo tipo
             2 : Ambos
             3 : Solo monto
@@ -93,6 +94,26 @@ public class CierreLoteServiceImpl implements CierreLoteService {
         return cierreLoteList;
     }
 
+    public List<CierreLote> cierreLoteList(){
+        return cierreLoteRepository.findAll();
+    }
+
+    public CierreLote updateCierre(CierreRequest cierreRequest, Long id){
+        boolean b = true;
+        Optional<CierreLote> cierreLoteOptional = cierreLoteRepository.findById(id);
+        if(cierreLoteOptional.isEmpty())    return new CierreLote(-1L,true,1002,null);
+        if(cierreRequest.getMonto()<=0) b = false;
+
+        if(b){
+            CierreLote cierreLote =  cierreLoteOptional.get();
+            cierreLote.setMonto(cierreRequest.getMonto());
+            cierreLote.setTipo(cierreRequest.isTipo());
+            cierreLote = cierreLoteRepository.save(cierreLote);
+            return cierreLote;
+        }else{
+            return new CierreLote(-1L,true,1003,null);
+        }
+    }
 
 
 
