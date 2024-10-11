@@ -19,7 +19,7 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long eId;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPersona")
     private Persona persona;
 
