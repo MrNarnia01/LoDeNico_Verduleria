@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface PersonaService {
     public List<Persona> getPersonaList();
+    public int deletePersona(Long id);
 }

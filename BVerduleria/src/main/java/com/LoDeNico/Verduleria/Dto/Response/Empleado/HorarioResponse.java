@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -15,6 +16,6 @@ public class HorarioResponse {
     private Long id;
     private String nombre;
     private String apellido;
-    private Timestamp entrada;
-    private Timestamp salida;
+    private LocalTime entrada;
+    private LocalTime salida;
 }

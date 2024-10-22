@@ -5,10 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class HorarioRequest {
     private Long idE;
+    private LocalTime entrada;
+    private LocalTime salida;
 }

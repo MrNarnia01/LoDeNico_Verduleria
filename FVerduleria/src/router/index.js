@@ -7,8 +7,8 @@ import pedidoList from '../views/PedidoList.vue'
 import boletaList from '../views/BoletaList.vue'
 import pagoList from '@/views/PagoList.vue'
 import TrabajadorView from '@/views/TrabajadorView.vue'
-import Extras from '@/views/Extras.vue'
 import EmpleadoView from '@/views/EmpleadoView.vue'
+import HorarioView from '@/views/HorarioView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,14 +54,14 @@ const router = createRouter({
       component: TrabajadorView
     },
     {
-      path: '/extras',
-      name: 'extras',
-      component: Extras
-    },
-    {
       path: '/empleado',
       name: 'empleado',
       component: EmpleadoView
+    },
+    {
+      path: '/horario',
+      name: 'horario',
+      component: HorarioView
     },
   ]
 })

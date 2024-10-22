@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
@@ -21,13 +22,11 @@ public class Horario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long hId;
 
-    @CreationTimestamp
     @Column(name = "entrada")
-    private Timestamp entrada;
+    private LocalTime entrada;
 
-    @UpdateTimestamp
     @Column(name = "salida")
-    private Timestamp salida;
+    private LocalTime salida;
 
     @ManyToOne
     @JoinColumn(name = "idEmpleado")

@@ -45,9 +45,7 @@ public class HorarioServiceImpl implements HorarioService{
     public int deleteHorario(Long id){
         Optional<Horario> horarioOptional = horarioRepository.findById(id);
         if(horarioOptional.isPresent()){
-            Horario horario = horarioOptional.get();
-            if(horario.getEntrada().equals(horario.getSalida()))    horarioRepository.deleteById(id);
-            else return 1004;
+            horarioRepository.deleteById(id);
             return 0;
         }else{
             return 1002;
@@ -58,10 +56,13 @@ public class HorarioServiceImpl implements HorarioService{
         boolean b = true;
         Optional<Empleado> empleadoOptional = empleadoRepository.findById(horarioRequest.getIdE());
         if(empleadoOptional.isEmpty()) b=false;
-
+        if (horarioRequest.getEntrada() == null || horarioRequest.getSalida() == null) b=false;
+        else if (horarioRequest.getEntrada().isAfter(horarioRequest.getSalida())) b=false;
         if(b){
             Horario horario = new Horario();
             horario.setEmpleado(empleadoOptional.get());
+            horario.setEntrada(horarioRequest.getEntrada());
+            horario.setSalida(horarioRequest.getSalida());
             horario = horarioRepository.save(horario);
             return createHorarioResponse(horario);
         }else{
@@ -77,12 +78,12 @@ public class HorarioServiceImpl implements HorarioService{
         if(horarioOptional.isEmpty())    return new HorarioResponse(-1L, "1002", "", null, null);
         else horario = horarioOptional.get();
 
-        if(!horario.getEntrada().equals(horario.getSalida())) b = false;
-
-        Optional<Empleado> empleadoOptional = empleadoRepository.findById(horarioRequest.getIdE());
-        if (empleadoOptional.isEmpty()) b = false;
+        if (horarioRequest.getEntrada() == null || horarioRequest.getSalida() == null) b=false;
+        else if (horarioRequest.getEntrada().isAfter(horarioRequest.getSalida())) b=false;
 
         if (b) {
+            horario.setEntrada(horarioRequest.getEntrada());
+            horario.setSalida(horarioRequest.getSalida());
             horario = horarioRepository.save(horario);
             return createHorarioResponse(horario);
         } else {
