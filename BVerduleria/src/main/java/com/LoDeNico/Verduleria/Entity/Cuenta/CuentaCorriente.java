@@ -16,7 +16,7 @@ public class CuentaCorriente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
 

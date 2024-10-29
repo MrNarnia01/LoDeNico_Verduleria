@@ -37,15 +37,17 @@ public class ClienteServiceImpl implements ClienteService{
         clienteResponse.setAltura(cliente.getAltura());
 
         List<CuentaCorrienteResponse> cuentaCorrienteResponseList = new ArrayList<>();
-        for(CuentaCorriente cC : cliente.getCuentasCorriente()){
-            CuentaCorrienteResponse cuentaCorrienteResponse =  new CuentaCorrienteResponse();
-            cuentaCorrienteResponse.setId(cC.getId());
-            cuentaCorrienteResponse.setNombre(clienteResponse.getNombre());
-            cuentaCorrienteResponse.setApellido(clienteResponse.getApellido());
-            cuentaCorrienteResponse.setMonto(cC.getMonto());
-            cuentaCorrienteResponse.setFRegistro(cC.getFRegistro());
-            cuentaCorrienteResponse.setFPago(cC.getFPago());
-            cuentaCorrienteResponseList.add(cuentaCorrienteResponse);
+        if(!cliente.getCuentasCorriente().isEmpty()){
+            for(CuentaCorriente cC : cliente.getCuentasCorriente()){
+                CuentaCorrienteResponse cuentaCorrienteResponse =  new CuentaCorrienteResponse();
+                cuentaCorrienteResponse.setId(cC.getId());
+                cuentaCorrienteResponse.setNombre(clienteResponse.getNombre());
+                cuentaCorrienteResponse.setApellido(clienteResponse.getApellido());
+                cuentaCorrienteResponse.setMonto(cC.getMonto());
+                cuentaCorrienteResponse.setFRegistro(cC.getFRegistro());
+                cuentaCorrienteResponse.setFPago(cC.getFPago());
+                cuentaCorrienteResponseList.add(cuentaCorrienteResponse);
+            }
         }
         clienteResponse.setCuentaCorrienteResponseList(cuentaCorrienteResponseList);
         return clienteResponse;
@@ -78,7 +80,7 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-
+/*
     public List<ClienteResponse> getClienteListByNombre(String nombre){
         List<Persona> personaList = personaRepository.findByNombre(nombre);
         List<Cliente> clienteList = clienteRepository.findAll();
@@ -154,36 +156,7 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-
-    public ClienteResponse createCliente(ClienteRequest clienteRequest){
-        boolean b = true;
-        if (clienteRequest.getNombre().isBlank()) b = false;
-        if (clienteRequest.getApellido().isBlank()) b = false;
-        if (clienteRequest.getCalle().isBlank()) b = false;
-        if (clienteRequest.getCodArea()<=0) b = false;
-        if (clienteRequest.getTel()<=0) b = false;
-        if (clienteRequest.getAltura()<=0) b = false;
-
-        if(b){
-            Cliente cliente = new Cliente();
-            cliente.setCalle(cliente.getCalle());
-            cliente.setAltura(cliente.getAltura());
-
-            Persona persona = new Persona();
-            if(clienteRequest.getId()!=-1) persona.setId(clienteRequest.getId());
-            persona.setNombre(clienteRequest.getNombre());
-            persona.setApellido(clienteRequest.getApellido());
-            persona.setCodArea(clienteRequest.getCodArea());
-            persona.setTel(clienteRequest.getTel());
-            cliente.setPersona(persona);
-
-            cliente = clienteRepository.save(cliente);
-            return createClienteResponse(cliente);
-        }else{
-            return new ClienteResponse(-1L,"","",
-                    1003,0,"",0,null);
-        }
-    }
+*/
 
     public int deleteCliente(Long id){
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
@@ -212,14 +185,10 @@ public class ClienteServiceImpl implements ClienteService{
             Cliente cliente = clienteOptional.get();
             cliente.setCalle(cliente.getCalle());
             cliente.setAltura(cliente.getAltura());
-
-            Persona persona = new Persona();
-            if(clienteRequest.getId()!=-1) persona.setId(clienteRequest.getId());
-            persona.setNombre(clienteRequest.getNombre());
-            persona.setApellido(clienteRequest.getApellido());
-            persona.setCodArea(clienteRequest.getCodArea());
-            persona.setTel(clienteRequest.getTel());
-            cliente.setPersona(persona);
+            cliente.getPersona().setNombre(clienteRequest.getNombre());
+            cliente.getPersona().setApellido(clienteRequest.getApellido());
+            cliente.getPersona().setCodArea(clienteRequest.getCodArea());
+            cliente.getPersona().setTel(clienteRequest.getTel());
 
             cliente = clienteRepository.save(cliente);
             return createClienteResponse(cliente);

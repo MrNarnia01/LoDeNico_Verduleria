@@ -35,7 +35,7 @@ public class ClienteController {
             return ResponseEntity.ok(clienteResponseList);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteResponseList.get(0).getCodArea());
     }
-
+/*
     @GetMapping("/list/nom/{nom}")
     public ResponseEntity<?> getClienteListByNombre(@PathVariable String nom){
         List<ClienteResponse> clienteResponseList = clienteService.getClienteListByNombre(nom);
@@ -59,21 +59,13 @@ public class ClienteController {
             return ResponseEntity.ok(clienteResponseList);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteResponseList.get(0).getCodArea());
     }
-
+*/
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCliente(@PathVariable Long id){
         int cod = clienteService.deleteCliente(id);
         if(cod == 0){
             return ResponseEntity.ok(cod);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cod);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<?> createCliente(@RequestBody ClienteRequest clienteRequest){
-        ClienteResponse clienteResponse = clienteService.createCliente(clienteRequest);
-        if(clienteResponse.getId()!=-1){
-            return ResponseEntity.ok(clienteResponse);
-        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteResponse.getCodArea());
     }
 
     @PostMapping("/create/{id}")

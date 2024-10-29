@@ -9,6 +9,8 @@ import pagoList from '@/views/PagoList.vue'
 import TrabajadorView from '@/views/TrabajadorView.vue'
 import EmpleadoView from '@/views/EmpleadoView.vue'
 import HorarioView from '@/views/HorarioView.vue'
+import FiadoView from '@/views/FiadoView.vue'
+import ClienteView from '@/views/ClienteView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +65,17 @@ const router = createRouter({
       name: 'horario',
       component: HorarioView
     },
+    {
+      path: '/fiado',
+      name: 'fiado',
+      component: FiadoView
+    },
+    {
+      path: '/cliente',
+      name: 'cliente',
+      component: ClienteView
+    },
+    
   ]
 })
 

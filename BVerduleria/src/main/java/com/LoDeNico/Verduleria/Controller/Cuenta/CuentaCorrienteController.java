@@ -1,8 +1,7 @@
 package com.LoDeNico.Verduleria.Controller.Cuenta;
 
+import com.LoDeNico.Verduleria.Dto.Request.Cuenta.ClienteRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Cuenta.CuentaCorrienteRequest;
-import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Cuenta.CuentaCorrienteResponse;
 import com.LoDeNico.Verduleria.Service.Cuenta.CuentaCorrienteService;
 import org.springframework.http.HttpStatus;
@@ -36,22 +35,6 @@ public class CuentaCorrienteController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaCorrienteResponseList.get(0).getMonto());
     }
 
-    @GetMapping("/list/monto")
-    public ResponseEntity<?> getCuentaListByMonto(@RequestBody MontoRequest montoRequest){
-        List<CuentaCorrienteResponse> cuentaCorrienteResponseList = cuentaCorrienteService.getCuentaCorrienteListByMonto(montoRequest);
-        if(cuentaCorrienteResponseList.get(0).getId()!=-1){
-            return ResponseEntity.ok(cuentaCorrienteResponseList);
-        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaCorrienteResponseList.get(0).getMonto());
-    }
-
-    @GetMapping("/list/fecha/{b}")
-    public ResponseEntity<?> getCuentaListByFechas(@RequestBody FechaRequest fechaRequest, @PathVariable boolean b){
-        List<CuentaCorrienteResponse> cuentaCorrienteResponseList = cuentaCorrienteService.getCuentaCorrienteListByFechas(fechaRequest, b);
-        if(cuentaCorrienteResponseList.get(0).getId()!=-1){
-            return ResponseEntity.ok(cuentaCorrienteResponseList);
-        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaCorrienteResponseList.get(0).getMonto());
-    }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCuenta(@PathVariable Long id){
         int cod = cuentaCorrienteService.deleteCuentaCorriente(id);
@@ -60,17 +43,25 @@ public class CuentaCorrienteController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cod);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createCuenta(@RequestBody CuentaCorrienteRequest cuentaCorrienteRequest){
-        CuentaCorrienteResponse cuentaCorrienteResponse = cuentaCorrienteService.createCuentaCorriente(cuentaCorrienteRequest);
+    @PostMapping("/create/wC")
+    public ResponseEntity<?> createCuentaWithCliente(@RequestBody CuentaCorrienteRequest cuentaCorrienteRequest){
+        CuentaCorrienteResponse cuentaCorrienteResponse = cuentaCorrienteService.createCuentaCorrienteWithCliente(cuentaCorrienteRequest);
         if(cuentaCorrienteResponse.getId()!=-1){
             return ResponseEntity.ok(cuentaCorrienteResponse);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaCorrienteResponse.getMonto());
     }
 
-    @PostMapping("/update/c/{id}")
-    public ResponseEntity<?> updateCuenta(@RequestBody CuentaCorrienteRequest cuentaCorrienteRequest, @PathVariable Long id){
-        CuentaCorrienteResponse cuentaCorrienteResponse = cuentaCorrienteService.updateCuentaCorriente(cuentaCorrienteRequest, id);
+    @PostMapping("/create/nC")
+    public ResponseEntity<?> createCuentaWithoutCliente(@RequestBody ClienteRequest clienteRequest ){
+        CuentaCorrienteResponse cuentaCorrienteResponse = cuentaCorrienteService.createCuentaCorrienteWithoutCliente(clienteRequest);
+        if(cuentaCorrienteResponse.getId()!=-1){
+            return ResponseEntity.ok(cuentaCorrienteResponse);
+        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaCorrienteResponse.getMonto());
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCuenta(@RequestBody CuentaCorrienteRequest cuentaCorrienteRequest){
+        CuentaCorrienteResponse cuentaCorrienteResponse = cuentaCorrienteService.updateCuentaCorriente(cuentaCorrienteRequest);
         if(cuentaCorrienteResponse.getId()!=-1){
             return ResponseEntity.ok(cuentaCorrienteResponse);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaCorrienteResponse.getMonto());

@@ -66,7 +66,7 @@
     <RouterLink to="/pedidoList"> Pedidos </RouterLink>
     <RouterLink to="/boletaList"> Boletas </RouterLink>
     <RouterLink to="/empleado"> Empleado </RouterLink>
-    <RouterLink to="/"> Fiado </RouterLink>
+    <RouterLink to="/fiado"> Fiado </RouterLink>
 
 
 </template>
