@@ -1,19 +1,29 @@
 <template>
+    <div class="popUp">
+    <div class="popUp-content">  
+      <div class="close" @click="$emit('cloc')">&times;</div>
     <form @submit.prevent="crear">
-      <span class="close" @click="$emit('cloc')">&times;</span>
+        <h3 v-if="pedido==null">Crear pedido</h3>
+        <h3 v-else>Modificar pedido</h3>
         <table>
-            <thead>
                 <tr>
-                    <td colspan="2">Proveedor</td>
-                    <td colspan="3" v-if="pedido==null">
+                    <td >Proveedor</td>
+                    <td v-if="pedido==null">
                         <select v-model="pedidoRequest.idP" required>
                             <option v-for="proveedor in proveedores" :key="proveedor.id" :value="proveedor.id">
                                 {{ proveedor.negocio }}
                             </option>
                         </select>
                     </td>
-                    <td colspan="3" v-else>
+                    <td v-else>
                         {{ findProveedor }}
+                    </td>
+                    <td>
+                        <button type="button" class="bot" @click="agregarFila(-1,1,1)">Agregar producto</button>
+                    </td>
+                    <td>
+                        <button type="submit" class="bot" v-if="pedido==null">Crear</button>
+                        <button type="submit" class="bot" v-else>Modificar</button>
                     </td>
                 </tr>
                 <tr>
@@ -22,8 +32,6 @@
                     <th>Cantidad por caja</th>
                     <th>Eliminar</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr v-for="(detalleRequest, index) in pedidoRequest.detallePedidoRequestList" >
                     <td>
             <select v-model="detalleRequest.idP" @change="validarProducto(index)" required>
@@ -38,21 +46,14 @@
                     <td>
                         <input type="number" v-model.number="detalleRequest.cantidad" :min="1" />
                     </td>
-                    <td @click="eliminarProducto(index)">
-                        X
+                    <td @click="eliminarProducto(index)" class="closel">
+                        &times;
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="4">
-                        <button type="button" @click="agregarFila(-1,1,1)">Agregar producto</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <button type="submit" v-if="pedido==null">Crear</button>
-        <button type="submit" v-else>Modificar</button>
+            </table>
     </form>
+    </div>
+    </div>
   </template>
   
   <script>

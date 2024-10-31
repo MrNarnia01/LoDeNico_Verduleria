@@ -50,24 +50,34 @@
 <template>
     
 
-    <table v-if="this.c && this.u">
-        <h1>Proveedor :</h1>
+    <table class="view">
         <tr>
-            <th>Negocio :</th>
-            <td> <input type="text" v-model="proveedor.negocio" readonly> </td>
-            <th>Direccion :</th>
+            <th class="tit" colspan="5">Proveedor</th>
+        </tr>
+        <tr>
+            <th class="tit">Negocio :</th>
+            <td> {{ proveedor.negocio }} </td>
+            <th class="tit">Direccion :</th>
             <td> {{ proveedor.calle }}  {{ proveedor.altura }} </td>
+            <td @click="create()" class="bot">Registrar trabajador</td>
         </tr>
         <tr>
-            <th>Trabajadores</th>
+            <th class="tit" colspan="5">Trabajadores</th>
         </tr>
-
-        <tr v-for="trabajador in proveedor.trabajadorResponseList" :key="trabajador.id">
+        <tr>
+            <td>Puesto</td>
+            <td>Nombre</td>
+            <td>Telefono</td>
+            <td colspan="2">Modificaciones</td>
+        </tr>
+        <tr v-if="this.proveedor.trabajadorResponseList==''">
+            <td colspan="6">No hay Trabajadores registrados</td>
+        </tr>
+        <tr v-else v-for="trabajador in proveedor.trabajadorResponseList" :key="trabajador.id">
             <Trabajador :trabajador="trabajador" @e="busqueda()" @m="update(trabajador)" />
         </tr>
-        <button type="button" @click="create()">Crear Trabajador</button>
     </table>
     
-    <CreateTrabajador v-if="!this.c" :id="this.id" :boleta="this.proveedor.negocio" @cloc="create()" />
-    <UpdateTrabajador v-if="!this.u" :trabajador="this.trabajador" :boleta="this.proveedor.negocio" @clou="update(null)" />
+    <CreateTrabajador v-if="!this.c" :id="this.id" :negocio="this.proveedor.negocio" @cloc="create()" />
+    <UpdateTrabajador v-if="!this.u" :trabajador="this.trabajador" :negocio="this.proveedor.negocio" @clou="update(null)" />
 </template>

@@ -1,14 +1,11 @@
 <template>
-    <div class="modal-content">
+    <div class="popUp">
+      <div class="popUp-content">
       <span class="close" @click="$emit('cloc')">&times;</span>
       
         <form @submit.prevent="crearProveedor">
-            <table>
-                <tr>
-                    <th colspan="2">
-                        Crear Nuevo Proveedor
-                    </th>
-                </tr>
+          <h3>Crear Nuevo Proveedor</h3>  
+          <table>
                 <tr>
                     <td><label for="negocio">Negocio:</label></td>
                     <td><input type="text" id="negocio" v-model="nuevoProveedor.negocio" required autocomplete="off"></td>
@@ -22,11 +19,12 @@
                     <td><input type="number" id="altura" v-model="nuevoProveedor.altura" :min="0" required></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <button type="submit">Crear</button> </td>
+                    <td colspan="2"> <button type="submit" class="bot" id="nor">Crear</button> </td>
                 </tr>
 
             </table>
         </form>
+      </div>
     </div>
 </template>
 

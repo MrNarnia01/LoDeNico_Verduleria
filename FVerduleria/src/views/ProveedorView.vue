@@ -55,7 +55,12 @@
 
 <template>
 
-    <table>
+    <table class="view">
+        <tr>
+            <th class="tit" colspan="2">Listado de proveedores</th>
+            <td colspan="3" class="esp"></td>
+            <td @click="create()" colspan="2" class="bot">Registrar proveedor</td>
+        </tr>
         <tr>
             <td>Negocio</td>
             <td>Calle</td>
@@ -70,7 +75,6 @@
             <Proveedor :proveedor="proveedor" @mod="modi(proveedor)" @e="lProveedores()" />
         </tr>
     </table>
-    <button type="button" @click="create()">Crear</button>
     
     <CreateProveedor v-if="this.c" @cloc="create()" />
     <UpdateProveedor v-if="this.u" @clou="update()" :proveedor="this.prove" />

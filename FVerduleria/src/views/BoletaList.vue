@@ -53,8 +53,8 @@
 </script>
 
 <template>
-    <div v-if="!this.c && !this.u">
-        <table>
+        <table class="view">
+            <tr><th colspan="9" class="tit">Listado de boletas</th></tr>
             <tr>
                 <td>Numero de boleta</td>
                 <td>Negocio</td>
@@ -72,7 +72,6 @@
                 <Boleta :boleta="boleta" @e="lPedidos()"  @mod="update(boleta.id)"/>
             </tr>
         </table>
-    </div>
     <CreateBoleta v-if="this.c" :detalle="this.change"  @cloc="create()" />
     <UpdateBoleta v-if="this.u" :id="this.change" @clou="update(null)"/>
 </template>

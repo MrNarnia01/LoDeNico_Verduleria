@@ -54,23 +54,30 @@
 
 <template>
 
-    <table>
+    <table class="view">
         <tr>
-            <td>Nombre</td>
-            <td>Precio</td>
-            <td>Stock</td>
-            <td>Unitario</td>
-            <td colspan="2">Lotes</td>
-            <td colspan="2">Modificaciones</td>
+            <th class="tit" colspan="2">Listado de productos</th>
+            <td colspan="4" class="esp"></td>
+            <td @click="create()" colspan="2" class="bot">Registrar producto</td>
+        </tr>
+        <tr>
+            
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Unitario</th>
+            <th colspan="2">Lotes</th>
+            <th colspan="2">Modificaciones</th>
+            
         </tr>
         <tr v-if="this.productos==''">
-            <td colspan="6">No hay productos registrados</td>
+            <td colspan="8">No hay productos registrados</td>
         </tr>
         <tr v-else v-for="producto in productos" :key="producto.id">
             <Producto :producto="producto" @mod="modi(producto)" @e="lProductos()" />
         </tr>
     </table>
-    <button type="button" @click="create()">Crear</button>
+    
     <CreateProducto v-if="this.c" @cloc="create()" />
     <UpdateProducto v-if="this.u" @clou="update()" :producto="this.produ" />
 </template>

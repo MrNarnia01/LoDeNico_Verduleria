@@ -46,8 +46,12 @@
 </script>
 
 <template>
-    <div v-if="!this.c">
-        <table>
+        <table class="view">
+            <tr>
+                <th class="tit" colspan="2">Listado de pedidos</th>
+                <td colspan="2" class="esp"></td>
+                <td @click="create()" colspan="2" class="bot">Registrar pedido</td>
+            </tr>
             <tr>
                 <td>Negocio</td>
                 <td>Fecha de pedido</td>
@@ -62,8 +66,6 @@
                 <Pedido :pedido="pedido" @e="lPedidos()"  @mod="update(pedido)"/>
             </tr>
         </table>
-        <button type="button" @click="create()">Crear</button>
-    </div>
-    <CreatePedido v-else :pedido="this.change"  @cloc="create()" />
+    <CreatePedido v-if="this.c":pedido="this.change"  @cloc="create()" />
 
 </template>

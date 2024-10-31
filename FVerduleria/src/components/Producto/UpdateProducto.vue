@@ -1,33 +1,28 @@
 <template>
-    <div class="modal-content">
+    <div class="popUp">
+      <div class="popUp-content">
       <span class="close" @click="$emit('clou')">&times;</span>
       
       <form @submit.prevent="crearProducto">
+          <h3>Modificar producto</h3>
           <table>
-              <tr>
-                  <th colspan="2">
-                      Modificar Producto
-                  </th>
-              </tr>
               <tr>
                   <td><label for="nombre">Nombre:</label></td>
                   <td><input type="text" id="nombre" v-model="nuevoProducto.nombre" required autocomplete="off"></td>
+                  <td><label for="unit">Unitario:</label></td>
+                  <td><input type="checkbox" id="unit" v-model="nuevoProducto.unit"></td>
               </tr>
               <tr>
                   <td><label for="precio">Precio:</label></td>
                   <td><input type="number" id="precio" v-model="nuevoProducto.precio" :min="0" step="0.01" required></td>
+                  <td colspan="2"> <button type="submit" class="bot">Modificar</button> </td>
               </tr>
-              <tr>
-                <td><label for="unit">Unitario:</label></td>
-                <td><input type="checkbox" id="unit" v-model="nuevoProducto.unit"></td>
-              </tr>
-              <tr>
-                  <td colspan="2"> <button type="submit">Modificar</button> </td>
-              </tr>
+              
 
           </table>
       </form>
     </div>
+  </div>
 </template>
 
 <script>

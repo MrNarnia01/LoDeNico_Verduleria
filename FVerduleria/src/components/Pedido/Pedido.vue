@@ -36,11 +36,9 @@
     <td>{{ pedido.negocio }}</td>
     <td>{{ fechas }}</td>
     <td>{{ productos }}</td>
-    <td v-if="pedido.nb ==-1"> 
-        <button type="button" @click="boleta()"> Recibir Pedido </button> 
-    </td>
+    <td v-if="pedido.nb ==-1" @click="boleta()" class="bot"> Recibir Pedido </td>
     <td v-else> {{ pedido.nb }} </td>
-    <td v-if="pedido.nB ==null"><button type="button" @click="$emit('mod')">Modificar</button></td>
+    <td v-if="pedido.nB ==null" @click="$emit('mod')" class="bot">Modificar</td>
     <td v-else> - </td>
-    <td><button type="button" @click="borrar()">Eliminar</button></td>
+    <td @click="borrar()" class="bot">Eliminar</td>
 </template>

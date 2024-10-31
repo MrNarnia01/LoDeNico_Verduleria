@@ -61,12 +61,7 @@
     <ChangeCierre v-if="this.tMod==1" :id="this.mod" @cloc="update(null,0)" />
     -->
     <h1> Home </h1>
-    <RouterLink to="/producto"> Productos </RouterLink>
-    <RouterLink to="/proveedor"> Proveedores </RouterLink>
-    <RouterLink to="/pedidoList"> Pedidos </RouterLink>
-    <RouterLink to="/boletaList"> Boletas </RouterLink>
-    <RouterLink to="/empleado"> Empleado </RouterLink>
-    <RouterLink to="/fiado"> Fiado </RouterLink>
+    
 
 
 </template>

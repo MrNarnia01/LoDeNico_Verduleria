@@ -38,7 +38,8 @@
     <td>{{ producto.stock }}</td>
     <td>{{ unitario }}</td>
     <td>{{ lotes }}</td>
-    <td><button type="button" @click="ver()">Ver Lotes</button></td>
-    <td><button type="button" @click="$emit('mod',producto)"> Modificar </button></td>
-    <td><button type="button" @click="borrar()"> Eliminar </button></td>
+    <td @click="ver()" class="bot">Ver Lotes</td>
+    <td @click="$emit('mod',producto)" class="bot">Modificar</td>
+    <td @click="borrar()" class="bot">Eliminar</td>
+
 </template>

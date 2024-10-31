@@ -27,5 +27,5 @@
     <td>{{ lote.nombre }}</td>
     <td>{{ lote.nlote }}</td>
     <td>{{ fechas }}</td>
-    <td> <button type="button" @click="borrar()"> Borrar </button> </td>
+    <td class="bot" @click="borrar()">  Borrar</td>
 </template>

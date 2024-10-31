@@ -1,35 +1,150 @@
-@import './base.css';
+/*
+ * Header
+ */
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
+    nav ul {
+        padding: 0px;
+        margin: 0px;
+    }
+		
+	nav ul li{
+        float:left;
+        padding:15px 15px;
+		display: block;
+	}
+			
+    .botH:hover {
+        background: black;
+        color: wheat;
+        cursor: pointer;
+    }
+	
+    .sel{
+        color: white;
+    }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
+    header {
+        background: rgb(250, 75, 10);
+        color: black; 
+        width: 100%; 
+        left: 0; 
+        top: 0; 
+        position: fixed; 
+    }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    .router-link {
+        text-decoration: none;
+        color: inherit; 
+        cursor: pointer; 
+    }
+    
+
+   
+
+
+    :root {
+        --font-family: Arial, sans-serif;
+    }
+
+    body {
+        font-family: var(--font-family);
+        margin-top: 50px;
+        padding: 20px;
+        display: grid;
+        place-items: center;
+    }
+
+     
+/*
+*   Tablas
+*/  
+    
+    table {
+        border-spacing: 10px;
+        input, select{
+            border-radius: 8px;
+            border: 1px solid #000000;
+            padding-inline-start: 10px;
+            height: 24px;
+            text-align: center;
+        }
+        input{
+            max-width: 150px;
+        }
+    }
+
+    .view{
+        th:not(.tit),td:not(.esp){
+            border: 1px solid #000000;
+            border-radius: 15px;
+            min-width: 100px;
+        }
+    }
+    .bot{
+        background-color: rgb(250, 140, 100);
+        color: white;
+        cursor: pointer;
+        border-radius: 15px;
+        padding: 10px 20px;
+        text-align: center;
+        border: 1px solid #000000;
+        
+    }
+    .bot:hover{
+        color: black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+    }
+
+    button:not(#nor) {
+        width: 100%;
+        height: 100%;
+    }
+
+    h3{
+        text-align: center;
+    }
+
+    .check{
+        font-size: 28px;
+    }
+
+    input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+    }
+/*
+*   Pop-Up
+*/
+.popUp {
+    position: fixed;
+    left: 0px;
+    top: 50px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
   }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
+  
+  .popUp-content {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    padding: 10px;
+    background-color: rgb(179, 179, 179);
+    border: 1px solid black;
+  }
+  
+  .close {
+    float: right;
+    font-size: 28px;
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  .closel {
+    font-size: 28px;
   }
-}
+

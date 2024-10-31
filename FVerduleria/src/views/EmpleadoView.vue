@@ -47,7 +47,7 @@
 
 
 <template>
-    <table v-if="this.c && this.u">
+    <table class="view">
         <tr>
             <td>Nombre</td>
             <td>Telefono</td>

@@ -1,19 +1,26 @@
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
+    <div class="close" @click="$emit('clou')">&times;</div>
     <form @submit.prevent="crear">
-        <span class="close" @click="$emit('cloc')">&times;</span>
+        <h3>Modificar boleta</h3>
         <table>
-            <thead>
                 <tr>
                     <td >Proveedor</td>
                     <td>
                         {{ this.proveedor }}
                     </td>
+                    <td >
+                        <button type="button" @click="agregarFila(-1,1,1)" class="bot">Agregar producto</button>
+                    </td>
+                    <td>
+                        <button type="submit" class="bot">Modificar</button>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="numB">Numero de boleta:</label></td>
                     <td><input type="number" id="numB" v-model="boletaRequest.numB" :min="0" required></td>
-                </tr>
-                <tr>
+
                     <td><label for="monto">Monto:</label></td>
                     <td v-if="aPagar"><input type="number" id="monto" v-model="boletaRequest.monto" :min="0" step="0.01" required></td>
                     <td v-else><input type="number" id="monto" v-model="boletaRequest.monto" readonly></td>
@@ -24,8 +31,6 @@
                     <th>Cantidad por caja</th>
                     <th>Eliminar</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr v-for="(detalleRequest, index) in boletaRequest.detalleBoletaRequestList" >
                     <td>
             <select v-model="detalleRequest.idP" @change="validarProducto(index)" required>
@@ -40,20 +45,15 @@
                     <td>
                         <input type="number" v-model.number="detalleRequest.cantidad" :min="1" />
                     </td>
-                    <td @click="eliminarProducto(index)">
-                        X
+                    <td @click="eliminarProducto(index)" class="closel">
+                        &times;
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="4">
-                        <button type="button" @click="agregarFila(-1,1,1)">Agregar producto</button>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     
-        <button type="submit">Modificar</button>
     </form>
+    </div>
+    </div>
   </template>
 
 <script>
@@ -79,6 +79,7 @@
             console.log(this.id)
             this.busDatos();
             this.lProductos();
+            this.aPagar=this.pagos;
         },
         methods: {
             agregarFila(i,c,ca){
@@ -100,6 +101,7 @@
             async busDatos(){
                 try {
                     const response = await axios.get('http://localhost:8080/api/boleta/get/'+this.id);
+                    if(response.data.pagoResponseList.length==0) this.aPagar=true;
                     this.setearDatos(response.data);
                 } catch (error) {
                     console.log(error)
@@ -143,7 +145,7 @@
             },
             crear(){
                 axios.post( 'http://localhost:8080/api/boleta/update/'+this.id,this.boletaRequest,).then(response => {
-                    this.$emit('cloc');
+                    this.$emit('clou');
                 }).catch(error => {
                     console.log('Error: ', error.response.data);
                 });

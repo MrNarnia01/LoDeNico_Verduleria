@@ -21,6 +21,6 @@
     <td>{{ trabajador.puesto }}</td>
     <td>{{ trabajador.nombre }}  {{ trabajador.apellido }}</td>
     <td>{{ trabajador.codArea }}-{{ trabajador.tel }}</td>
-    <td> <button type="button" @click="$emit('m')"> Modificar </button> </td>
-    <td> <button type="button" @click="borrar()"> Borrar </button> </td>
+    <td @click="$emit('m')" class="bot"> Modificar </td>
+    <td @click="borrar()" class="bot"> Borrar </td>
 </template>

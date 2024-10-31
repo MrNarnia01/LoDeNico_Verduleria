@@ -54,30 +54,30 @@
 
 
 <template>
-    <h1>Producto :</h1>
-
-    <table v-if="this.id!=-1">
+    <table class="view">
         <tr>
-            <th>Nombre :</th>
-            <td> <input type="text" v-model="producto.nombre" readonly> </td>
-            <th>Precio :</th>
-            <td> <input type="text" v-model="producto.precio" readonly> </td>
+            <th class="tit" colspan="4">Producto</th>
         </tr>
         <tr>
-            <th>Stock :</th>
-            <td> <input type="text" v-model="producto.stock" readonly> </td>
-            <th>Unitario :</th>
-            <td> <input type="text" v-model="unitario" readonly> </td>
+            <th class="tit">Nombre :</th>
+            <td> {{ producto.nombre }} </td>
+            <th class="tit">Precio :</th>
+            <td> {{ producto.precio }}</td>
         </tr>
         <tr>
-            <th>Lotes</th>
+            <th class="tit">Stock :</th>
+            <td> {{ producto.stock }}</td>
+            <th class="tit">Unitario :</th>
+            <td> {{ unitario }} </td>
         </tr>
-
+        <tr>
+            <th colspan="3" class="tit">Lotes</th>
+            <td @click="create()" colspan="3" class="bot">Registrar lote</td>
+        </tr>
         <tr v-for="lote in producto.loteResponseList" :key="lote.id">
             <Lote :lote="lote" @e="busqueda()" />
         </tr>
-    </table>
-    <button type="button" @click="create()">Crear Lote</button>
+    </table> 
     <CreateLote v-if="this.c" :id="this.id" @cloc="create()" />
 
 </template>

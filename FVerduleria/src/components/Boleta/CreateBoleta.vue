@@ -1,20 +1,25 @@
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
+    <div class="close" @click="$emit('cloc')">&times;</div>
     <form @submit.prevent="crear">
-
-      <span class="close" @click="$emit('cloc')">&times;</span>
+        <h3>Crear boleta</h3>
         <table>
-            <thead>
                 <tr>
                     <td>Proveedor</td>
                     <td>
                         {{ this.proveedor }}
                     </td>
+                    <td>
+                        <button type="button" @click="agregarFila(-1,1,1)" class="bot">Agregar producto</button>
+                    </td>
+                    <td>
+                        <button type="submit" class="bot">Crear</button>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="numB">Numero de boleta:</label></td>
                     <td><input type="number" id="numB" v-model="boletaRequest.numB" :min="0" required></td>
-                </tr>
-                <tr>
                     <td><label for="monto">Monto:</label></td>
                     <td><input type="number" id="monto" v-model="boletaRequest.monto" :min="0" step="0.01" required></td>
                 </tr>
@@ -24,8 +29,6 @@
                     <th>Cantidad por caja</th>
                     <th>Eliminar</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr v-for="(detalleRequest, index) in boletaRequest.detalleBoletaRequestList" >
                     <td>
             <select v-model="detalleRequest.idP" @change="validarProducto(index)" required>
@@ -40,20 +43,16 @@
                     <td>
                         <input type="number" v-model.number="detalleRequest.cantidad" :min="1" />
                     </td>
-                    <td @click="eliminarProducto(index)">
-                        X
+                    <td @click="eliminarProducto(index)" class="closel">
+                        &times;
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="4">
-                        <button type="button" @click="agregarFila(-1,1,1)">Agregar producto</button>
-                    </td>
-                </tr>
-            </tbody>
         </table>
     
-        <button type="submit">Crear</button>
+        
     </form>
+    </div>
+    </div>
   </template>
 
 <script>

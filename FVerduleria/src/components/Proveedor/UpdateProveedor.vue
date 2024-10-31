@@ -1,5 +1,6 @@
 <template>
-    <div class="modal-content">
+    <div class="popUp">
+      <div class="popUp-content">
       <span class="close" @click="$emit('clou')">&times;</span>
       
         <form @submit.prevent="crearProveedor">
@@ -22,11 +23,12 @@
                     <td><input type="number" id="altura" v-model="nuevoProveedor.altura" :min="0" required></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <button type="submit">Modificar</button> </td>
+                    <td colspan="2"> <button type="submit" class="bot" id="nor">Modificar</button> </td>
                 </tr>
 
             </table>
         </form>
+      </div>
     </div>
 </template>
 

@@ -52,8 +52,11 @@
 </script>
 
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
     <form @submit.prevent="crear">
         <span class="close" @click="$emit('cloc')">&times;</span>
+        <h3>Crear trabajador</h3>
         <table>
             <tr>
                 <td><label for="tipo">Negocio:</label></td>
@@ -62,15 +65,17 @@
                 <td><input type="text" id="puesto" v-model="trabajadorRequest.puesto" required autocomplete="off"></td>
             </tr>
             <tr>
-                <td><label for="per">Seleccionar persona ya existente:</label></td>
+                <td><label for="per">Persona ya existente:</label></td>
                 <td><input type="checkbox" id="per" v-model="creada"></td>
-            </tr>
-
-            <select v-if="this.creada" v-model="pS" @change="setearPersona()">
+                <td colspan="2">
+                    <select v-if="this.creada" v-model="pS" @change="setearPersona()">
                 <option v-for="persona in personas" :key="persona.id" :value="persona">
                     {{ persona.nombre }} {{ persona.apellido }} Num: {{ persona.codArea }}-{{ persona.tel }}
                 </option>
             </select>
+                </td>
+            </tr>
+
 
             <tr v-if="!this.creada">
                 <td><label for="tipo">Nombre:</label></td>
@@ -97,7 +102,13 @@
                 <td><label for="tel">Telefono:</label></td>
                 <td><input type="number" id="tel" v-model="trabajadorRequest.tel" readonly></td>
             </tr>
+            <tr>
+                <td colspan="4">
+                    <button type="submit" class="bot" id="nor">Crear</button>
+                </td>
+            </tr>
         </table>
-        <button type="submit">Crear</button>
     </form>
+    </div>
+    </div>
 </template>

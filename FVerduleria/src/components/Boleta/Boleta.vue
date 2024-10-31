@@ -49,8 +49,8 @@
     <td>{{ lotes }}</td>
     <td>{{ paga }}</td>
     <td>{{ this.boleta.monto }}</td>
-    <td><button type="button" @click="$emit('mod')">Modificar</button></td>
-    <td v-if="pagos"><button type="button" @click="borrar()">Eliminar</button></td>
+    <td @click="$emit('mod')" class="bot">Modificar</td>
+    <td v-if="pagos" @click="borrar()" class="bot">Eliminar</td>
     <td v-else>-</td>
-    <td><button type="button" @click="boleta()">Pagos</button></td>
+    <td @click="boleta()" class="bot">Pagos</td>
 </template>

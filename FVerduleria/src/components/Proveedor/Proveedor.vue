@@ -33,7 +33,7 @@
     <td>{{ proveedor.calle }}</td>
     <td>{{ proveedor.altura }}</td>
     <td>{{ trabajadores }}</td>
-    <td><button type="button" @click="ver()">Ver Trabajadores</button></td>
-    <td><button type="button" @click="$emit('mod',proveedor)"> Modificar </button></td>
-    <td><button type="button" @click="borrar()"> Eliminar </button></td>
+    <td @click="ver()" class="bot">Ver Trabajadores</td>
+    <td @click="$emit('mod',proveedor)" class="bot"> Modificar </td>
+    <td @click="borrar()" class="bot"> Eliminar </td>
 </template>

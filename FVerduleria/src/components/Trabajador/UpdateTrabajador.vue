@@ -39,8 +39,11 @@
 </script>
 
 <template>
-    <form @submit.prevent="crear">
-        <span class="close" @click="$emit('clou')">&times;</span>
+    <div class="popUp">
+        <div class="popUp-content">
+        <div class="close" @click="$emit('clou')">&times;</div>
+        <form @submit.prevent="crear">
+        <h3>Modificar trabajador</h3>
         <table>
             <tr>
                 <td><label for="tipo">Negocio:</label></td>
@@ -60,7 +63,13 @@
                 <td><label for="tel">Telefono:</label></td>
                 <td><input type="number" id="tel" v-model="trabajadorRequest.tel" :min="1" required></td>
             </tr>
+            <tr>
+                <td colspan="4">
+                    <button type="submit" class="bot" id="nor">Modificar</button>
+                </td>
+            </tr>
         </table>
-        <button type="submit">Modificar</button>
     </form>
+    </div>
+    </div>
 </template>
