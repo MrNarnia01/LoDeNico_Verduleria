@@ -2,11 +2,13 @@
     import axios from 'axios'
     export default{
         props: {
-            trabajador:Object,
+            pago:Object,
+            aPagar:Object,
+            idBoleta:Object,
         },
         data() {
             return {
-                trabajadorRequest:  {
+                pagoRequest:  {
                     idB: 0,
                     tipo: '',
                     monto: 0.0,
@@ -15,6 +17,7 @@
             }
         },
         mounted(){
+            console.log(this.pago)
             if(this.pago!=null){
                 console.log(this.pago)
                 this.pagoRequest.idB=this.pago.id;
@@ -44,8 +47,10 @@
 </script>
 
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
+    <div class="close" @click="$emit('cloc')">&times;</div>
     <form @submit.prevent="crear">
-        <span class="close" @click="$emit('cloc')">&times;</span>
         <table>
             <tr>
                 <td>Falta pagar:</td>
@@ -59,8 +64,13 @@
                 <td><label for="monto">Monto del pago:</label></td>
                 <td><input type="number" id="monto" v-model="pagoRequest.monto" :min="0" step="0.01" :max="faltaPagar" required></td>
             </tr>
+            <td colspan="2">
+                <button type="submit" class="bot" id="nor" v-if="pago==null">Crear</button>
+                <button type="submit" class="bot" id="nor" v-else>Modificar</button>
+            </td>
         </table>
-        <button type="submit" v-if="pago==null">Crear</button>
-        <button type="submit" v-else>Modificar</button>
+        
     </form>
+    </div>
+    </div>
 </template>

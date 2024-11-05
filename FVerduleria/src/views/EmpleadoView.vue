@@ -49,10 +49,15 @@
 <template>
     <table class="view">
         <tr>
+            <th class="tit" colspan="2">Listado de empleados</th>
+            <td colspan="3" class="esp"></td>
+            <td @click="create(null)" colspan="2" class="bot">Registrar empleado</td>
+        </tr>
+        <tr>
             <td>Nombre</td>
             <td>Telefono</td>
             <td>Mail</td>
-            <td>Horarios</td>
+            <td colspan="2">Horarios</td>
             <td colspan="2">Modificaciones</td>
         </tr>
         <tr v-if="this.empleados==''">
@@ -60,9 +65,6 @@
         </tr>
         <tr v-else v-for="empleado in empleados" :key="empleado.id">
             <Empleado :empleado="empleado" @e="lEmpleado()"  @mod="update(empleado)"/>
-        </tr>
-        <tr>
-            <td><button type="button" @click="create(null)">Crear</button></td>
         </tr>
     </table>
     <CreateEmpleado v-if="!this.c" @cloc="create(null)" />

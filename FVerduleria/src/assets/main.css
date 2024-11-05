@@ -14,8 +14,8 @@
 	}
 			
     .botH:hover {
-        background: black;
-        color: wheat;
+        background: coral;
+        color: white;
         cursor: pointer;
     }
 	
@@ -53,14 +53,14 @@
         display: grid;
         place-items: center;
     }
-
-     
+ 
 /*
 *   Tablas
 */  
     
     table {
         border-spacing: 10px;
+        
         input, select{
             border-radius: 8px;
             border: 1px solid #000000;
@@ -74,10 +74,10 @@
     }
 
     .view{
-        th:not(.tit),td:not(.esp){
+        th:not(.tit),td:not(.esp,.sepa){
             border: 1px solid #000000;
             border-radius: 15px;
-            min-width: 100px;
+            min-width: 75px;
         }
     }
     .bot{
@@ -90,6 +90,17 @@
         border: 1px solid #000000;
         
     }
+
+    .nBot{
+        background-color: white;
+        color: gray;
+        border-radius: 15px;
+        padding: 10px 20px;
+        text-align: center;
+        border: 1px solid #000000;
+        
+    }
+
     .bot:hover{
         color: black;
     }
@@ -111,10 +122,42 @@
     .check{
         font-size: 28px;
     }
+    
+    input[type="radio"] {
+        appearance: none;
+        border: 0px;
+    }
+
+    input[type="radio"]+label::before {
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        background-color: transparent;
+        content: "";
+        display: inline-flex;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        width: 16px;
+        margin: 5px;
+    }
+    
+    input[type="radio"]:checked+label::before {
+        border-color: white;
+        background-color: rgb(250, 140, 100);;
+    }
+    
 
     input[type="checkbox"] {
         width: 24px;
         height: 24px;
+        accent-color: rgb(250, 140, 100);
+    }
+
+    tfoot{
+        text-align: center;
+        td{
+            padding: 1% 15%;
+        }
     }
 /*
 *   Pop-Up
@@ -147,4 +190,37 @@
   .closel {
     font-size: 28px;
   }
+
+/*
+*   Home y generales
+*/
+
+  h1{
+    text-align: center;
+  }
+
+  .midDiv{
+    position: absolute;
+  }
+
+  .midDiv:not(#der){
+    right: 50%;
+  }
+
+  #der{
+    left: 50%;
+  }
+
+  .des{
+    background-color: rgb(179, 179, 179);
+    color: white;
+  }
+
+  .sepa{
+    background-color: rgb(250, 140, 100);
+    border-radius: 95%;
+    padding: 2px;
+  }
+
+
 

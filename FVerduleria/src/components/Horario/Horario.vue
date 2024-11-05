@@ -17,8 +17,9 @@
 </script>
 
 <template>
+    <td>{{ horario.dia }}</td>
     <td>{{ horario.entrada }}</td>
     <td>{{ horario.salida }}</td>
-    <td> <button type="button" @click="$emit('m')"> Modificar </button> </td>
-    <td> <button type="button" @click="borrar()"> Borrar </button> </td>
+    <td @click="$emit('m')" class="bot">Modificar</td>
+    <td @click="borrar()" class="bot">Borrar </td>
 </template>

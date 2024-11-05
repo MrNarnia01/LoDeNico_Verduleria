@@ -25,6 +25,5 @@
     <td>{{ cliente.codArea }}-{{ cliente.tel }}</td>
     <td>{{ cliente.calle }} {{ cliente.altura }}</td>
     <td>{{ cuentas }}</td>
-    <td><button type="button" @click="ver()">Ver Cuentas</button></td>
-    <td><button type="button" @click="$emit('mod')"> Modificar </button></td>
+    <td @click="ver()" class="bot">Ver Cuentas</td>
 </template>

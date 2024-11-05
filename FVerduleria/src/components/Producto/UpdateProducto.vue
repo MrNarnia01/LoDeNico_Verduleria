@@ -1,7 +1,7 @@
 <template>
     <div class="popUp">
       <div class="popUp-content">
-      <span class="close" @click="$emit('clou')">&times;</span>
+      <div class="close" @click="$emit('clou')">&times;</div>
       
       <form @submit.prevent="crearProducto">
           <h3>Modificar producto</h3>

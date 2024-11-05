@@ -17,6 +17,9 @@
                 pS: null,
             }
         },
+        mounted(){
+            this.busqueda();
+        },
         methods:{
             crear(){
                 axios.post( 'http://localhost:8080/api/cuenta/create/nC',this.clienteRequest).then(response => {
@@ -45,19 +48,23 @@
 </script>
 
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
+        <div class="close" @click="$emit('cloc')">&times;</div>
     <form @submit.prevent="crear">
-        <span class="close" @click="$emit('cloc')">&times;</span>
         <table>
             <tr>
                 <td><label for="per">Seleccionar persona ya existente:</label></td>
                 <td><input type="checkbox" id="per" v-model="creada"></td>
-            </tr>
-
-            <select v-if="this.creada" v-model="pS" @change="setearPersona()">
+                <td colspan="2">
+                    <select v-if="this.creada" v-model="pS" @change="setearPersona()">
                 <option v-for="persona in personas" :key="persona.id" :value="persona">
                     {{ persona.nombre }} {{ persona.apellido }} Num: {{ persona.codArea }}-{{ persona.tel }}
                 </option>
             </select>
+            <select v-else class="bot"></select>
+                </td>
+            </tr>
 
             <tr v-if="!this.creada">
                 <td><label for="nombre">Nombre:</label></td>
@@ -95,9 +102,10 @@
             <tr>
                 <td><label for="precio">Monto:</label></td>
                 <td><input type="number" id="precio" v-model="clienteRequest.monto" :min="0" step="0.01" required></td>
-                <td colspan="2"><button type="submit">Crear</button></td>
+                <td colspan="2"><button type="submit" class="bot">Registrar</button></td>
             </tr>
         </table>
-        
     </form>
+        </div>
+        </div>
 </template>

@@ -10,8 +10,7 @@
                 return this.pedido.detallePedidoResponseList.length;
             },
             fechas(){
-                console.log(this.pedido)
-                return moment(this.pedido.fPedido).format('DD/MM/YYYY');
+                return moment(this.pedido.fpedido).format('DD/MM/YYYY');
             },
         },
         methods: {

@@ -45,8 +45,8 @@
     <td>{{ fechaR }}</td>
     <td>{{ fechaP }}</td>
     <td >{{ cuenta.monto }}</td>
-    <td v-if="this.pago()"> <button type="button" @click="pagar()"> Pagar </button> </td>
-    <td v-else>-</td>
-    <td> <button type="button" @click="$emit('m')"> Modificar </button> </td>
-    <td> <button type="button" @click="borrar()"> Borrar </button> </td>
+    <td v-if="this.pago()" @click="pagar()" class="bot">Pagar</td>
+    <td v-else class="nBot">Pagar</td>
+    <td @click="$emit('m')" class="bot">Modificar</td>
+    <td @click="borrar()" class="bot">Borrar</td>
 </template>

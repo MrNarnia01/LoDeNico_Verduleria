@@ -1,7 +1,7 @@
 <script>
     import CreateHorario from '@/components/Horario/CreateHorario.vue';
     import Horario from '@/components/Horario/Horario.vue';
-import UpdateHorario from '@/components/Horario/UpdateHorario.vue';
+    import UpdateHorario from '@/components/Horario/UpdateHorario.vue';
     import axios from 'axios'
 
     export default{
@@ -21,7 +21,6 @@ import UpdateHorario from '@/components/Horario/UpdateHorario.vue';
         },
         mounted(){
             this.id=this.$route.query.id;
-            console.log(this.id);
             this.busqueda();
         },
         methods: {
@@ -29,6 +28,7 @@ import UpdateHorario from '@/components/Horario/UpdateHorario.vue';
                 try {
                     const response = await axios.get('http://localhost:8080/api/empleado/get/'+this.id);
                     this.empleado=response.data;
+                    console.log(this.empleado)
                 } catch (error) {
                     console.log(error.response.data)
                 }
@@ -49,20 +49,27 @@ import UpdateHorario from '@/components/Horario/UpdateHorario.vue';
 
 
 <template>
-    <table v-if="this.c && this.u">
-        <h1>Empleado :</h1>
+    <table class="view">
         <tr>
-            <th>Nombre:</th>
-            <td>{{ empleado.nombre }}  {{ empleado.apellido }}</td>
+            <th class="tit" colspan="5">Listado de horarios</th>
         </tr>
         <tr>
-            <th>Horarios</th>
+            <th class="tit" colspan="3">Nombre:</th>
+            <td colspan="2">{{ empleado.nombre }}  {{ empleado.apellido }}</td>
         </tr>
-
+        <tr>
+            <th class="tit" colspan="3">Horarios</th>
+            <td @click="create()" colspan="2" class="bot">Registrar horario</td>
+        </tr>
+        <tr>
+            <th>Dia</th>
+            <th>Hora inicio</th>
+            <th>Hora salida</th>
+            <th colspan="2">Modificaciones</th>
+        </tr>
         <tr v-for="horario in empleado.horarioResponseList" :key="horario.id">
             <Horario :horario="horario" @e="busqueda()" @m="update(horario)" />
         </tr>
-        <button type="button" @click="create()">Crear horario</button>
     </table>
     <CreateHorario v-if="!this.c" :id="this.empleado.id" :nombre="this.empleado.nombre+' '+this.empleado.apellido"  @cloc="create()" />
     <UpdateHorario v-if="!this.u" :id="this.horario" @clou="update(null)" />

@@ -47,7 +47,10 @@
 </script>
 
 <template>
-    <table v-if="!show">
+    <table class="view">
+        <tr>
+            <th class="tit" colspan="4">Boleta</th>
+        </tr>
         <tr>
             <td>Numero de boleta:</td>
             <td>{{ boleta.nb }}</td>
@@ -59,8 +62,11 @@
             <td colspan="2">{{ fechas }}</td>
             <td>Monto:</td>
             <td>{{ boleta.monto }}</td>
-            <td v-if="!boleta.paga"><button @click="change(null)">Pagar</button></td>
-            <td v-else>-</td>
+        </tr>
+        <tr>
+            <th class="tit" colspan="3">Listado de pagos</th>
+            <td v-if="!boleta.paga" class="bot" @click="change(null)" colspan="2">Pagar</td>
+            <td v-else class="nBot" colspan="2">Pagar</td>
         </tr>
         <tr>
             <td>Tipo de pago</td>
@@ -72,5 +78,5 @@
             <Pago :pago="pago" @e="getBoleta()" @mod="change(pago)" />
         </tr>
     </table>
-    <PagoChange v-else :pago="this.c" :aPagar="this.boleta.faltaPagar" :idBoleta="this.boleta.id" @cloc="change(null)"/>
+    <PagoChange v-if="show":pago="this.c" :aPagar="this.boleta.faltaPagar" :idBoleta="this.boleta.id" @cloc="change(null)"/>
 </template>

@@ -55,7 +55,7 @@
     <div class="popUp">
         <div class="popUp-content">
     <form @submit.prevent="crear">
-        <span class="close" @click="$emit('cloc')">&times;</span>
+        <div class="close" @click="$emit('cloc')">&times;</div>
         <h3>Crear trabajador</h3>
         <table>
             <tr>
@@ -73,6 +73,7 @@
                     {{ persona.nombre }} {{ persona.apellido }} Num: {{ persona.codArea }}-{{ persona.tel }}
                 </option>
             </select>
+            <select v-else class="bot"></select>
                 </td>
             </tr>
 

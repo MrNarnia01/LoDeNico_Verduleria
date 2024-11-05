@@ -1,4 +1,4 @@
-package com.LoDeNico.Verduleria.Dto.Request;
+package com.LoDeNico.Verduleria.Dto.Request.Cierre;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,12 @@ import java.sql.Timestamp;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FechaRequest {
+public class BusRequest {
     private Timestamp f1;
     private Timestamp f2;
+    private boolean t;
+    private int cod;
+    private String s1;
+    private Double m1;
+    private Double m2;
 }

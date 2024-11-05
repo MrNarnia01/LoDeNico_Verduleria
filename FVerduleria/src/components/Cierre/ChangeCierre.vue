@@ -1,24 +1,31 @@
 <template>
-    <div class="modal-content">
-      <span class="close" @click="$emit('cloc')">&times;</span>
+    <div class="popUp">
+        <div class="popUp-content">
+      <div class="close" @click="$emit('cloc')">&times;</div>
       
       <form @submit.prevent="crearCierre">
+        <h3>Registro de cierre</h3>
           <table>
               <tr>
-                <td><p>Seleccione el método de pago:</p></td>
+                <td><p>Método de cierre:</p></td>
+                <td>
+                    <input type="radio" value="Posnet" v-model="newCierre.tipo" id="pos">
+                    <label for="pos">Posnet</label>
+                    <input type="radio" value="Efectivo" v-model="newCierre.tipo" id=efe>
+                    <label for="efe">Efectivo</label>
+                </td>
+              </tr>
+              <tr>
                 <td>Monto</td>
-              </tr>
-              <tr>
-                <td><input type="radio" value="Efectivo" v-model="newCierre.tipo"> Efectivo </td>
                 <td><input type="number" id="monto" v-model="newCierre.monto" :min="0" step="0.01"  required></td>
-              </tr>
-              <tr><td><input type="radio" value="Posnet" v-model="newCierre.tipo"> Posnet</td></tr>
+            </tr>
               <tr>
-                <td v-if="this.id==null"><button type="submit">Crear</button></td>
-                <td v-else><button type="submit">Modificar</button></td>
+                <td v-if="this.id==null" colspan="2"><button type="submit" class="bot" id="nor">Crear</button></td>
+                <td v-else colspan="2"><button type="submit" class="bot" id="nor">Modificar</button></td>
               </tr>
           </table>
       </form>
+    </div>
     </div>
 </template>
 

@@ -27,6 +27,6 @@
     <td>{{ pago.tipo }}</td>
     <td>{{ fechas }}</td>
     <td>{{ pago.monto }}</td>
-    <td><button type="button" @click="$emit('mod')">Modificar</button></td>
-    <td><button type="button" @click="borrar()">Eliminar</button></td>
+    <td @click="$emit('mod')" class="bot">Modificar</td>
+    <td @click="borrar()" class="bot">Eliminar</td>
 </template>

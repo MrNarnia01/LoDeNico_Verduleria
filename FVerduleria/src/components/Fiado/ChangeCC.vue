@@ -37,16 +37,22 @@
 </script>
 
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
+    <div class="close" @click="$emit('cloc')">&times;</div>
     <form @submit.prevent="change">
-        <span class="close" @click="$emit('cloc')">&times;</span>
+        <h3>Modificar monto de cuenta</h3>
         <table>
-
             <tr>
                 <td><label for="precio">Monto:</label></td>
                 <td><input type="number" id="precio" v-model="ccRequest.monto" :min="0" step="0.01" required></td>
-                <td colspan="2"><button v-if="this.u" type="submit">Crear</button><button v-else type="submit">Modificar</button></td>
+                <td>
+                    <button v-if="this.u" type="submit" class="bot">Crear</button>
+                    <button v-else type="submit" class="bot">Modificar</button>
+                </td>
             </tr>
         </table>
-        
     </form>
+    </div>
+    </div>
 </template>

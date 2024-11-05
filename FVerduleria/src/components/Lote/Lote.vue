@@ -16,7 +16,7 @@
         },
         computed:{
             fechas(){
-                return moment(this.lote.fVenci).format('DD/MM/YYYY');
+                return moment(this.lote.fvenci).add(1, 'days').format('DD/MM/YYYY');
             },
         },
     }

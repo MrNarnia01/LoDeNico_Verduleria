@@ -32,6 +32,6 @@
     <td>{{ tipo }}</td>
     <td>{{ cierre.monto }}</td>
     <td>{{ fechas }}</td>
-    <td><button type="button" @click="$emit('mod')">Modificar</button></td>
-    <td> <button type="button" @click="borrar()"> Borrar </button> </td>
+    <td @click="$emit('mod')" class="bot">Modificar</td>
+    <td @click="borrar()" class="bot">Borrar</td>
 </template>

@@ -31,6 +31,7 @@
             async busqueda(){
                 try {
                     const response = await axios.get('http://localhost:8080/api/producto/get/'+this.id);
+                    console.log(response.data)
                     this.producto=response.data;
                 } catch (error) {
                     console.log(error.response.data)
@@ -79,5 +80,4 @@
         </tr>
     </table> 
     <CreateLote v-if="this.c" :id="this.id" @cloc="create()" />
-
 </template>

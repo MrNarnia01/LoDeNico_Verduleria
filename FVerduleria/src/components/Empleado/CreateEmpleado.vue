@@ -51,19 +51,23 @@
 </script>
 
 <template>
+    <div class="popUp">
+        <div class="popUp-content">
+            <div class="close" @click="$emit('cloc')">&times;</div>
     <form @submit.prevent="crear">
-        <span class="close" @click="$emit('cloc')">&times;</span>
         <table>
             <tr>
                 <td><label for="per">Seleccionar persona ya existente:</label></td>
                 <td><input type="checkbox" id="per" v-model="creada"></td>
-            </tr>
-
-            <select v-if="this.creada" v-model="pS" @change="setearPersona()">
+                <td colspan="2">
+                    <select v-if="this.creada" v-model="pS" @change="setearPersona()">
                 <option v-for="persona in personas" :key="persona.id" :value="persona">
                     {{ persona.nombre }} {{ persona.apellido }} Num: {{ persona.codArea }}-{{ persona.tel }}
                 </option>
             </select>
+                    <select v-else class="bot"></select>
+                </td>
+            </tr>
 
             <tr v-if="!this.creada">
                 <td><label for="tipo">Nombre:</label></td>
@@ -93,16 +97,18 @@
 
             <tr>
                 <td><label for="mail">Mail:</label></td>
-                <td colspan="3"><input type="text" id="mail" v-model="empleadoRequest.mail" required></td>
+                <td><input type="text" id="mail" v-model="empleadoRequest.mail" required></td>
+                <td><label for="con">Contraseña:</label></td>
+                <td><input type="password" id="con" v-model="empleadoRequest.contra" required></td>
             </tr>
 
             <tr>
-                <td><label for="con">Contraseña:</label></td>
-                <td><input type="password" id="con" v-model="empleadoRequest.contra" required></td>
                 <td><label for="rCon">Repetir contraseña:</label></td>
                 <td><input type="password" id="rCon" v-model="rContra" required></td>
+                <td colspan="2"><button type="submit" class="bot">Crear</button></td>
             </tr>
         </table>
-        <button type="submit">Crear</button>
     </form>
+    </div>
+    </div>
 </template>
