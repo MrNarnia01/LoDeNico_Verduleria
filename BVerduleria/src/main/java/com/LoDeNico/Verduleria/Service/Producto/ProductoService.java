@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.Producto.BusPRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.ProductoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.ProductoResponse;
 
@@ -13,5 +13,5 @@ public interface ProductoService {
     public ProductoResponse createProducto(ProductoRequest productoRequest);
     public ProductoResponse updateProducto(ProductoRequest productoRequest, Long id);
     public int updateStock(Long id, int n);
-    public List<ProductoResponse> busProducto(BusPRequest busPRequest);
+    public List<ProductoResponse> busProducto(BusRequest busRequest);
 }

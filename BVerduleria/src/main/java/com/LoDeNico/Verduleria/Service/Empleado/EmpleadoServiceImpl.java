@@ -48,6 +48,7 @@ public class EmpleadoServiceImpl implements EmpleadoService{
                 horarioResponse.setId(horario.getHId());
                 horarioResponse.setNombre(empleado.getPersona().getNombre());
                 horarioResponse.setApellido(empleado.getPersona().getApellido());
+                horarioResponse.setDia(horario.getDia());
                 horarioResponse.setEntrada(horario.getEntrada());
                 horarioResponse.setSalida(horario.getSalida());
 

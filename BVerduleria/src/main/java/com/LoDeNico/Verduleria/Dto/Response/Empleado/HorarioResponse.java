@@ -16,6 +16,7 @@ public class HorarioResponse {
     private Long id;
     private String nombre;
     private String apellido;
+    private String dia;
     private LocalTime entrada;
     private LocalTime salida;
 }

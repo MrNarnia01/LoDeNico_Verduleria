@@ -11,4 +11,7 @@ import java.util.List;
 public interface LoteRepository extends JpaRepository<Lote,Long> {
     @Query(value="SELECT * FROM Lote  WHERE fVenci BETWEEN :inicio AND :cierre", nativeQuery = true)
     List<Lote> findByDias(@Param("inicio") Timestamp inicio, @Param("cierre") Timestamp cierre);
+
+    List<Lote> findByfVenciBetween(Timestamp inicio, Timestamp cierre);
+
 }

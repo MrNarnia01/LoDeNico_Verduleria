@@ -8,11 +8,12 @@ import java.util.List;
 public interface ClienteService {
     public ClienteResponse getCliente(Long id);
     public List<ClienteResponse> getClienteList();
-    /*
+
     public List<ClienteResponse> getClienteListByNombre(String nombre);
-    public List<ClienteResponse> getClienteListByApellido(String apellido);
-    public List<ClienteResponse> getClienteListByCalle(String calle);
-    */
+    /*
+public List<ClienteResponse> getClienteListByApellido(String apellido);
+public List<ClienteResponse> getClienteListByCalle(String calle);
+*/
     public int deleteCliente(Long id);
     public ClienteResponse updateCliente(ClienteRequest clienteRequest, Long id);
 }

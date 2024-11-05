@@ -1,5 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Detalle.DetalleRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.PedidoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Detalle.DetallePedidoResponse;
@@ -17,9 +18,8 @@ import com.LoDeNico.Verduleria.Repository.Proveedor.ProveedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Service
 public class PedidoServiceImpl implements PedidoService{
@@ -168,5 +168,61 @@ public class PedidoServiceImpl implements PedidoService{
         }else return new PedidoResponse(-1L,0L,"",null,null,1003L);
     }
 
+    public List<PedidoResponse> busPedido(BusRequest busRequest){
+        List<Pedido> pedidoList = pedidoRepository.findAll();
 
+
+        if(busRequest.getM1()!=-1){
+            List<Pedido> auxList = pedidoRepository.findByfPedidoBetween(
+                    new Timestamp(busRequest.getF1().getTime()),
+                    new Timestamp(busRequest.getF2().getTime())
+            );
+            // Convertir las listas a conjuntos para encontrar la intersección
+            Set<Pedido> productosActivosSet = new HashSet<>(pedidoList);
+            Set<Pedido> productosAuxSet = new HashSet<>(auxList);
+            // Obtener la intersección (productos en ambas listas)
+            productosActivosSet.retainAll(productosAuxSet);
+            // Convertir el conjunto de vuelta a una lista (opcional)
+            pedidoList = new ArrayList<>(productosActivosSet);
+        }
+
+        if(busRequest.getM2()!=-1){
+            List<Pedido> auxList = pedidoRepository.findByProveedorId(Long.parseLong(busRequest.getS1()));
+            // Convertir las listas a conjuntos para encontrar la intersección
+            Set<Pedido> productosActivosSet = new HashSet<>(pedidoList);
+            Set<Pedido> productosAuxSet = new HashSet<>(auxList);
+            // Obtener la intersección (productos en ambas listas)
+            productosActivosSet.retainAll(productosAuxSet);
+            // Convertir el conjunto de vuelta a una lista (opcional)
+            pedidoList = new ArrayList<>(productosActivosSet);
+        }
+
+        if(busRequest.getI()!=-1){
+            pedidoList.removeIf(pedido -> (busRequest.isB() && boletaRepository.findByPedido(pedido).isEmpty()) ||
+                    (!busRequest.isB() && boletaRepository.findByPedido(pedido).isPresent()));
+        /*
+            for (int i = 0; i < (long) pedidoList.size(); i++) {
+                if(boletaRepository.findByPedido(pedidoList.get(i)).isEmpty() && busRequest.isB()){
+                    pedidoList.remove(i);
+                    i--;
+                }else if(!busRequest.isB() && boletaRepository.findByPedido(pedidoList.get(i)).isPresent()){
+                    pedidoList.remove(i);
+                    i--;
+                }
+            }
+
+        */
+        }
+
+
+        List<PedidoResponse> pedidoResponseList = new ArrayList<>();
+        if(!pedidoList.isEmpty()){
+            for (Pedido p: pedidoList){
+                pedidoResponseList.add(createPedidoResponse(p));
+            }
+        }
+
+        return pedidoResponseList;
+
+    }
 }

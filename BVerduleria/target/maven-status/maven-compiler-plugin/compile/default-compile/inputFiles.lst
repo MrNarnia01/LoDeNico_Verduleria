@@ -18,7 +18,6 @@
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Producto/BoletaServiceImpl.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Controller/Cuenta/ClienteController.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Empleado/PersonaService.java
-/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Cierre/BusRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Producto/LoteServiceImpl.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Controller/Empleado/PersonaController.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Empleado/EmpleadoRequest.java
@@ -54,7 +53,6 @@
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Empleado/Horario.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Producto/PedidoRepository.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Proveedor/ProveedorServiceImpl.java
-/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/MontoRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Proveedor/TrabajadorService.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Cuenta/CuentaCorrienteRepository.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Cierre/CierreRequest.java
@@ -65,12 +63,12 @@
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Empleado/PersonaServiceImpl.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Producto/ProductoRepository.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Producto/Boleta.java
+/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/BusRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Cuenta/Cliente.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Controller/Producto/LoteController.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/PagoServiceImpl.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/VerduleriaApplication.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Repository/Detalle/DetalleBoletaRepository.java
-/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Producto/BusPRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/PagoResponse.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Entity/Detalle/detalleBoleta.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Detalle/DetallePedidoResponse.java
@@ -90,7 +88,6 @@
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Proveedor/TrabajadorResponse.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Producto/LoteRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Cuenta/CuentaCorrienteResponse.java
-/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/FechaRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/PagoResquest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Empleado/HorarioRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Producto/ProductoRequest.java

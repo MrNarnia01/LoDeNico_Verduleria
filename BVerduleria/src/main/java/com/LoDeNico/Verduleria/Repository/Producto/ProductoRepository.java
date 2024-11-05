@@ -14,8 +14,12 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     @Query(value="SELECT * FROM Producto WHERE precio BETWEEN ?1 AND ?2", nativeQuery = true)
     List<Producto> serchByPrecio(double p1, double p2);
 
-    @Query(value="SELECT * FROM Producto WHERE nombre LIKE '%:nombre%' ", nativeQuery = true)
-    List<Producto> serchByNombre(@Param("nombre") String nombre);
+    List<Producto> findByPrecioBetween(double p1, double p2);
+
+    List<Producto> findByNombreContainingIgnoreCase(String nombre);
+
+    @Query(value="SELECT * FROM Producto p WHERE ?1", nativeQuery = true)
+    List<Producto> serchByVs(String bus);
 
     List<Producto> findBySoftDelete(boolean softDelete);
 }

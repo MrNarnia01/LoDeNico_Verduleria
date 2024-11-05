@@ -1,6 +1,7 @@
 package com.LoDeNico.Verduleria.Repository.Cierre;
 
 import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
+import com.LoDeNico.Verduleria.Entity.Producto.Lote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +17,10 @@ public interface CierreLoteRepository extends JpaRepository<CierreLote,Long> {
 
     @Query(value="SELECT * FROM Cierre  WHERE fRegis BETWEEN :inicio AND :cierre", nativeQuery = true)
     List<CierreLote> findByDias(@Param("inicio") Timestamp inicio, @Param("cierre") Timestamp cierre);
+
+    @Query(value="SELECT * FROM Cierre  WHERE ", nativeQuery = true)
+    List<CierreLote> searchbyVs(@Param("bus") String bus);
+
+    List<CierreLote> findByfRegisBetween(Timestamp inicio, Timestamp cierre);
 
 }

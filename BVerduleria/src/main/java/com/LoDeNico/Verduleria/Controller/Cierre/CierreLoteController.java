@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Controller.Cierre;
 
-import com.LoDeNico.Verduleria.Dto.Request.Cierre.BusRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Cierre.CierreRequest;
 import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
 import com.LoDeNico.Verduleria.Service.Cierre.CierreLoteService;
@@ -45,12 +45,10 @@ public class CierreLoteController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cod);
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> getCierreBus(@RequestBody BusRequest busRequest){
         List<CierreLote> cierreLoteList = cierreLoteService.cierreLoteBus(busRequest);
-        if(!cierreLoteList.isEmpty()){
-            return ResponseEntity.ok(cierreLoteList);
-        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(1001);
+        return ResponseEntity.ok(cierreLoteList);
     }
 
     @GetMapping("/list")

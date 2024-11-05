@@ -1,7 +1,7 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Detalle.DetalleRequest;
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.BoletaRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Detalle.DetalleBoletaResponse;
 import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
@@ -18,9 +18,8 @@ import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Service
 public class BoletaServiceImpl implements BoletaService{
@@ -122,15 +121,33 @@ public class BoletaServiceImpl implements BoletaService{
         }
     }
 
-    public List<BoletaResponse> getBoletaListByMonto(MontoRequest montoRequest){
-        List<Boleta> boletaList = boletaRepository.serchByMonto(montoRequest.getM1(), montoRequest.getM2());
+    public List<BoletaResponse> getBoletaBus(BusRequest busRequest){
+        List<Boleta> boletaList = boletaRepository.findAll();
+
+        if(busRequest.getM1()!=-1){
+            List<Boleta> auxList = boletaRepository.findByfReciboBetween(
+                    new Timestamp(busRequest.getF1().getTime()),
+                    new Timestamp(busRequest.getF2().getTime())
+            );
+            // Convertir las listas a conjuntos para encontrar la intersección
+            Set<Boleta> productosActivosSet = new HashSet<>(boletaList);
+            Set<Boleta> productosAuxSet = new HashSet<>(auxList);
+            // Obtener la intersección (productos en ambas listas)
+            productosActivosSet.retainAll(productosAuxSet);
+            // Convertir el conjunto de vuelta a una lista (opcional)
+            boletaList = new ArrayList<>(productosActivosSet);
+        }
+
+        if(busRequest.getI()!=-1){
+            boletaList.removeIf(boleta -> (busRequest.isB()) && !boleta.isPaga() ||
+                    !busRequest.isB() && boleta.isPaga());
+        }
+
         List<BoletaResponse> boletaResponseList = new ArrayList<>();
         if(!boletaList.isEmpty()){
-            for (Boleta b: boletaList){
-                boletaResponseList.add(createBoletaResponse(b));
+            for (Boleta bo: boletaList){
+                boletaResponseList.add(createBoletaResponse(bo));
             }
-        }else{
-            boletaResponseList.add(new BoletaResponse(0L,-1L,1001L,"",false,null,0,0,null,null));
         }
         return boletaResponseList;
     }
@@ -224,6 +241,7 @@ public class BoletaServiceImpl implements BoletaService{
                 detalleBoletaList.add(db);
             }
             boleta.setDetallesBoleta(detalleBoletaList);
+            boleta.setMonto(boletaRequest.getMonto());
             boleta = boletaRepository.save(boleta);
 
             detalleBoletaRepository.deleteByBoleta(boleta.getId());

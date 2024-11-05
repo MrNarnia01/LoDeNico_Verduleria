@@ -25,7 +25,6 @@ com/LoDeNico/Verduleria/Service/Empleado/EmpleadoService.class
 com/LoDeNico/Verduleria/Entity/Producto/Boleta.class
 com/LoDeNico/Verduleria/Service/Producto/LoteServiceImpl.class
 com/LoDeNico/Verduleria/Dto/Response/Producto/BoletaResponse.class
-com/LoDeNico/Verduleria/Dto/Request/Producto/BusPRequest.class
 com/LoDeNico/Verduleria/Dto/Response/Proveedor/TrabajadorResponse.class
 com/LoDeNico/Verduleria/Repository/Producto/PedidoRepository.class
 com/LoDeNico/Verduleria/Controller/PagoController.class
@@ -71,9 +70,7 @@ com/LoDeNico/Verduleria/Dto/Response/Cuenta/ClienteResponse.class
 com/LoDeNico/Verduleria/Dto/Response/Producto/PedidoResponse.class
 com/LoDeNico/Verduleria/Service/Empleado/PersonaService.class
 com/LoDeNico/Verduleria/Entity/Empleado/Empleado.class
-com/LoDeNico/Verduleria/Dto/Request/FechaRequest.class
 com/LoDeNico/Verduleria/Service/Proveedor/ProveedorServiceImpl.class
-com/LoDeNico/Verduleria/Dto/Request/MontoRequest.class
 com/LoDeNico/Verduleria/Service/Cierre/CierreLoteService.class
 com/LoDeNico/Verduleria/Controller/Cuenta/ClienteController.class
 com/LoDeNico/Verduleria/Dto/Request/Producto/PedidoRequest.class
@@ -84,13 +81,13 @@ com/LoDeNico/Verduleria/Entity/Producto/Lote.class
 com/LoDeNico/Verduleria/Repository/Producto/ProductoRepository.class
 com/LoDeNico/Verduleria/Dto/Request/Producto/ProductoRequest.class
 com/LoDeNico/Verduleria/Repository/Proveedor/ProveedorRepository.class
+com/LoDeNico/Verduleria/Dto/Request/BusRequest.class
 com/LoDeNico/Verduleria/Repository/Cierre/CierreLoteRepository.class
 com/LoDeNico/Verduleria/Controller/Producto/BoletaController.class
 com/LoDeNico/Verduleria/Service/Proveedor/TrabajadorServiceImpl.class
 com/LoDeNico/Verduleria/Service/Cuenta/ClienteService.class
 com/LoDeNico/Verduleria/Repository/Detalle/DetalleBoletaRepository.class
 com/LoDeNico/Verduleria/Controller/Producto/PedidoController.class
-com/LoDeNico/Verduleria/Dto/Request/Cierre/BusRequest.class
 com/LoDeNico/Verduleria/Dto/Request/PagoResquest.class
 com/LoDeNico/Verduleria/Entity/Proveedor/Trabajador.class
 com/LoDeNico/Verduleria/Service/Proveedor/ProveedorService.class

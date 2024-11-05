@@ -80,20 +80,9 @@ public class ClienteServiceImpl implements ClienteService{
             return  clienteResponseList;
         }
     }
-/*
+
     public List<ClienteResponse> getClienteListByNombre(String nombre){
-        List<Persona> personaList = personaRepository.findByNombre(nombre);
-        List<Cliente> clienteList = clienteRepository.findAll();
-        for (int i = 0; i < clienteList.stream().count(); i++) {
-            boolean b = false;
-            for (int j = 0; j < personaList.stream().count(); j++) {
-                if(clienteList.get(i).getPersona().equals(personaList.get(j))) b = true;
-            }
-            if(!b){
-                clienteList.remove(i);
-                i--;
-            }
-        }
+        List<Cliente> clienteList = clienteRepository.serchByBus(nombre);
         List<ClienteResponse> clienteResponseList =  new ArrayList<>();
         if(!clienteList.isEmpty()){
             for (Cliente cliente : clienteList){
@@ -101,15 +90,10 @@ public class ClienteServiceImpl implements ClienteService{
                         createClienteResponse(cliente)
                 );
             }
-            return clienteResponseList;
-        }else{
-            ClienteResponse clienteResponse =  new ClienteResponse(-1L,"","",
-                    1001,0,"",0,null);
-            clienteResponseList.add(clienteResponse);
-            return  clienteResponseList;
         }
+        return  clienteResponseList;
     }
-
+/*
     public List<ClienteResponse> getClienteListByApellido(String apellido){
         List<Persona> personaList = personaRepository.findByApellido(apellido);
         List<Cliente> clienteList = clienteRepository.findAll();
@@ -183,12 +167,14 @@ public class ClienteServiceImpl implements ClienteService{
 
         if(b){
             Cliente cliente = clienteOptional.get();
-            cliente.setCalle(cliente.getCalle());
-            cliente.setAltura(cliente.getAltura());
+            cliente.setCalle(clienteRequest.getCalle());
+            cliente.setAltura(clienteRequest.getAltura());
             cliente.getPersona().setNombre(clienteRequest.getNombre());
             cliente.getPersona().setApellido(clienteRequest.getApellido());
             cliente.getPersona().setCodArea(clienteRequest.getCodArea());
             cliente.getPersona().setTel(clienteRequest.getTel());
+
+
 
             cliente = clienteRepository.save(cliente);
             return createClienteResponse(cliente);

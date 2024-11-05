@@ -22,6 +22,9 @@ public class Horario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long hId;
 
+    @Column(name = "dia")
+    private String dia;
+
     @Column(name = "entrada")
     private LocalTime entrada;
 

@@ -13,6 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class HorarioRequest {
     private Long idE;
+    private String dia;
     private LocalTime entrada;
     private LocalTime salida;
 }

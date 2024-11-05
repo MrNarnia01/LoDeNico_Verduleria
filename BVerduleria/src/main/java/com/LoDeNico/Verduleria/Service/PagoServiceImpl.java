@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service;
 
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.PagoResquest;
 import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Entity.Pago;
@@ -141,13 +141,13 @@ public class PagoServiceImpl implements PagoService{
         }
     }
 
-    public List<PagoResponse> getPagoListBus( String tipo, MontoRequest montoRequest){
+    public List<PagoResponse> getPagoListBus(BusRequest busRequest){
         List<Pago> pagoList = new ArrayList<>();
-        if(montoRequest.getM1()==-1)    pagoList = pagoRepository.findAll();
-        else    pagoList = pagoRepository.serchByMonto(montoRequest.getM1(), montoRequest.getM2());
+        if(busRequest.getM1()==-1)    pagoList = pagoRepository.findAll();
+        else    pagoList = pagoRepository.serchByMonto(busRequest.getM1(), busRequest.getM2());
 
-        if (tipo!=null){
-            List<Pago> tipoList = pagoRepository.findByTipo(tipo);
+        if (busRequest.isB()){
+            List<Pago> tipoList = pagoRepository.findByTipo(busRequest.getS1());
             for (int i = 0; i < pagoList.stream().count(); i++) {
                 boolean b = false;
                 for (int j = 0; j < tipoList.stream().count(); j++) {

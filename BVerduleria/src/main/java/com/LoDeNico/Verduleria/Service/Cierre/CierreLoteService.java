@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Cierre;
 
-import com.LoDeNico.Verduleria.Dto.Request.Cierre.BusRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Cierre.CierreRequest;
 import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
 

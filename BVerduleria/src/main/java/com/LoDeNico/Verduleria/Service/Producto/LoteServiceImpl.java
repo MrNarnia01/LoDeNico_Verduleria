@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.LoteRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.LoteResponse;
 import com.LoDeNico.Verduleria.Entity.Producto.Lote;
@@ -107,20 +107,16 @@ public class LoteServiceImpl implements LoteService{
         }else   return new LoteResponse(-1L,"",1003,null);
     }
 
-    public List<LoteResponse> getLoteListByDias(FechaRequest fechaRequest){
-        List<Lote> loteList = loteRepository.findByDias(fechaRequest.getF1(),fechaRequest.getF2());
+    public List<LoteResponse> getLoteListBus(BusRequest busRequest){
+        List<Lote> loteList = loteRepository.findByfVenciBetween(new Timestamp(busRequest.getF1().getTime()),new Timestamp(busRequest.getF2().getTime()));
         List<LoteResponse> loteResponseList = new ArrayList<>();
         if(!loteList.isEmpty()){
             for(Lote l: loteList){
                 LoteResponse loteResponse = createLoteResponse(l);
                 loteResponseList.add(loteResponse);
             }
-            return loteResponseList;
-        }else{
-            LoteResponse loteResponse = new LoteResponse(-1L,"",1001,null);
-            loteResponseList.add(loteResponse);
-            return loteResponseList;
         }
+        return loteResponseList;
     }
 
 
