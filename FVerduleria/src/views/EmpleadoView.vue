@@ -47,6 +47,7 @@
 
 
 <template>
+    <div  class="pag"></div>
     <table class="view">
         <tr>
             <th class="tit" colspan="2">Listado de empleados</th>

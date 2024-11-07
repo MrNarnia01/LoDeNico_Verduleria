@@ -54,6 +54,7 @@
 </script>
 
 <template>
+    <div  class="pag"></div>
 
     <table class="view">
         <tr>

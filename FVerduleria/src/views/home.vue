@@ -105,9 +105,10 @@
 
 
 <template>
+    <div  class="pag"></div>
     <h1> Info principal </h1>
     <!--Div de CierreLote-->
-    <div class="midDiv">
+    <div class="midDiv" id="izq">
         <table class="view">
             <tr>
                 <th class="tit" colspan="5">Listado de cierres</th>
@@ -166,14 +167,15 @@
             </tr>
         </table>
     </div>
-    
-    
+       
     <div class="midDiv" id="der">
         <table class="view">
             <tr>
-                <th class="tit" colspan="2">Listado de lotes por vencer</th>
-                <td class="esp"><label for="fVenci">Fecha limite:</label></td>
-                <td class="esp"><input type="date" id="fVenci" v-model="this.busRequestL.f2" :min="fHoy" @change="lLotes()"></td>
+                <th class="tit" colspan="4">Listado de lotes por vencer</th>
+            </tr>
+            <tr>
+                <td class="esp" colspan="2"><label for="fVenci">Fecha limite:</label></td>
+                <td class="esp" colspan="2"><input type="date" id="fVenci" v-model="this.busRequestL.f2" :min="fHoy" @change="lLotes()"></td>
             </tr>
             <tr><td class="sepa" colspan="4"></td></tr> 
             <tr>
@@ -193,3 +195,4 @@
 
     <ChangeCierre v-if="this.tMod==1" :id="this.mod" @cloc="update(null,0)" />
 </template>
+

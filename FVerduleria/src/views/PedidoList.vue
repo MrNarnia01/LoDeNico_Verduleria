@@ -14,7 +14,7 @@
                 proveedores: '',
                 c: false,
                 change: null,
-                b: true,
+                b: false,
                 busRequest: {
                     f1: null,
                     f2: null,
@@ -90,6 +90,7 @@
 </script>
 
 <template>
+    <div  class="pag"></div>
         <table class="view">
             <tr>
                 <th class="tit" colspan="2">Listado de pedidos</th>

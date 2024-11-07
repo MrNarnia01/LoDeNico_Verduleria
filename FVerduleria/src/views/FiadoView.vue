@@ -49,6 +49,7 @@
 </script>
 
 <template>
+    <div  class="pag"></div>
     <table class="view">
         <tr>
             <th class="tit" colspan="1">Listado de clientes</th>

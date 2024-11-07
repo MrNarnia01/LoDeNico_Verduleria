@@ -58,6 +58,7 @@
 </script>
 
 <template>
+    <div  class="pag"></div>
     <table class="view">
         <tr>
             <th class="tit" colspan="6">Listado de cuentas</th>

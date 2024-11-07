@@ -2,12 +2,28 @@
   import { RouterLink, RouterView } from 'vue-router'
   import axios from 'axios';
   import Navbar from './components/Navbar.vue';
+  import '@/assets/main.css';
   export default {
     components:{
       Navbar,
     },
+    data(){
+        return{
+            navB:false,
+        };
+    },
     mounted(){
-      this.$router.push('/');
+      this.cerrar();
+    },
+    methods: {
+      iniciar(){
+        this.navB=true;
+        this.$router.push('/');
+      },
+      cerrar(){
+        this.navB=false;
+        this.$router.push('/signUp');
+      }
     },
   }
   
@@ -15,20 +31,16 @@
 
 
 <template>
-  <header>
+  <header v-if="navB">
     <nav>
       <ul>
-        <Navbar/>
+        <Navbar @cerrar="cerrar()" />
       </ul>
     </nav>
   </header>
   <div>
-    <RouterView />
+    <RouterView @signUp="iniciar()" />
   </div>
   
 </template>
 
-
-<style scoped>
-
-</style>

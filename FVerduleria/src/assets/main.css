@@ -1,6 +1,9 @@
 /*
  * Header
  */
+    .pag{
+        margin-top: 100px;
+    }
 
     nav ul {
         padding: 0px;
@@ -9,8 +12,15 @@
 		
 	nav ul li{
         float:left;
-        padding:15px 15px;
+        padding:15px 40px;
 		display: block;
+        min-height: 45px;
+
+	}
+    nav ul li:not(.nav){
+        display: flex;
+        align-items: center;
+        font-size: 19px;
 	}
 			
     .botH:hover {
@@ -21,6 +31,7 @@
 	
     .sel{
         color: white;
+        background: linear-gradient(to bottom, rgb(250, 75, 10),coral);
     }
 
     header {
@@ -29,7 +40,7 @@
         width: 100%; 
         left: 0; 
         top: 0; 
-        position: fixed; 
+        position: fixed;
     }
 
     .router-link {
@@ -48,8 +59,9 @@
 
     body {
         font-family: var(--font-family);
-        margin-top: 50px;
+        margin: 0px;
         padding: 20px;
+        padding-top: 0px;
         display: grid;
         place-items: center;
     }
@@ -153,6 +165,10 @@
         accent-color: rgb(250, 140, 100);
     }
 
+    input[type="date"] {
+        height: 29px;
+    }
+
     tfoot{
         text-align: center;
         td{
@@ -203,7 +219,7 @@
     position: absolute;
   }
 
-  .midDiv:not(#der){
+  #izq{
     right: 50%;
   }
 
@@ -222,5 +238,107 @@
     padding: 2px;
   }
 
+/*
+*   Fuentes
+*/
+    @font-face {
+        font-family: 'Cursiva';
+        src: url('Nautilus.otf') format('opentype');
+    }
 
+    @font-face {
+        font-family: 'Inicio';
+        src: url('RobotoMono-Bold.ttf') format('truetype');
+    }
 
+    #lodenico{
+        font-family: 'Cursiva', sans-serif;
+    }
+
+    .nav{
+        font-size: 45px;
+    }
+
+/*
+*   Inicio Sesion
+*/
+
+    #img{
+            position: fixed;
+            margin-top: 0%;
+            width: 50%;
+            height: 100%;
+            background-image: url('fondo_Inicio.jpeg');
+            background-size: cover; 
+            right: 50%;
+    }
+
+    #info{
+        position: fixed;
+        margin-top: 0%;
+        width: 50%;
+        height: 100%;
+        background-color: grey;
+        background-size: cover; 
+        left: 50%;
+    }
+
+    .titulo{
+        margin-top: 0%;
+        height: 25%;
+        background-color: rgb(250, 75, 10);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10vw;
+    }
+
+    .ini{
+        font-family: 'Inicio', sans-serif;
+        font-size: 4vw;
+        text-shadow: -4px -1px 0px white;
+    }
+
+    form{
+        text-align: center;
+    }
+
+    .dat {
+        text-align: center;
+        border-radius: 8px;
+        border: 1px solid black;
+        height: 20px;
+    }
+
+    p{
+        padding: 15px;
+    }
+
+    .warnings {
+        position: fixed;
+        top: 50%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        border-radius: 15px;
+        padding: 10px;
+        background-color: rgb(179, 179, 179);
+        border: 1px solid black;
+      }
+
+      .signo{
+        font-size: 30px;
+      }
+
+      #tilde{
+        color: green;
+      }
+
+      #cruz{
+        color: red;
+      }
+
+      #warn{
+
+        font-size: 50px;
+        color: yellow;
+      }

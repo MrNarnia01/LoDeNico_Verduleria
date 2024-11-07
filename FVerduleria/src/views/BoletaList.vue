@@ -82,6 +82,7 @@
 </script>
 
 <template>
+    <div  class="pag"></div>
         <table class="view">
             <tr>
                 <th colspan="5" class="tit">Listado de boletas</th>

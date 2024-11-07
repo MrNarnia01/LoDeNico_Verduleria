@@ -49,6 +49,7 @@
 
 
 <template>
+    <div  class="pag"></div>
     <table class="view">
         <tr>
             <th class="tit" colspan="5">Listado de horarios</th>

@@ -11,6 +11,9 @@ import EmpleadoView from '@/views/EmpleadoView.vue'
 import HorarioView from '@/views/HorarioView.vue'
 import FiadoView from '@/views/FiadoView.vue'
 import ClienteView from '@/views/ClienteView.vue'
+import SignUp from '@/components/Sesion/SignUp.vue'
+import Recover from '@/components/Sesion/Recover.vue'
+import NewPass from '@/components/Sesion/NewPass.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +77,21 @@ const router = createRouter({
       path: '/cliente',
       name: 'cliente',
       component: ClienteView
+    },
+    {
+      path: '/signUp',
+      name: 'signUp',
+      component: SignUp
+    },
+    {
+      path: '/recover',
+      name: 'recover',
+      component: Recover
+    },
+    {
+      path: '/newPass',
+      name: 'newPass',
+      component: NewPass
     },
     
   ]
