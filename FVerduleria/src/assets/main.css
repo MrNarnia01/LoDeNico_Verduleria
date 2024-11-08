@@ -2,7 +2,7 @@
  * Header
  */
     .pag{
-        margin-top: 100px;
+        margin-top: 10vw;
     }
 
     nav ul {
@@ -12,7 +12,7 @@
 		
 	nav ul li{
         float:left;
-        padding:15px 40px;
+        padding:15px 2vw;
 		display: block;
         min-height: 45px;
 
@@ -285,6 +285,7 @@
 
     .titulo{
         margin-top: 0%;
+        margin-bottom: 0%;
         height: 25%;
         background-color: rgb(250, 75, 10);
         display: flex;
@@ -299,6 +300,13 @@
         text-shadow: -4px -1px 0px white;
     }
 
+    .nom{
+        margin: 0%;
+        font-family: 'Inicio', sans-serif;
+        font-size: 5vh;
+        text-shadow: -2px -1px 0px white;
+    }
+
     form{
         text-align: center;
     }
@@ -311,7 +319,12 @@
     }
 
     p{
-        padding: 15px;
+        padding: 2vh;
+        display: flex;
+        justify-content: center;
+        input{
+            min-height: 24px;
+        }
     }
 
     .warnings {
@@ -338,7 +351,7 @@
       }
 
       #warn{
-
         font-size: 50px;
         color: yellow;
       }
+

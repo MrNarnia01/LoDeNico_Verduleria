@@ -14,19 +14,22 @@
                         <button type="button" @click="agregarFila(-1,1,1)" class="bot">Agregar producto</button>
                     </td>
                     <td>
+                        <button type="button" class="bot" @click="create()">Nuevo producto</button>
+                    </td>
+                    <td>
                         <button type="submit" class="bot">Crear</button>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="numB">Numero de boleta:</label></td>
-                    <td><input type="number" id="numB" v-model="boletaRequest.numB" :min="0" required></td>
-                    <td><label for="monto">Monto:</label></td>
-                    <td><input type="number" id="monto" v-model="boletaRequest.monto" :min="0" step="0.01" required></td>
+                    <td><input type="number" id="numB" v-model="boletaRequest.numB" :min="1" required></td>
+                    <td colspan="2"><label for="monto">Monto:</label></td>
+                    <td><input type="number" id="monto" v-model="boletaRequest.monto" :min="0.01" step="0.01" required></td>
                 </tr>
                 <tr>
                     <th>Producto</th>
                     <th>Cajas</th>
-                    <th>Cantidad por caja</th>
+                    <th colspan="2">Cantidad por caja</th>
                     <th>Eliminar</th>
                 </tr>
                 <tr v-for="(detalleRequest, index) in boletaRequest.detalleBoletaRequestList" >
@@ -40,7 +43,7 @@
                     <td>
                         <input type="number" v-model.number="detalleRequest.caja" :min="1" />
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="number" v-model.number="detalleRequest.cantidad" :min="1" />
                     </td>
                     <td @click="eliminarProducto(index)" class="closel">
@@ -51,13 +54,19 @@
     
         
     </form>
+
+    <CreateProducto v-if="this.c" @cloc="create()" />
     </div>
     </div>
   </template>
 
 <script>
     import axios from 'axios'
+import CreateProducto from '../Producto/CreateProducto.vue';
     export default {
+        components: {
+            CreateProducto,
+        },
         props: {
             detalle:Object,
         },
@@ -65,17 +74,18 @@
             return {
                 productos: '',
                 boletaRequest:  {
-                    numB:0,
+                    numB:1,
                     idP:0,
-                    monto:0,
+                    monto:0.01,
                     detalleBoletaRequestList:[],
                 },
                 proveedor: '',
+                c: false,
             }
         },
         mounted(){
             this.busDatos();
-            this.lProductos();
+            this.lProductos(false);
         },
         methods: {
             agregarFila(i,c,ca){
@@ -85,10 +95,14 @@
                     cantidad: ca,
                 });
             },
-            async lProductos(){
+            async lProductos(b){
                 try {
                     const response = await axios.get('http://localhost:8080/api/producto/list/'+false);
                     this.productos=response.data;
+                    if(b){
+                        const index = (this.productos.length-1);
+                        this.agregarFila(this.productos[index].id,1,1);
+                    }
                 } catch (error) {
                     console.log(error)
                     this.productos=''
@@ -140,6 +154,11 @@
                 }).catch(error => {
                     console.log('Error: ', error.response.data);
                 });
+            },
+            create(){
+                this.c=!this.c;
+                var id = this.productos.length;
+                this.lProductos(!this.c);   
             },
         },
     }

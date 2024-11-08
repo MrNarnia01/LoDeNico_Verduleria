@@ -22,6 +22,9 @@
                         <button type="button" class="bot" @click="agregarFila(-1,1,1)">Agregar producto</button>
                     </td>
                     <td>
+                        <button type="button" class="bot" @click="create()">Nuevo producto</button>
+                    </td>
+                    <td>
                         <button type="submit" class="bot" v-if="pedido==null">Crear</button>
                         <button type="submit" class="bot" v-else>Modificar</button>
                     </td>
@@ -29,7 +32,7 @@
                 <tr>
                     <th>Producto</th>
                     <th>Cajas</th>
-                    <th>Cantidad por caja</th>
+                    <th colspan="2">Cantidad por caja</th>
                     <th>Eliminar</th>
                 </tr>
                 <tr v-for="(detalleRequest, index) in pedidoRequest.detallePedidoRequestList" >
@@ -43,7 +46,7 @@
                     <td>
                         <input type="number" v-model.number="detalleRequest.caja" :min="1" />
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="number" v-model.number="detalleRequest.cantidad" :min="1" />
                     </td>
                     <td @click="eliminarProducto(index)" class="closel">
@@ -52,13 +55,19 @@
                 </tr>
             </table>
     </form>
+
+        <CreateProducto v-if="this.c" @cloc="create()" />
     </div>
     </div>
   </template>
   
   <script>
     import axios from 'axios'
+import CreateProducto from '../Producto/CreateProducto.vue';
     export default {
+        components: {
+            CreateProducto,
+        },
     props: ['pedido'],
     data() {
       return {
@@ -68,6 +77,7 @@
             idP:0,
             detallePedidoRequestList:[],
         },
+        c: false,
       }
     },
     mounted(){
@@ -81,7 +91,7 @@
             this.agregarFila(-1,1,1);
         }
         
-        this.lProductos();
+        this.lProductos(false);
         this.lProveedores();
     },
     methods: {
@@ -101,10 +111,14 @@
                 console.log('Error: ', error.response.data);
             });
         },
-        async lProductos(){
+        async lProductos(b){
             try {
                 const response = await axios.get('http://localhost:8080/api/producto/list/'+false);
                 this.productos=response.data;
+                if(b){
+                    const index = (this.productos.length-1);
+                    this.agregarFila(this.productos[index].id,1,1);
+                }
             } catch (error) {
                 console.log(error)
                 this.productos=''
@@ -142,6 +156,11 @@
             }
     
         },
+        create(){
+                this.c=!this.c;
+                var id = this.productos.length;
+                this.lProductos(!this.c);   
+            },
     },
     computed:{
         findProveedor(){

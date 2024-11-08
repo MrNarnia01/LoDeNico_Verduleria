@@ -16,6 +16,7 @@
                 },
                 rContra: '',
                 id: 0,
+                ver: false,
             }
         },
         mounted(){
@@ -25,18 +26,32 @@
             this.empleadoRequest.codArea=this.empleado.codArea;
             this.empleadoRequest.tel=this.empleado.tel;
             this.empleadoRequest.mail=this.empleado.mail;
-            this.empleadoRequest.contra=this.empleado.contra;
         },
         methods:{
             crear(){
-                if(this.empleadoRequest.contra==this.rContra){
-                    axios.post( 'http://localhost:8080/api/empleado/update/'+this.id,this.empleadoRequest).then(response => {
-                        this.$emit('clou');
-                    }).catch(error => {
-                        console.log('Error: ', error.response.data);
-                    });
-                }else window.alert("Error entre las contraseñas");
-                
+                var mensajeError="La contraseña debe:\n";
+                mensajeError+="Tener al menos una letra\n";
+                mensajeError+="Tener al menos un numero\n";
+                mensajeError+="Tener minimo 8 caracteres\n";
+                mensajeError+="Tener maximo 16 caracteres\n";
+                mensajeError+="No usar caracteres especiales";
+                const regexAll = /^[a-zA-Z0-9]+$/;
+                const regexLetra = /[a-zA-Z]/;
+                const regexNum = /[0-9]/;
+                if(regexAll.test(this.empleadoRequest.contra) &&
+                    regexLetra.test(this.empleadoRequest.contra) &&
+                    regexNum.test(this.empleadoRequest.contra) &&
+                    this.empleadoRequest.contra.length>=8 &&
+                    this.empleadoRequest.contra.length<=16
+                ){
+                    if(this.empleadoRequest.contra==this.rContra){
+                        axios.post( 'http://localhost:8080/api/empleado/update/'+this.id,this.empleadoRequest).then(response => {
+                            this.$emit('clou');
+                        }).catch(error => {
+                            console.log('Error: ', error.response.data);
+                        });
+                    }else window.alert("Error entre las contraseñas");
+                }else window.alert(mensajeError);
             },
         },
     }
@@ -66,13 +81,19 @@
                 <td><label for="mail">Mail:</label></td>
                 <td><input type="text" id="mail" v-model="empleadoRequest.mail" required></td>
                 <td><label for="con">Contraseña:</label></td>
-                <td><input type="password" id="con" v-model="empleadoRequest.contra" required></td>
+                <td>
+                    <input type="text" v-if="ver" id="con" v-model="empleadoRequest.contra" required>
+                    <input type="password" v-else id="con" v-model="empleadoRequest.contra" required>
+                </td>
+                <td>
+                    <input type="checkbox" v-model="ver">
+                </td>
             </tr>
 
             <tr>
                 <td><label for="rCon">Repetir contraseña:</label></td>
                 <td><input type="password" id="rCon" v-model="rContra" required></td>
-                <td colspan="2"><button type="submit" class="bot" id="nor">Modificar</button></td>
+                <td colspan="3"><button type="submit" class="bot" id="nor">Modificar</button></td>
             </tr>
         </table>
         

@@ -5,7 +5,11 @@
         <div>
             <form @submit.prevent="signUp">
                 <h1 class="ini">Inicio de<br>sesion</h1>
-                <p><input type="password" required v-model="datos.datos_cuenta" placeholder="Contraseña" class="dat"></p>
+                <p>
+                    <input type="checkbox" v-model="ver">
+                    <input type="text" v-if="ver" required id="pas" v-model="datos.datos_cuenta" placeholder="Contraseña" class="dat">
+                    <input type="password" v-else required v-model="datos.datos_cuenta" placeholder="Contraseña" class="dat">
+                </p>
                 <p><input type="submit" value="Iniciar" class="bot"></p>
                 <p><input type="button" value="Olvide mi contraseña" class="bot" @click="recover()"></p>
             </form>
@@ -23,6 +27,7 @@
                 datos: {
                     datos_cuenta:'',
                 },
+                ver: false,
             };
         },
         mounted(){

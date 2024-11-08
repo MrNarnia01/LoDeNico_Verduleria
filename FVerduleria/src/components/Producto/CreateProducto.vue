@@ -41,7 +41,7 @@ export default {
       axios.post( 'http://localhost:8080/api/producto/create',this.nuevoProducto ).then(response => {
             this.$emit('cloc');
         }).catch(error => {
-            console.log('Error: ', error.response.data);
+            console.log('Error: ', error);
         });
     }, 
   }

@@ -38,9 +38,17 @@
         <div>
             <form @submit.prevent="change">
                 <h1 class="ini"> {{ info }} </h1>
-                <h1 class="ini"> {{ nombre }} {{ apellido }} </h1>
-                <p><input type="password" required v-model="contra" class="dat"></p>
-                <p><input type="password" required v-model="contra2" class="dat"></p>
+                <h1 class="nom"> {{ nombre }} {{ apellido }} </h1>
+                <p>
+                    <input type="checkbox" v-model="ver">
+                    <input type="text" v-if="ver" required v-model="contra" class="dat" >
+                    <input type="password" v-else required v-model="contra" class="dat" >
+                </p>
+                <p>
+                    <input type="checkbox" v-model="ver2">
+                    <input type="text" v-if="ver2" required v-model="contra2" class="dat">
+                    <input type="password" v-else required v-model="contra2" class="dat">
+                </p>
                 <p>Email para cambiar la contraseña</p>
                 <p><input type="submit" value="Solicitar cambio" class="bot"></p>
             </form>
@@ -69,7 +77,9 @@
                     num:false,
                     min:false,
                     max:true,
-                }
+                },
+                ver: '',
+                ver2: '',
             };
         },
         mounted(){
