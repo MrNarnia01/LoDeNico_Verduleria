@@ -23,6 +23,7 @@ com/LoDeNico/Verduleria/Entity/Producto/Producto.class
 com/LoDeNico/Verduleria/Repository/Proveedor/TrabajadorRepository.class
 com/LoDeNico/Verduleria/Service/Empleado/EmpleadoService.class
 com/LoDeNico/Verduleria/Entity/Producto/Boleta.class
+com/LoDeNico/Verduleria/Dto/Response/Empleado/SignUpResponse.class
 com/LoDeNico/Verduleria/Service/Producto/LoteServiceImpl.class
 com/LoDeNico/Verduleria/Dto/Response/Producto/BoletaResponse.class
 com/LoDeNico/Verduleria/Dto/Response/Proveedor/TrabajadorResponse.class
@@ -82,6 +83,7 @@ com/LoDeNico/Verduleria/Repository/Producto/ProductoRepository.class
 com/LoDeNico/Verduleria/Dto/Request/Producto/ProductoRequest.class
 com/LoDeNico/Verduleria/Repository/Proveedor/ProveedorRepository.class
 com/LoDeNico/Verduleria/Dto/Request/BusRequest.class
+com/LoDeNico/Verduleria/Dto/Request/Empleado/SignUpRequest.class
 com/LoDeNico/Verduleria/Repository/Cierre/CierreLoteRepository.class
 com/LoDeNico/Verduleria/Controller/Producto/BoletaController.class
 com/LoDeNico/Verduleria/Service/Proveedor/TrabajadorServiceImpl.class

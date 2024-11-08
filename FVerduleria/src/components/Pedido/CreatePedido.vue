@@ -56,7 +56,7 @@
             </table>
     </form>
 
-        <CreateProducto v-if="this.c" @cloc="create()" />
+        <CreateProducto v-if="this.c" @cloc="create()" @clox="this.c=!this.c" />
     </div>
     </div>
   </template>
@@ -96,7 +96,9 @@ import CreateProducto from '../Producto/CreateProducto.vue';
     },
     methods: {
         eliminarProducto(index) {
-            this.pedidoRequest.detallePedidoRequestList.splice(index, 1);
+                if(this.pedidoRequest.detallePedidoRequestList.length>1){
+                    this.pedidoRequest.detallePedidoRequestList.splice(index, 1);
+                }
         },
         crear(){
             let a = "";

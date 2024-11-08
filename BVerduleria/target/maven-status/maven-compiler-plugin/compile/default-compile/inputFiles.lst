@@ -1,3 +1,5 @@
+/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Response/Empleado/SignUpResponse.java
+/home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Dto/Request/Empleado/SignUpRequest.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Producto/BoletaService.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Controller/Producto/BoletaController.java
 /home/narnia/Escritorio/LoDeNico_Verduleria/BVerduleria/src/main/java/com/LoDeNico/Verduleria/Service/Producto/ProductoService.java

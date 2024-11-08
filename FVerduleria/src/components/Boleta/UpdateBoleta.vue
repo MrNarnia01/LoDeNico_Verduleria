@@ -14,21 +14,24 @@
                         <button type="button" @click="agregarFila(-1,1,1)" class="bot">Agregar producto</button>
                     </td>
                     <td>
+                        <button type="button" class="bot" @click="create()">Nuevo producto</button>
+                    </td>
+                    <td>
                         <button type="submit" class="bot">Modificar</button>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="numB">Numero de boleta:</label></td>
-                    <td><input type="number" id="numB" v-model="boletaRequest.numB" :min="0" required></td>
+                    <td><input type="number" id="numB" v-model="boletaRequest.numB" :min="1" required></td>
 
-                    <td><label for="monto">Monto:</label></td>
-                    <td v-if="aPagar"><input type="number" id="monto" v-model="boletaRequest.monto" :min="0" step="0.01" required></td>
+                    <td colspan="2"><label for="monto">Monto:</label></td>
+                    <td v-if="aPagar"><input type="number" id="monto" v-model="boletaRequest.monto" :min="0.01" step="0.01" required></td>
                     <td v-else><input type="number" id="monto" v-model="boletaRequest.monto" readonly></td>
                 </tr>
                 <tr>
                     <th>Producto</th>
                     <th>Cajas</th>
-                    <th>Cantidad por caja</th>
+                    <th colspan="2">Cantidad por caja</th>
                     <th>Eliminar</th>
                 </tr>
                 <tr v-for="(detalleRequest, index) in boletaRequest.detalleBoletaRequestList" >
@@ -42,7 +45,7 @@
                     <td>
                         <input type="number" v-model.number="detalleRequest.caja" :min="1" />
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="number" v-model.number="detalleRequest.cantidad" :min="1" />
                     </td>
                     <td @click="eliminarProducto(index)" class="closel">
@@ -52,13 +55,19 @@
         </table>
     
     </form>
+
+    <CreateProducto v-if="this.c" @cloc="create()" @clox="this.c=!this.c" />
     </div>
     </div>
   </template>
 
 <script>
     import axios from 'axios'
+import CreateProducto from '../Producto/CreateProducto.vue';
     export default {
+        components: {
+            CreateProducto,
+        },
         props: {
             id:Object,
         },
@@ -73,12 +82,13 @@
                 },
                 proveedor: '',
                 aPagar: false,
+                c: false,
             }
         },
         mounted(){
             console.log(this.id)
             this.busDatos();
-            this.lProductos();
+            this.lProductos(false);
             this.aPagar=this.pagos;
         },
         methods: {
@@ -89,10 +99,14 @@
                     cantidad: ca,
                 });
             },
-            async lProductos(){
+            async lProductos(b){
                 try {
                     const response = await axios.get('http://localhost:8080/api/producto/list/'+false);
                     this.productos=response.data;
+                    if(b){
+                        const index = (this.productos.length-1);
+                        this.agregarFila(this.productos[index].id,1,1);
+                    }
                 } catch (error) {
                     console.log(error)
                     this.productos=''
@@ -125,7 +139,9 @@
 
             },
             eliminarProducto(index) {
-                this.boletaRequest.detalleBoletaRequestList.splice(index, 1);
+                if(this.boletaRequest.detalleBoletaRequestList.length>1){
+                    this.boletaRequest.detalleBoletaRequestList.splice(index, 1);
+                }
             },
             validarProducto(index){
                 let detalles = this.boletaRequest.detalleBoletaRequestList;
@@ -149,6 +165,11 @@
                 }).catch(error => {
                     console.log('Error: ', error.response.data);
                 });
+            },
+            create(){
+                this.c=!this.c;
+                var id = this.productos.length;
+                this.lProductos(!this.c);   
             },
         },
     }

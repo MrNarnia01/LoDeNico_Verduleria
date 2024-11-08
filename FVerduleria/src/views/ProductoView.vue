@@ -146,6 +146,6 @@
         </tr>
     </table>
     
-    <CreateProducto v-if="this.c" @cloc="create()" />
+    <CreateProducto v-if="this.c" @cloc="create()" @clox="this.c=!this.c" />
     <UpdateProducto v-if="this.u" @clou="update()" :producto="this.produ" />
 </template>

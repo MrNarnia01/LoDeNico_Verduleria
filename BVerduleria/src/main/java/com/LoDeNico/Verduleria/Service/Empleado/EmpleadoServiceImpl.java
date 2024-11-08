@@ -1,13 +1,16 @@
 package com.LoDeNico.Verduleria.Service.Empleado;
 
 import com.LoDeNico.Verduleria.Dto.Request.Empleado.EmpleadoRequest;
+import com.LoDeNico.Verduleria.Dto.Request.Empleado.SignUpRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Empleado.EmpleadoResponse;
 import com.LoDeNico.Verduleria.Dto.Response.Empleado.HorarioResponse;
+import com.LoDeNico.Verduleria.Dto.Response.Empleado.SignUpResponse;
 import com.LoDeNico.Verduleria.Entity.Empleado.Empleado;
 import com.LoDeNico.Verduleria.Entity.Empleado.Horario;
 import com.LoDeNico.Verduleria.Entity.Empleado.Persona;
 import com.LoDeNico.Verduleria.Repository.Empleado.EmpleadoRepository;
 import com.LoDeNico.Verduleria.Repository.Empleado.PersonaRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -177,9 +180,44 @@ public class EmpleadoServiceImpl implements EmpleadoService{
         }
     }
 
+    @PostConstruct
+    public void inicializarEmpleado() {
+        if(empleadoRepository.findAll().isEmpty()){
+            Empleado empleado = new Empleado();
+            empleado.setPersona(new Persona());
+            empleado.getPersona().setNombre("Bruno");
+            empleado.getPersona().setApellido("Petti");
+            empleado.setMail("brunonp03@gmail.com");
+            empleado.setContra("nrn12345");
+            empleado.getPersona().setCodArea(2964);
+            empleado.getPersona().setTel(492543);
+            empleado = empleadoRepository.save(empleado);
+        }
+    }
 
+    public boolean signUp(SignUpRequest signUpRequest){
+        List<Empleado> empleadoList = empleadoRepository.findByContra(signUpRequest.getDatos_cuenta());
+        return !empleadoList.isEmpty();
+    }
 
+    public SignUpResponse recover(SignUpRequest signUpRequest){
+        Optional<Empleado> empleadoOptional = empleadoRepository.findByMail(signUpRequest.getDatos_cuenta());
+        if(empleadoOptional.isPresent()){
+            Empleado empleado = empleadoOptional.get();
+            return new SignUpResponse(empleado.getEId(), empleado.getPersona().getNombre(), empleado.getPersona().getApellido());
+        }
+        else return new SignUpResponse(-1L,"","");
+    }
 
+    public boolean newContra(SignUpRequest signUpRequest, Long id){
+        Optional<Empleado> empleadoOptional = empleadoRepository.findById(id);
+        if(empleadoOptional.isPresent()){
+            Empleado empleado = empleadoOptional.get();
+            empleado.setContra(signUpRequest.getDatos_cuenta());
+            empleadoRepository.save(empleado);
+            return true;
+        }else return false;
+    }
 
 
 }

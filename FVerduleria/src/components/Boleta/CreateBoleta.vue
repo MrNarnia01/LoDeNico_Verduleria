@@ -55,7 +55,7 @@
         
     </form>
 
-    <CreateProducto v-if="this.c" @cloc="create()" />
+    <CreateProducto v-if="this.c" @cloc="create()" @clox="this.c=!this.c" />
     </div>
     </div>
   </template>
@@ -129,7 +129,9 @@ import CreateProducto from '../Producto/CreateProducto.vue';
 
             },
             eliminarProducto(index) {
-                this.boletaRequest.detalleBoletaRequestList.splice(index, 1);
+                if(this.boletaRequest.detalleBoletaRequestList.length>1){
+                    this.boletaRequest.detalleBoletaRequestList.splice(index, 1);
+                }
             },
             validarProducto(index){
                 let detalles = this.boletaRequest.detalleBoletaRequestList;
