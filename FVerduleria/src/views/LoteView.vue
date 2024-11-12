@@ -80,5 +80,5 @@
             <Lote :lote="lote" @e="busqueda()" />
         </tr>
     </table> 
-    <CreateLote v-if="this.c" :id="this.id" @cloc="create()" />
+    <CreateLote v-if="this.c" :id="this.id" :nom="this.producto.nombre" @cloc="create()" />
 </template>

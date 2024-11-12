@@ -11,8 +11,8 @@
                   </th>
               </tr>
               <tr>
-                <td><label for="id">Producto Id:</label></td>
-                <td><input type="number" id="id" v-model="nuevoLote.idP" readonly></td>
+                <td><label for="id">Producto:</label></td>
+                <td><input type="text" id="id" v-model="produ" readonly></td>
                 <!--
                 <td><label for="fVenci">Fecha de Vencimiento:</label></td>
                 <td><input type="date" id="fVenci" v-model="nuevoLote.date" :min="fHoy"></td>
@@ -44,6 +44,7 @@
     export default {
         props: {
             id:Object,
+            nom:Object,
         },
     data() {
         return {
@@ -53,6 +54,7 @@
                 date: new Date(),
             },
             fHoy: '',
+            produ: '',
         }
     },
     mounted(){
@@ -63,9 +65,8 @@
                 let day = today.getDate();
                 day = day < 10 ? '0' + day : day;
                 this.fHoy = `${year}-${month}-${day}`;
-        
-        console.log('producto: '+this.id)
         this.nuevoLote.idP=this.id;
+        this.produ=this.nom;
     },
     methods: {
         crearLote() {

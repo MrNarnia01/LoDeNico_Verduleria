@@ -39,5 +39,6 @@
     <td v-else> {{ pedido.nb }} </td>
     <td v-if="pedido.nB ==null" @click="$emit('mod')" class="bot">Modificar</td>
     <td v-else> - </td>
-    <td @click="borrar()" class="bot">Eliminar</td>
+    <td @click="borrar()" v-if="pedido.nb ==-1" class="bot">Eliminar</td>
+    <td v-else class="nBot">Eliminar</td>
 </template>

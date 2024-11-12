@@ -17,7 +17,7 @@
                         <button type="button" class="bot" @click="create()">Nuevo producto</button>
                     </td>
                     <td>
-                        <button type="submit" class="bot">Crear</button>
+                        <button type="submit" class="bot">Recibir boleta</button>
                     </td>
                 </tr>
                 <tr>

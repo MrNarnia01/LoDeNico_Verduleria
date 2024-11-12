@@ -72,7 +72,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4">
-                        Advertencia: cualquier datos que sea cambiado aqui sera permanente si la persona esta registrarda como un empleado o un trabajador
+                        Advertencia: cualquier datos que sea cambiado aqui sera permanente si la persona esta registrada como un empleado o un trabajador
                     </td>
                 </tr>
             </tfoot>

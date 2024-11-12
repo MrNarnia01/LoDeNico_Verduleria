@@ -51,6 +51,6 @@
     <td>{{ this.boleta.monto }}</td>
     <td @click="$emit('mod')" class="bot">Modificar</td>
     <td v-if="pagos" @click="borrar()" class="bot">Eliminar</td>
-    <td v-else>-</td>
+    <td v-else class="nBot">Eliminar</td>
     <td @click="boleta()" class="bot">Pagos</td>
 </template>
