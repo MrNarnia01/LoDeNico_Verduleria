@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DetalleBoletaResponse {
     private Long id;
-    private Long boleta;
+    private Long nB;
     private String nombre;
-    private boolean unit;
+    private Long idProdu;
     private int caja;
     private int cantidad;
 }

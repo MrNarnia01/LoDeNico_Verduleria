@@ -9,11 +9,7 @@ import com.LoDeNico.Verduleria.Repository.Empleado.HorarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +29,7 @@ public class HorarioServiceImpl implements HorarioService{
         return new HorarioResponse(horario.getHId(),
                 horario.getEmpleado().getPersona().getNombre(),
                 horario.getEmpleado().getPersona().getApellido(),
+                horario.getDia(),
                 horario.getEntrada(),
                 horario.getSalida());
     }
@@ -42,16 +39,14 @@ public class HorarioServiceImpl implements HorarioService{
         if(horarioOptional.isPresent()){
             return createHorarioResponse(horarioOptional.get());
         }else{
-            return new HorarioResponse(-1L,"1002","",null,null);
+            return new HorarioResponse(-1L,"1002","","",null,null);
         }
     }
 
     public int deleteHorario(Long id){
         Optional<Horario> horarioOptional = horarioRepository.findById(id);
         if(horarioOptional.isPresent()){
-            Horario horario = horarioOptional.get();
-            if(horario.getEntrada().equals(horario.getSalida()))    horarioRepository.deleteById(id);
-            else return 1004;
+            horarioRepository.deleteById(id);
             return 0;
         }else{
             return 1002;
@@ -62,14 +57,18 @@ public class HorarioServiceImpl implements HorarioService{
         boolean b = true;
         Optional<Empleado> empleadoOptional = empleadoRepository.findById(horarioRequest.getIdE());
         if(empleadoOptional.isEmpty()) b=false;
-
+        if (horarioRequest.getEntrada() == null || horarioRequest.getSalida() == null) b=false;
+        else if (horarioRequest.getEntrada().isAfter(horarioRequest.getSalida())) b=false;
         if(b){
             Horario horario = new Horario();
             horario.setEmpleado(empleadoOptional.get());
+            horario.setDia(horarioRequest.getDia());
+            horario.setEntrada(horarioRequest.getEntrada());
+            horario.setSalida(horarioRequest.getSalida());
             horario = horarioRepository.save(horario);
             return createHorarioResponse(horario);
         }else{
-            return new HorarioResponse(-1L,"1003","",null,null);
+            return new HorarioResponse(-1L,"1003","","",null,null);
         }
     }
 
@@ -78,19 +77,20 @@ public class HorarioServiceImpl implements HorarioService{
         Horario horario = new Horario();
 
         Optional<Horario> horarioOptional = horarioRepository.findById(id);
-        if(horarioOptional.isEmpty())    return new HorarioResponse(-1L, "1002", "", null, null);
+        if(horarioOptional.isEmpty())    return new HorarioResponse(-1L, "1002","", "", null, null);
         else horario = horarioOptional.get();
 
-        if(!horario.getEntrada().equals(horario.getSalida())) b = false;
-
-        Optional<Empleado> empleadoOptional = empleadoRepository.findById(horarioRequest.getIdE());
-        if (empleadoOptional.isEmpty()) b = false;
+        if (horarioRequest.getEntrada() == null || horarioRequest.getSalida() == null) b=false;
+        else if (horarioRequest.getEntrada().isAfter(horarioRequest.getSalida())) b=false;
 
         if (b) {
+            horario.setDia(horarioRequest.getDia());
+            horario.setEntrada(horarioRequest.getEntrada());
+            horario.setSalida(horarioRequest.getSalida());
             horario = horarioRepository.save(horario);
             return createHorarioResponse(horario);
         } else {
-            return new HorarioResponse(-1L, "1003", "", null, null);
+            return new HorarioResponse(-1L, "1003", "","", null, null);
         }
 
     }
@@ -103,7 +103,7 @@ public class HorarioServiceImpl implements HorarioService{
                 horarioResponseList.add(createHorarioResponse(h));
             }
         }else{
-            horarioResponseList.add(new HorarioResponse(-1L,"1002","",null,null));
+            horarioResponseList.add(new HorarioResponse(-1L,"1002","","",null,null));
         }
         return horarioResponseList;
     }

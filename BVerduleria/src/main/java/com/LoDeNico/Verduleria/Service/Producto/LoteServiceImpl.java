@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.LoteRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.LoteResponse;
 import com.LoDeNico.Verduleria.Entity.Producto.Lote;
@@ -10,6 +10,7 @@ import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,15 +72,14 @@ public class LoteServiceImpl implements LoteService{
     public LoteResponse createLote(LoteRequest loteRequest){
         boolean b = true;
         Optional<Producto> productoOptional = productoRepository.findById(loteRequest.getIdP());
-
         if(productoOptional.isEmpty()) b = false;
-        if(loteRequest.getNLote()<=0) b = false;
+        if(loteRequest.getNum()<=0) b = false;
 
         if(b){
             Lote lote = new Lote();
             lote.setProducto(productoOptional.get());
-            lote.setNLote(loteRequest.getNLote());
-            lote.setFVenci(loteRequest.getFVenci());
+            lote.setNLote(loteRequest.getNum());
+            lote.setFVenci(new Timestamp(loteRequest.getDate().getTime()));
             lote = loteRepository.save(lote);
 
             return createLoteResponse(lote);
@@ -94,33 +94,29 @@ public class LoteServiceImpl implements LoteService{
         Optional<Producto> productoOptional = productoRepository.findById(loteRequest.getIdP());
 
         if(productoOptional.isEmpty()) b = false;
-        if(loteRequest.getNLote()<=0) b = false;
+        if(loteRequest.getNum()<=0) b = false;
 
         if(b){
             Lote lote = loteOptional.get();
             lote.setProducto(productoOptional.get());
-            lote.setNLote(loteRequest.getNLote());
-            lote.setFVenci(loteRequest.getFVenci());
+            lote.setNLote(loteRequest.getNum());
+            lote.setFVenci(new Timestamp(loteRequest.getDate().getTime()));
             lote = loteRepository.save(lote);
 
             return createLoteResponse(lote);
         }else   return new LoteResponse(-1L,"",1003,null);
     }
 
-    public List<LoteResponse> getLoteListByDias(FechaRequest fechaRequest){
-        List<Lote> loteList = loteRepository.findByDias(fechaRequest.getF1(),fechaRequest.getF2());
+    public List<LoteResponse> getLoteListBus(BusRequest busRequest){
+        List<Lote> loteList = loteRepository.findByfVenciBetween(new Timestamp(busRequest.getF1().getTime()),new Timestamp(busRequest.getF2().getTime()));
         List<LoteResponse> loteResponseList = new ArrayList<>();
         if(!loteList.isEmpty()){
             for(Lote l: loteList){
                 LoteResponse loteResponse = createLoteResponse(l);
                 loteResponseList.add(loteResponse);
             }
-            return loteResponseList;
-        }else{
-            LoteResponse loteResponse = new LoteResponse(-1L,"",1001,null);
-            loteResponseList.add(loteResponse);
-            return loteResponseList;
         }
+        return loteResponseList;
     }
 
 

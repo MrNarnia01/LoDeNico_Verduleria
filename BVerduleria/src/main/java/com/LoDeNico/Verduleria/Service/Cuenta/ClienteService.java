@@ -10,10 +10,10 @@ public interface ClienteService {
     public List<ClienteResponse> getClienteList();
 
     public List<ClienteResponse> getClienteListByNombre(String nombre);
-    public List<ClienteResponse> getClienteListByApellido(String apellido);
-
-    public List<ClienteResponse> getClienteListByCalle(String calle);
-    public ClienteResponse createCliente(ClienteRequest clienteRequest);
+    /*
+public List<ClienteResponse> getClienteListByApellido(String apellido);
+public List<ClienteResponse> getClienteListByCalle(String calle);
+*/
     public int deleteCliente(Long id);
     public ClienteResponse updateCliente(ClienteRequest clienteRequest, Long id);
 }

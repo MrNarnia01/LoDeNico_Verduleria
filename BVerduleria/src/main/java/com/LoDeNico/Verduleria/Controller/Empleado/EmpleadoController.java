@@ -1,7 +1,9 @@
 package com.LoDeNico.Verduleria.Controller.Empleado;
 
 import com.LoDeNico.Verduleria.Dto.Request.Empleado.EmpleadoRequest;
+import com.LoDeNico.Verduleria.Dto.Request.Empleado.SignUpRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Empleado.EmpleadoResponse;
+import com.LoDeNico.Verduleria.Dto.Response.Empleado.SignUpResponse;
 import com.LoDeNico.Verduleria.Service.Empleado.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,5 +61,30 @@ public class EmpleadoController {
             return ResponseEntity.ok(cod);
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cod);
     }
+
+    @PostMapping("/signUp")
+    public ResponseEntity<?> SignUpEmpleado(@RequestBody SignUpRequest signUpRequest){
+        boolean e = empleadoService.signUp(signUpRequest);
+        if(e){
+            return ResponseEntity.ok("Sesion Iniciada");
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error contraseña incorrecta");
+    }
+
+    @PostMapping("/recover")
+    public ResponseEntity<?> RecoverEmpleado(@RequestBody SignUpRequest signUpRequest){
+        SignUpResponse signUpResponse = empleadoService.recover(signUpRequest);
+        if(signUpResponse.getId()!=-1){
+            return ResponseEntity.ok(signUpResponse);
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error mail incorrecto");
+    }
+
+    @PostMapping("/contra/{id}")
+    public ResponseEntity<?> newContraEmpleado(@RequestBody SignUpRequest signUpRequest, @PathVariable Long id){
+        boolean e = empleadoService.newContra(signUpRequest, id);
+        if(e){
+            return ResponseEntity.ok("Sesion Iniciada");
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error en contraseña");
+    }
+
 
 }

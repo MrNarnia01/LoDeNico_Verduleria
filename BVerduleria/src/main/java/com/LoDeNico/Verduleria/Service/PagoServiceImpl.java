@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service;
 
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.PagoResquest;
 import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Entity.Pago;
@@ -62,8 +62,10 @@ public class PagoServiceImpl implements PagoService{
         if (pagoOptional.isPresent()){
             Optional<Boleta> boletaOptional = boletaRepository.findById(pagoOptional.get().getBoleta().getId());
             Boleta boleta = boletaOptional.get();
-            if(boleta.isPaga())     boleta.setPaga(false);
-            boletaRepository.save(boleta);
+            if (boleta.isPaga()) {
+                boleta.setPaga(false);
+                boletaRepository.save(boleta);
+            }
             pagoRepository.deleteById(id);
             return 0;
         }else {
@@ -76,24 +78,24 @@ public class PagoServiceImpl implements PagoService{
         Optional<Boleta> boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
 
         if (boletaOptional.isEmpty())   b = false;
+        else if (pagoResquest.getMonto()>boletaOptional.get().allPagado())     b=false;
         if (pagoResquest.getTipo().isBlank()) b = false;
-        if (pagoResquest.getMonto()<=0) b = false;
 
         if (b){
-            Pago pago = new Pago();
-            pago.setTipo(pagoResquest.getTipo());
-            pago.setMonto(pagoResquest.getMonto());
-            pago.setBoleta(boletaOptional.get());
-            pago = pagoRepository.save(pago);
-
-            boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
             Boleta boleta = boletaOptional.get();
-            if(boleta.allPagado()){
-                boleta.setPaga(true);
-            }
-            boletaRepository.save(boleta);
+            if(!boleta.isPaga()){
+                Pago pago = new Pago();
+                pago.setTipo(pagoResquest.getTipo());
+                pago.setMonto(pagoResquest.getMonto());
+                pago.setBoleta(boletaOptional.get());
+                pago = pagoRepository.save(pago);
 
-            return createPagoResponse(pago);
+                if((boleta.allPagado()-pago.getMonto()) == 0){
+                    boleta.setPaga(true);
+                    boletaRepository.save(boleta);
+                }
+                return createPagoResponse(pago);
+            }else   return new PagoResponse(-1L,0L,"",null,1009);
         }else{
             return new PagoResponse(-1L,0L,"",null,1003);
         }
@@ -108,37 +110,44 @@ public class PagoServiceImpl implements PagoService{
         Optional<Boleta> boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
 
         if (boletaOptional.isEmpty())   b = false;
+        else{
+            Pago pago = pagoOptional.get();
+            Boleta boleta = boletaOptional.get();
+            double newMonto = boleta.allPagado()+pago.getMonto();
+            if(newMonto<pagoResquest.getMonto()){
+                b = false;
+            }
+        }
         if (pagoResquest.getTipo().isBlank()) b = false;
-        if (pagoResquest.getMonto()<=0) b = false;
 
         if (b){
+            Boleta boleta = boletaOptional.get();
             Pago pago = pagoOptional.get();
             pago.setTipo(pagoResquest.getTipo());
             pago.setMonto(pagoResquest.getMonto());
             pago = pagoRepository.save(pago);
 
-            boletaOptional = boletaRepository.findById(pagoResquest.getIdB());
-            Boleta boleta = boletaOptional.get();
-            if(boleta.allPagado()){
+            boleta = boletaRepository.findById(pagoResquest.getIdB()).get();
+            if (boleta.allPagado() == 0) {
                 boleta.setPaga(true);
-            }else{
+            } else {
                 boleta.setPaga(false);
             }
             boletaRepository.save(boleta);
 
-            return createPagoResponse(pago);
+                return createPagoResponse(pago);
         }else{
             return new PagoResponse(-1L,0L,"",null,1003);
         }
     }
 
-    public List<PagoResponse> getPagoListBus( String tipo, MontoRequest montoRequest){
+    public List<PagoResponse> getPagoListBus(BusRequest busRequest){
         List<Pago> pagoList = new ArrayList<>();
-        if(montoRequest.getM1()==-1)    pagoList = pagoRepository.findAll();
-        else    pagoList = pagoRepository.serchByMonto(montoRequest.getM1(), montoRequest.getM2());
+        if(busRequest.getM1()==-1)    pagoList = pagoRepository.findAll();
+        else    pagoList = pagoRepository.serchByMonto(busRequest.getM1(), busRequest.getM2());
 
-        if (tipo!=null){
-            List<Pago> tipoList = pagoRepository.findByTipo(tipo);
+        if (busRequest.isB()){
+            List<Pago> tipoList = pagoRepository.findByTipo(busRequest.getS1());
             for (int i = 0; i < pagoList.stream().count(); i++) {
                 boolean b = false;
                 for (int j = 0; j < tipoList.stream().count(); j++) {

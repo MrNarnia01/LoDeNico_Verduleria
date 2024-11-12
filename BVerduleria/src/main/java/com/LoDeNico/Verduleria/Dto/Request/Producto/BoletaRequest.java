@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoletaRequest {
-    private Long nB;
+    private Long numB;
     private Long idP;
     private double monto;
     private List<DetalleRequest> detalleBoletaRequestList;

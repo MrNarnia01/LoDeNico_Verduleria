@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -16,11 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoletaResponse {
+    private Long id;
     private Long nB;
     private Long idP;
+    private String negocio;
     private boolean paga;
     private Timestamp fRecibo;
     private double monto;
+    private double faltaPagar;
     private List<DetalleBoletaResponse> detalleBoletaResponseList;
     private List<PagoResponse> pagoResponseList;
 }

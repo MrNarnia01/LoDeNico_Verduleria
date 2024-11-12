@@ -1,7 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
-import com.LoDeNico.Verduleria.Dto.Request.Producto.BusPRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.ProductoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.LoteResponse;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.ProductoResponse;
@@ -11,9 +10,7 @@ import com.LoDeNico.Verduleria.Repository.Producto.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductoServiceImpl implements ProductoService{
@@ -59,16 +56,9 @@ public class ProductoServiceImpl implements ProductoService{
     }
 
     public List<ProductoResponse> getProductoList(boolean pl){
-        List<Producto> productoList = productoRepository.findAll();
+        List<Producto> productoList = productoRepository.findBySoftDelete(pl);
         List<ProductoResponse> productoResponseList = new ArrayList<>();
         if(!productoList.isEmpty()){
-            for (int i = 0; i < productoList.stream().count(); i++) {
-                if(productoList.get(i).isSoftDelete() == pl){
-                    productoList.remove(i);
-                    i--;
-                }
-            }
-
             for (Producto p: productoList){
                 productoResponseList.add(createProductoResponse(p));
             }
@@ -107,6 +97,7 @@ public class ProductoServiceImpl implements ProductoService{
             producto.setStock(0);
             producto.setUnit(productoRequest.isUnit());
             producto.setSoftDelete(false);
+            producto.setLotes(new ArrayList<>());
             producto = productoRepository.save(producto);
             return createProductoResponse(producto);
         }else{
@@ -122,9 +113,7 @@ public class ProductoServiceImpl implements ProductoService{
         if (productoOptional.isEmpty()){
             return new ProductoResponse(-1L,"",0,1002,true,null);
         }else producto = productoOptional.get();
-
-        productoOptional = productoRepository.findByNombre(productoRequest.getNombre());
-        if (productoOptional.isPresent())   b = false;
+        
         if (productoRequest.getNombre().isBlank())  b = false;
         if (productoRequest.getPrecio()<=0) b = false;
 
@@ -132,7 +121,6 @@ public class ProductoServiceImpl implements ProductoService{
             producto.setNombre(productoRequest.getNombre());
             producto.setPrecio(productoRequest.getPrecio());
             producto.setUnit(productoRequest.isUnit());
-            producto.setSoftDelete(false);
             producto = productoRepository.save(producto);
             return createProductoResponse(producto);
         }else{
@@ -153,44 +141,71 @@ public class ProductoServiceImpl implements ProductoService{
         return 1002;
     }
 
-    public List<ProductoResponse> busProducto(BusPRequest busPRequest){
-        List<Producto> productoList = new ArrayList<>();
-        if(busPRequest.getNombre()==null)    productoList = productoRepository.findAll();
-        else productoList = productoRepository.serchByNombre(busPRequest.getNombre());
+    public List<ProductoResponse> busProducto(BusRequest busRequest){
+        /*String b="";
+        boolean cant=false;
 
-        if(busPRequest.getUni() !=0){
-            boolean u = true;
-            if(busPRequest.getUni() == 2)    u = false;
-
-            for (int i = 0; i < productoList.stream().count(); i++) {
-                if(productoList.get(i).isUnit()!=u){
-                    productoList.remove(i);
-                    i--;
-                }
-            }
+        if(!busRequest.getS1().isBlank()){
+            cant=true;
+            b+="upper(p.nombre) LIKE upper(concat('%', "+busRequest.getS1()+",'%'))";
         }
 
-        if(busPRequest.getMontoRequest().getM1()!=-1){
-            List<Producto> montoList = productoRepository.serchByPrecio(busPRequest.getMontoRequest().getM1(), busPRequest.getMontoRequest().getM2());
+        if(busRequest.getI()!=-1){
+            if(cant) b+=" AND ";
+            else cant=true;
 
-            for (int i = 0; i < productoList.stream().count(); i++) {
-                boolean b = false;
-                for (int j = 0; j < montoList.stream().count(); j++) {
-                    if (productoList.get(i).equals(montoList.get(j)))    b=true;
-                }
-                if(!b){
-                    productoList.remove(i);
-                    i--;
-                }
-            }
+            b+="p.unit="+busRequest.isB();
+        }
 
+        if(busRequest.getM1()!=-1){
+            if(cant) b+=" AND ";
+            else cant=true;
+
+            b+="p.precio BETWEEN "+busRequest.getM1()+" AND "+busRequest.getM2();
+        }
+
+        List<Producto> productoList = productoRepository.serchByVs(b);
+        */
+        List<Producto> productoList = productoRepository.findBySoftDelete(false);
+
+        if(!busRequest.getS1().isBlank()){
+            List<Producto> auxList = productoRepository.findByNombreContainingIgnoreCase(busRequest.getS1());
+            // Convertir las listas a conjuntos para encontrar la intersección
+            Set<Producto> productosActivosSet = new HashSet<>(productoList);
+            Set<Producto> productosAuxSet = new HashSet<>(auxList);
+            // Obtener la intersección (productos en ambas listas)
+            productosActivosSet.retainAll(productosAuxSet);
+            // Convertir el conjunto de vuelta a una lista (opcional)
+            productoList = new ArrayList<>(productosActivosSet);
+
+        }
+
+        if(busRequest.getI()!=-1){
+            List<Producto> auxList = productoRepository.findByUnit(busRequest.isB());
+            // Convertir las listas a conjuntos para encontrar la intersección
+            Set<Producto> productosActivosSet = new HashSet<>(productoList);
+            Set<Producto> productosAuxSet = new HashSet<>(auxList);
+            // Obtener la intersección (productos en ambas listas)
+            productosActivosSet.retainAll(productosAuxSet);
+            // Convertir el conjunto de vuelta a una lista (opcional)
+            productoList = new ArrayList<>(productosActivosSet);
+        }
+
+        if(busRequest.getM1()!=-1){
+            List<Producto> auxList = productoRepository.findByPrecioBetween(busRequest.getM1(), busRequest.getM2());
+            // Convertir las listas a conjuntos para encontrar la intersección
+            Set<Producto> productosActivosSet = new HashSet<>(productoList);
+            Set<Producto> productosAuxSet = new HashSet<>(auxList);
+            // Obtener la intersección (productos en ambas listas)
+            productosActivosSet.retainAll(productosAuxSet);
+            // Convertir el conjunto de vuelta a una lista (opcional)
+            productoList = new ArrayList<>(productosActivosSet);
         }
 
         List<ProductoResponse> productoResponseList = new ArrayList<>();
-        for (Producto p: productoList){
-            productoResponseList.add(createProductoResponse(p));
-        }
-
+            for (Producto p: productoList){
+                productoResponseList.add(createProductoResponse(p));
+            }
         return productoResponseList;
     }
 

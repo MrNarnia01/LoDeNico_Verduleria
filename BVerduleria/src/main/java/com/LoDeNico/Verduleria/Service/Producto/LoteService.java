@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Service.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.FechaRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.LoteRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.LoteResponse;
 
@@ -12,6 +12,6 @@ public interface LoteService {
     public int deleteLote(Long id);
     public LoteResponse createLote(LoteRequest loteRequest);
     public LoteResponse updateLote(LoteRequest loteRequest, Long id);
-    public List<LoteResponse> getLoteListByDias(FechaRequest fechaRequest);
+    public List<LoteResponse> getLoteListBus(BusRequest busRequest);
 
 }

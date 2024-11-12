@@ -1,5 +1,5 @@
 package com.LoDeNico.Verduleria.Controller.Producto;
-import com.LoDeNico.Verduleria.Dto.Request.Producto.BusPRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.ProductoRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.ProductoResponse;
 import com.LoDeNico.Verduleria.Service.Producto.ProductoService;
@@ -68,12 +68,10 @@ public class ProductoController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(productoResponse.getStock());
     }
 
-    @GetMapping("/bus")
-    public ResponseEntity<?> getProductoList(@RequestBody BusPRequest busPRequest){
-        List<ProductoResponse> productoResponseList = productoService.busProducto(busPRequest);
-        if(productoResponseList.get(0).getId()!=-1){
-            return ResponseEntity.ok(productoResponseList);
-        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(productoResponseList.get(0).getStock());
+    @PostMapping("/bus")
+    public ResponseEntity<?> getProductoList(@RequestBody BusRequest busRequest){
+        List<ProductoResponse> productoResponseList = productoService.busProducto(busRequest);
+        return ResponseEntity.ok(productoResponseList);
     }
 
 

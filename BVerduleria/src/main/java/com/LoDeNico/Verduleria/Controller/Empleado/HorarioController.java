@@ -2,7 +2,6 @@ package com.LoDeNico.Verduleria.Controller.Empleado;
 
 import com.LoDeNico.Verduleria.Dto.Request.Empleado.HorarioRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Empleado.HorarioResponse;
-import com.LoDeNico.Verduleria.Dto.Response.PagoResponse;
 import com.LoDeNico.Verduleria.Service.Empleado.HorarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

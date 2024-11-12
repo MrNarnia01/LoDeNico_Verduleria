@@ -1,45 +1,46 @@
-<script >
+<script>
   import { RouterLink, RouterView } from 'vue-router'
   import axios from 'axios';
+  import Navbar from './components/Navbar.vue';
+  import '@/assets/main.css';
   export default {
+    components:{
+      Navbar,
+    },
     data(){
-      return{
-        b: false,
-      };
+        return{
+            navB:false,
+        };
+    },
+    mounted(){
+      this.cerrar();
+    },
+    methods: {
+      iniciar(){
+        this.navB=true;
+        this.$router.push('/');
+      },
+      cerrar(){
+        this.navB=false;
+        this.$router.push('/signUp');
+      }
     },
   }
-
-
+  
 </script>
 
 
 <template>
-  <header>
-    <div v-if="b"> 
-      <nav>
-        <ul>
-          <li>Sin sesion activa
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div v-else>
-          <nav>
-            <ul>
-              <li> <RouterLink to="/"> Home </RouterLink> </li>
-              <li> <RouterLink to="/"> Producto </RouterLink> </li>
-              <li> <RouterLink to="/"> Pedido </RouterLink> </li>
-              <li> <RouterLink to="/"> Boleta </RouterLink> </li>
-            </ul>
-          </nav>
-    </div>
+  <header v-if="navB">
+    <nav>
+      <ul>
+        <Navbar @cerrar="cerrar()" />
+      </ul>
+    </nav>
   </header>
-
-  <RouterView/>
+  <div>
+    <RouterView @signUp="iniciar()" />
+  </div>
   
 </template>
 
-
-<style scoped>
-
-</style>

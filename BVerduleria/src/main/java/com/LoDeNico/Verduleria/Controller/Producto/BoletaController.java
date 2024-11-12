@@ -1,9 +1,8 @@
 package com.LoDeNico.Verduleria.Controller.Producto;
 
-import com.LoDeNico.Verduleria.Dto.Request.MontoRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Producto.BoletaRequest;
 import com.LoDeNico.Verduleria.Dto.Response.Producto.BoletaResponse;
-import com.LoDeNico.Verduleria.Dto.Response.Proveedor.TrabajadorResponse;
 import com.LoDeNico.Verduleria.Service.Producto.BoletaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,12 +45,10 @@ public class BoletaController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cod);
     }
 
-    @GetMapping("/list/mon")
-    public ResponseEntity<?> getBoletaListByMonto(@RequestBody MontoRequest montoRequest){
-        List<BoletaResponse> boletaResponseList = boletaService.getBoletaListByMonto(montoRequest);
-        if(boletaResponseList.get(0).getNB()!=-1){
-            return ResponseEntity.ok(boletaResponseList);
-        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(boletaResponseList.get(0).getIdP());
+    @PostMapping("/bus")
+    public ResponseEntity<?> getBoletaBus(@RequestBody BusRequest busRequest){
+        List<BoletaResponse> boletaResponseList = boletaService.getBoletaBus(busRequest);
+        return ResponseEntity.ok(boletaResponseList);
     }
 
     @GetMapping("/list/pag/{p}")
@@ -70,9 +67,9 @@ public class BoletaController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(boletaResponse.getIdP());
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?> updateBoleta(@RequestBody BoletaRequest boletaRequest){
-        BoletaResponse boletaResponse = boletaService.updateBoleta(boletaRequest);
+    @PostMapping("/update/{id}")
+    public ResponseEntity<?> updateBoleta(@RequestBody BoletaRequest boletaRequest,@PathVariable Long id){
+        BoletaResponse boletaResponse = boletaService.updateBoleta(boletaRequest, id);
         if(boletaResponse.getNB()!=-1){
             return ResponseEntity.ok(boletaResponse);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(boletaResponse.getIdP());

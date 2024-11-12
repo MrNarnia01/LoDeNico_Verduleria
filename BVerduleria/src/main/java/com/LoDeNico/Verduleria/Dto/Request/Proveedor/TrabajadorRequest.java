@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrabajadorRequest {
-    private Long id;
     private Long idP;
     private String puesto;
     private String nombre;

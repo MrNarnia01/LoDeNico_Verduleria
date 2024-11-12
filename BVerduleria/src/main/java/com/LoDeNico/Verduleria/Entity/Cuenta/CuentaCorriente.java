@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Setter
 @Getter
@@ -18,7 +16,7 @@ public class CuentaCorriente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
 

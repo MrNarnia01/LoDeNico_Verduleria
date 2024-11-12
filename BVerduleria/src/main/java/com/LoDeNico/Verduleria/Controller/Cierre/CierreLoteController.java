@@ -1,6 +1,6 @@
 package com.LoDeNico.Verduleria.Controller.Cierre;
 
-import com.LoDeNico.Verduleria.Dto.Request.Cierre.BusRequest;
+import com.LoDeNico.Verduleria.Dto.Request.BusRequest;
 import com.LoDeNico.Verduleria.Dto.Request.Cierre.CierreRequest;
 import com.LoDeNico.Verduleria.Entity.Cierre.CierreLote;
 import com.LoDeNico.Verduleria.Service.Cierre.CierreLoteService;
@@ -29,6 +29,14 @@ public class CierreLoteController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cierreLote.getMonto());
     }
 
+    @PostMapping("/update/{id}")
+    public ResponseEntity<?> updateLote(@RequestBody CierreRequest cierreRequest, @PathVariable Long id){
+        CierreLote cierreLote = cierreLoteService.updateCierre(cierreRequest,id);
+        if(cierreLote.getId()!=-1){
+            return ResponseEntity.ok(cierreLote);
+        }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cierreLote.getMonto());
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCierre(@PathVariable Long id){
         int cod = cierreLoteService.deleteCierre(id);
@@ -37,9 +45,15 @@ public class CierreLoteController {
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cod);
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> getCierreBus(@RequestBody BusRequest busRequest){
         List<CierreLote> cierreLoteList = cierreLoteService.cierreLoteBus(busRequest);
+        return ResponseEntity.ok(cierreLoteList);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getCierreList(){
+        List<CierreLote> cierreLoteList = cierreLoteService.cierreLoteList();
         if(!cierreLoteList.isEmpty()){
             return ResponseEntity.ok(cierreLoteList);
         }else   return ResponseEntity.status(HttpStatus.NOT_FOUND).body(1001);

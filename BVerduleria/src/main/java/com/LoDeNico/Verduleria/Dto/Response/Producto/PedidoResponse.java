@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -16,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PedidoResponse {
     private Long id;
+    private Long idP;
     private String negocio;
     private Timestamp fPedido;
     private List<DetallePedidoResponse> detallePedidoResponseList;
